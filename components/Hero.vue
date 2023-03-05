@@ -1,0 +1,197 @@
+<template>
+    <section class="bg-gradient-to-r from-neutral-100 to-white">
+        <div class="container mx-auto h-[720px] text-center pt-16 pb-32 flex flex-col items-center">
+            <h2 class="text-3xl font-bold align-middle py-14">Your next move?</h2>
+
+            <form class="w-1/2 mx-auto">
+                <div class="relative h-12 rounded-lg bg-white border flex justify-between items-stretch mb-4">
+                    <div class="w-12 h-full p-3">
+                        <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada' }"/>
+                    </div>
+                    <div class="flex-1 relative">
+                        <input
+                        type="text"
+                        class="w-full h-full focus:outline-none text-xl font-500"
+                        placeholder="Search by building, city or area"
+                        aria-label="Search by building, city or area"
+                        aria-describedby="button-addon2"
+                        v-model="SearchParamsStore.search"
+                        v-on:input="fetchSuggestions"/>
+                        <div class="w-full bg-white border text-left">
+                            <ul>
+                                <li v-for="(suggestion, key) in suggestions.data" :index="key">
+                                    <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"
+                                        @click="updateQuery(suggestion.location, suggestion.description)">
+                                    {{ suggestion.location }} ({{ suggestion.description }})
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button
+                        class="w-32 h-full bg-green-default flex text-white rounded-r-lg font-bold"
+                        type="button"
+                        id="button-addon2"
+                        @click="initiateSearch">
+                        <div class="w-12 h-full p-3">
+                            <font-awesome-icon icon="magnifying-glass" :style="{ color: '#fff' }"/>
+                        </div>
+                        <p class="text-white pt-2.5 text-xl font-circularxx">
+                            Search
+                        </p>
+                    </button>
+                </div>
+                <div class="flex gap-6">
+                    <div class="flex gap-4">
+                        <div 
+                            class="rounded-lg h-10 p-0.5"
+                            :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-gray-default'"
+                            >
+                            <button 
+                                class="bg-white font-bold py-1.5 px-4 mr-4 rounded-lg flex items-center gap-4"
+                                :class="SearchParamsStore.division == 1 ? 'border-green-default' : 'border-gray-default'"
+                                @click.prevent="updateDivision()"
+                                >
+                                <p>{{ SearchParamsStore.division == 1 ? 'Residential' : 'Commercial' }}</p>
+                                <span 
+                                    class="rounded-full w-2 h-2"
+                                    :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-gray-default'"
+                                    >&nbsp;</span>
+                            </button>
+                        </div>
+                        <div 
+                            class="rounded-lg h-10 p-0.5"
+                            :class="SearchParamsStore.category == 'rent' ? 'bg-green-default' : 'bg-gray-default'"
+                            >
+                            <button 
+                                type="submit"
+                                class="bg-white font-bold py-1.5 px-4 mr-4 rounded-lg flex items-center gap-4"
+                                :class="SearchParamsStore.category == 1 ? 'border-green-default' : 'border-gray-default'"
+                                @click.prevent="updateCategory()"
+                                >
+                                <p>{{ SearchParamsStore.category == 'rent' ? 'Rent' : 'Buy' }}</p>
+                                <span 
+                                    class="rounded-full w-2 h-2"
+                                    :class="SearchParamsStore.category == 'rent' ? 'bg-green-default' : 'bg-gray-default'"
+                                    >&nbsp;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between gap-4">
+                        <div class="flex flex-1">
+                            <input type="text" placeholder="1,375,000" v-model="SearchParamsStore.priceMin" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4"
+                                v-on:keyup="formatNumber($event)"
+                            >
+                            <input type="text" placeholder="2,000,000" v-model="SearchParamsStore.priceMax" class="w-1/3 border-y text-sm focus:outline-none px-4">
+                            <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="SearchParamsStore.priceParam" @change="updatePriceParam($event)">
+                                <option value="pps">P / sqm</option>
+                                <option value="price">Price</option>
+                            </select>
+                        </div>
+                        <div class="w-1/4" v-if="SearchParamsStore.division == 1">
+                            <select class="w-full border rounded-lg h-full text-sm px-3" @change="updateBedrooms($event)">
+                                <option value="">Bedrooms</option>
+                                <option value="0">Studio</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3+</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</template>
+
+<script>
+import { useSearchParamsStore } from '../stores/SearchParamsStore'
+import { useListingsStore } from '../stores/ListingsStore'
+import ListingsServices from '../services/ListingsServices'
+
+export default {
+    data(){
+        return {
+            suggestions: []
+        }
+    },
+
+    setup(){
+        const SearchParamsStore = useSearchParamsStore()
+        const ListingsStore = useListingsStore()
+
+        return {
+            SearchParamsStore,
+            ListingsStore
+        }
+    },
+    methods: {
+        async fetchSuggestions(event){
+            const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
+            this.suggestions = await ListingsServices._getSuggestions(params)
+            
+            if(this.suggestions.data.data){
+                this.suggestions.data = this.suggestions.data.data
+            }
+
+        },
+
+        async fetchListings(){
+            let params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
+
+            if(this.SearchParamsStore.query !== null){
+                params += '&searchColumn=location'
+            }
+
+            this.ListingsStore.listings = await ListingsServices._getListings(params)
+        }, 
+
+        updateQuery(value, description){
+            this.SearchParamsStore.search = value
+            this.SearchParamsStore.searchDescription = description
+            this.suggestions = []
+        },
+
+        updateDivision(){
+            this.SearchParamsStore.division = this.SearchParamsStore.division == 1 ?  2 : 1
+            this.SearchParamsStore.priceParam = this.SearchParamsStore.division == 1 ?  'price' : 'pps'
+            this.SearchParamsStore.priceMin = 0
+            this.SearchParamsStore.priceMax = 0
+            this.fetchListings()
+        }, 
+
+        updateCategory(){
+            this.SearchParamsStore.category == 'rent' ? this.SearchParamsStore.category = 'sale' : this.SearchParamsStore.category = 'rent'
+            this.fetchListings()
+        },
+
+        updatePriceParam(event){
+            this.SearchParamsStore.priceParam = event.target.value
+            this.SearchParamsStore.priceMin = 0
+            this.SearchParamsStore.priceMax = 0
+        },
+
+        updateBedrooms(event){
+            this.SearchParamsStore.bedrooms = event.target.value
+            this.fetchListings()
+        },
+
+        async initiateSearch(){  
+
+            const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
+            let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category
+            
+            if(this.SearchParamsStore.search !== null && this.SearchParamsStore.searchDescription.includes('City')){
+
+                landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
+                this.SearchParamsStore.search = null
+                this.SearchParamsStore.searchDescription = null
+
+            }
+
+            navigateTo(landingPage)
+            
+        }
+    }
+}
+</script>
