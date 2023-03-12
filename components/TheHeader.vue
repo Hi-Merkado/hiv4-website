@@ -1,10 +1,10 @@
 <template>
     <header class="sticky top-0 bg-zinc-50">
-        <div class="container flex p-7 justify-between items-center mx-auto">
-            <div class="flex gap-x-14">
-                <NuxtLink to="/">
-                    Housinginteractive
-                </NuxtLink>
+        <div class="container flex px-7 py-5 justify-between items-center mx-auto">
+            <div class="flex items-center gap-x-14">
+                <a href="/">
+                    <Logo />
+                </a>
                 <nav>
                     <ul class="flex gap-8 font-bold text-base">
                         <li>
