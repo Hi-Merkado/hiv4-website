@@ -75,9 +75,25 @@
             <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
         </div>
 
-        <section class="grid grid-cols-3 gap-8">
+        <section>
 
-            <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
+            <div class="grid grid-cols-3 gap-8">
+                <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
+            </div>
+
+            <nav class="w-full flex justify-center mt-8">
+                <ul class="flex gap-3">
+                    <li v-for="(link, index) in ListingsStore.listings.data.meta.links">
+                        <button class="text-sm" v-html="link.label"
+                            :class="link.active ? 'text-blue-default' : '' "
+                            v-if="!link.active"
+                            @click.prevent="updatePage(link.label)"
+                        >
+                        </button>
+                        <span v-else class="text-blue-default text-sm" v-html="link.label"></span>
+                    </li>
+                </ul>
+            </nav>
 
         </section>
     </section>
@@ -90,9 +106,6 @@ import { useListingsStore } from '../stores/ListingsStore'
 import ListingsServices from '../services/ListingsServices'
 
 export default {  
-    head: {
-        title: this.pageTitle
-    },  
     setup(){
         const SearchParamsStore = useSearchParamsStore()
         const ListingsStore = useListingsStore()
@@ -103,6 +116,9 @@ export default {
         }
     },
     created(){
+        useHead({
+            title: `${this.pageTitle} | Housinginteractive.com.ph`
+        })
 
         const division = this.$route.params.division == 'residential' ? 1 : 2
         this.SearchParamsStore.division = division

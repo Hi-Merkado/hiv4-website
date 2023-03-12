@@ -1,8 +1,8 @@
 <template>
     <footer class="bg-white text-xs">
-        <div class="w-9/12 grid grid-cols-3 mx-auto max-w-7xl border-y-2 border-neutral-200 py-12">
+        <div class="w-9/12 grid grid-cols-3 mx-auto max-w-7xl border-y-2 border-neutral-200 pt-12 pb-24 bg-white bg-blend-luminosity bg-no-repeat bg-left-bottom bg-[url('/images/city-footer.png')]">
             <div>
-                Logo
+                <Logo />
             </div>
             <div>
                 <h6 class="text-xs uppercase font-bold mb-6">Get in touch</h6>
