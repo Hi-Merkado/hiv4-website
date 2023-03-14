@@ -115,9 +115,9 @@
 
 <script>
 
-import { useSearchParamsStore } from '../stores/SearchParamsStore'
-import { useListingsStore } from '../stores/ListingsStore'
-import ListingsServices from '../services/ListingsServices'
+import { useSearchParamsStore } from '@/stores/SearchParamsStore'
+import { useListingsStore } from '@/stores/ListingsStore'
+import ListingsServices from '@/services/ListingsServices'
 
 export default {   
     data(){
