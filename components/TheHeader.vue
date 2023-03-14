@@ -8,7 +8,7 @@
                 <nav>
                     <ul class="flex gap-8 font-bold text-base" @click-away="closeSubmenu">
                         <li v-for="(link, index) in links" :key="index" class="relative">
-                            <a href="#" v-if="!link.submenu">
+                            <a :href="link.url" v-if="!link.submenu">
                                 <span>{{ link.text }}</span>
                             </a>
                             <a v-else class="flex gap-2 cursor-pointer" v-on:click="links[index].showSubmenu = !links[index].showSubmenu">
@@ -146,17 +146,17 @@ export default {
 
                 },
                 {
-                    name: '/about-us',
+                    url: '/about-us',
                     text: 'About',
                     submenu: false
                 },
                 {
-                    name: 'https://housinginteractive.com.ph/blog',
+                    url: 'https://housinginteractive.com.ph/blog',
                     text: 'Blog',
                     submenu: false
                 },
                 {
-                    name: '/contact-us',
+                    url: '/contact-us',
                     text: 'Contact Us',
                     submenu: false
                 }
