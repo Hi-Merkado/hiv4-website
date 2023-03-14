@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     },
     modules: [
         '@nuxtjs/tailwindcss',
-        '@pinia/nuxt'
+        '@pinia/nuxt',
     ],
     runtimeConfig: {
         API_BASE_URL: process.env.API_BASE_URL

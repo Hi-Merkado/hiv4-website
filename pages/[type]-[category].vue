@@ -69,7 +69,7 @@
     </section>
 
     <section class="w-9/12 max-w-7xl mx-auto">
-        <h1 class="text-2xl font-bold mb-8">House for Sale</h1>
+        <h1 class="text-2xl font-bold mb-8">{{ pageTitle }}</h1>
 
         <div class="flex justify-between mb-8">
             <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
@@ -100,10 +100,15 @@ export default {
     },
     created(){
 
-        this.SearchParamsStore.type_name = 'House'
+        this.SearchParamsStore.type_name = this.$route.params.type
         this.fetchListings();
 
     }, 
+    computed: {
+        pageTitle(){
+            return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category
+        }
+    },
     methods: {
 
         async fetchListings(){
@@ -113,6 +118,12 @@ export default {
 
             this.ListingsStore.listings = await ListingsServices._getListings(params)
         }, 
+
+        titleCase(str) {
+            return str.toLowerCase().split(' ').map(function(word) {
+                return (word.charAt(0).toUpperCase() + word.slice(1));
+            }).join(' ');
+        }
 
     }
 }

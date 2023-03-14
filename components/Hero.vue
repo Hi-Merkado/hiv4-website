@@ -1,6 +1,6 @@
 <template>
-    <section class="bg-gradient-to-r from-neutral-100 to-white">
-        <div class="container mx-auto h-[720px] text-center pt-16 pb-32 flex flex-col items-center">
+    <section class="bg-gray-100 bg-blend-luminosity bg-no-repeat bg-bottom bg-[url('/images/city.png')]">
+        <div class="container mx-auto h-[720px] text-center pt-16 pb-32 flex flex-col items-center bg-bottom ">
             <h2 class="text-3xl font-bold align-middle py-14">Your next move?</h2>
 
             <form class="w-1/2 mx-auto">
@@ -128,6 +128,7 @@ export default {
     methods: {
         async fetchSuggestions(event){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
+
             this.suggestions = await ListingsServices._getSuggestions(params)
             
             if(this.suggestions.data.data){
@@ -176,7 +177,7 @@ export default {
             this.fetchListings()
         },
 
-        async initiateSearch(){  
+        initiateSearch(){  
 
             const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
             let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category

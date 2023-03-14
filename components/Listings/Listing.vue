@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NuxtLink :to="listing.url">
+        <a :href="listing.url">
             <img :src="listing.thumbnail" class="w-full">
             <div class="flex justify-between items-center my-2 text-base">
                 <p v-if="listing.is_for_sale">
@@ -25,7 +25,7 @@
                 </ul>
             </div>
             <p class="text-sm">{{ listing.property_name }}</p>
-        </NuxtLink>
+        </a>
     </div>
 </template>
 
