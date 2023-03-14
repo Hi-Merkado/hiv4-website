@@ -34,6 +34,13 @@ export default {
         } )
     },
 
+    _getSitemap(){
+        return useFetch( baseUrl + 'sitemap/', {
+            method: 'GET',
+            headers: headers
+        } )
+    },
+
     buildQueryParams(parameters) {
         let params = [];
         for (const [key, value] of Object.entries(parameters)) {

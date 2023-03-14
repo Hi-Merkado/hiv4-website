@@ -128,6 +128,7 @@ export default {
     methods: {
         async fetchSuggestions(event){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
+
             this.suggestions = await ListingsServices._getSuggestions(params)
             
             if(this.suggestions.data.data){
