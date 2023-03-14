@@ -1,5 +1,5 @@
 <template>
-    <header class="sticky top-0 bg-zinc-50">
+    <header class="sticky top-0 bg-zinc-50 z-50">
         <div class="container flex px-7 py-5 justify-between items-center mx-auto">
             <div class="flex items-center gap-x-14">
                 <a href="/">

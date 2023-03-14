@@ -148,7 +148,7 @@ export default {
     }, 
     computed: {
         pageTitle(){
-            return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category + ' in ' + this.titleCase(this.$route.params.city)
+            return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category + ' in ' + this.titleCase(this.$route.params.city.replace('-', ' '))
         }
     },
     methods: {
