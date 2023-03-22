@@ -5,7 +5,7 @@
                 <a href="/">
                     <Logo />
                 </a>
-                <nav>
+                <nav class="lg:block hidden">
                     <ul class="flex gap-8 font-bold text-base" @click-away="closeSubmenu">
                         <li v-for="(link, index) in links" :key="index" class="relative">
                             <a :href="link.url" v-if="!link.submenu">
@@ -33,11 +33,20 @@
                     </ul>
                 </nav>
             </div>
-            <nav>
-                <NuxtLink to="http://app.housinginteractive.com.ph" class="flex gap-4 w-32 h-5 font-bold text-base">
-                    <span>Log in</span>
-                    <font-awesome-icon icon="user" size="xs" :style="{ color: '#2f80ed' }"/>
-                </NuxtLink>
+            <nav class="grid place-items-end">
+                <div class="flex justify-end">
+                    <NuxtLink to="http://app.housinginteractive.com.ph" class="lg:flex lg:gap-4 lg:w-32 lg:h-5 font-bold text-base">
+                        <span class="hidden lg:inline">Log in</span>
+                        <font-awesome-icon icon="user" size="xs" class="place-items-end" :style="{ color: '#2f80ed', width: '37px', height: '20px', lineHeight: '1' }"/>
+                    </NuxtLink>
+                    <a href="#" class="lg:hidden">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="apps_24px">
+                                <path id="icon/navigation/apps_24px" fill-rule="evenodd" clip-rule="evenodd" d="M4 8H8V4H4V8ZM10 20H14V16H10V20ZM8 20H4V16H8V20ZM4 14H8V10H4V14ZM14 14H10V10H14V14ZM16 4V8H20V4H16ZM14 8H10V4H14V8ZM16 14H20V10H16V14ZM20 20H16V16H20V20Z" fill="black" fill-opacity="0.54"/>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
             </nav>
         </div>
     </header>

@@ -1,5 +1,5 @@
 <template>
-    <section class="w-9/12 mx-auto max-w-7xl grid grid-cols-3 gap-4 py-24 items-center justify-center">
+    <section class="lg:w-9/12 lg:mx-auto lg:max-w-7xl grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 py-24 items-center justify-center">
         <div class="text-center px-10">
 
             <img src="/images/explore.png" alt="Explore" class="mx-auto">

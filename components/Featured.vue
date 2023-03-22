@@ -1,9 +1,10 @@
 <template>
-        <section class="w-9/12 mx-auto max-w-7xl mt-24">
+        <section class="lg:w-9/12 lg:mx-auto lg:max-w-7xl mt-6 lg:mt-24 px-4">
             <header class="flex gap-4 justify-between items-center mb-8">
                 <div class="flex gap-8 items-center">
-                    <h2 class="text-2xl font-bold">Explore</h2>
-                    <div class="flex gap-4">
+                    <h2 class="text-2xl font-bold hidden lg:block">Explore</h2>
+                    <button class="border-2 py-1.5 px-6 text-sm font-semibold lg:hidden">Filters</button>
+                    <div class="lg:flex gap-4 hidden">
                         <button 
                             class="border border-blue-default rounded-lg px-5 h-9 text-blue-default font-bold flex items-center gap-1"
                             :class="SearchParamsStore.featured ? 'border-blue-default text-blue-default' : 'border-gray-400 text-gray-400'"
@@ -57,13 +58,13 @@
                     </div>
                 </div>
                 <div>
-                    <a :href="defaultLink" class="uppercase text-xs flex items-center gap-2 leading-6 mt-1">
+                    <a :href="defaultLink" class="uppercase text-xs flex items-center gap-2 leading-6 mt-1 lg:text-gray-650 text-blue-default lg:font-normal font-bold">
                         <span class="inline leading-6">Browse All <span class="font-bold mx-1">{{ ListingsStore.listings.data.meta.total.toLocaleString() }}</span> Listings</span>
-                        <font-awesome-icon icon="arrow-right" class="text-gray-400" :style="{ color: '#a1a1aa', height: '14px', margin: '10px 0' }"/>
+                        <font-awesome-icon icon="arrow-right" class="text-gray-400 hidden lg:block" :style="{ color: '#a1a1aa', height: '14px', margin: '10px 0' }"/>
                     </a>
                 </div>
             </header>
-            <section class="grid grid-cols-3 gap-8">
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
 
@@ -72,9 +73,9 @@
 </template>
 
 <script>
-import { useSearchParamsStore } from '../stores/SearchParamsStore'
-import { useListingsStore } from '../stores/ListingsStore'
-import ListingsServices from '../services/ListingsServices'
+import { useSearchParamsStore } from '@/stores/SearchParamsStore'
+import { useListingsStore } from '@/stores/ListingsStore'
+import ListingsServices from '@/services/ListingsServices'
 
 export default {
     setup(){

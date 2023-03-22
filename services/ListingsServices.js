@@ -7,14 +7,14 @@ const headers = {
 
 export default {
     _getListing(id){
-        return useFetch( baseUrl + 'website/' + `${id}`, {
+        return useFetch( baseUrl + 'website/properties/' + `${id}`, {
             method: 'GET',
             headers: headers
         } )
     },
 
     _getListings(params = ''){
-        return useFetch( baseUrl + 'website' + `${params}`, {
+        return useFetch( baseUrl + 'website/properties' + `${params}`, {
             method: 'GET',
             headers: headers
         } )
@@ -28,14 +28,14 @@ export default {
     },
 
     _getListingImages(id){
-        return useFetch( baseUrl + 'website/' + `${id}` + '/images', {
+        return useFetch( baseUrl + 'website/properites/' + `${id}` + '/images', {
             method: 'GET',
             headers: headers
         } )
     },
 
     _getSitemap(){
-        return useFetch( baseUrl + 'sitemap/', {
+        return useFetch( baseUrl + 'website/sitemap/', {
             method: 'GET',
             headers: headers
         } )
