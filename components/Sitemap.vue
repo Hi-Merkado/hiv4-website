@@ -1,5 +1,5 @@
 <template>
-    <div class="w-9/12 mx-auto max-w-7xl grid grid-cols-2 py-20">
+    <div class="w-9/12 mx-auto max-w-7xl lg:grid lg:grid-cols-2 py-20 hidden">
         <div>
             <h6 class="text-xs uppercase font-medium mb-8">Residential Listings</h6>
             <ul class="grid grid-cols-3">

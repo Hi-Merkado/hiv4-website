@@ -1,83 +1,46 @@
 <template>
-    <section class="shadow-lg">
-        <div class="container mx-auto flex gap-4 px-7 py-4 mb-4">
-            <div class="relative w-1/4 h-8 rounded-lg bg-white border flex justify-between items-stretch">
-                <div class="w-8 h-full p-2">
-                    <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada' }"/>
-                </div>
-                <div class="flex-1 relative">
-                    <input
-                    type="text"
-                    class="w-full h-full focus:outline-none text-xs font-500"
-                    placeholder="Search by building, city or area"
-                    aria-label="Search by building, city or area"
-                    aria-describedby="button-addon2">
-                    <!-- <div class="w-full bg-white border text-left">
-                        <ul>
-                            <li v-for="(suggestion, key) in suggestions.data" :index="key">
-                                <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"
-                                    @click="updateQuery(suggestion.location)">
-                                {{ suggestion.location }} ({{ suggestion.description }})
-                                </button>
-                            </li>
-                        </ul>
-                    </div> -->
-                </div>
-            </div>
-            <div class="flex gap-4 h-8">
-                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.division">
-                    <option value="">Division</option>
-                    <option value="1">Residential</option>
-                    <option value="2">Commercial</option>
-                </select>
-                <select class="w-[139px] border rounded-lg text-sm px-3">
-                    <option value="">Category</option>
-                    <option value="buy">Buy</option>
-                    <option value="rent">Rent</option>
-                </select>
-                <select class="w-[139px] border rounded-lg text-sm px-3">
-                    <option value="">Type</option>
-                    <option value="House">House</option>
-                    <option value="Condo">Condo</option>
-                    <option value="lot">Lot</option>
-                </select>
-                <div class="flex flex-1">
-                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4">
-                    <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4">
-                    <select class="w-1/3 border rounded-r-lg text-sm px-3">
-                        <option value="pps">P / sqm</option>
-                        <option value="price">Price</option>
-                    </select>
-                </div>
-                <select class="w-[139px] border rounded-lg text-sm px-3">
-                    <option value="">Bedrooms</option>
-                    <option value="0">Studio</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3+</option>
-                </select>
-                <button
-                    class="w-[139px] h-full bg-green-default flex justify-center text-white rounded-lg font-bold"
-                    type="button"
-                    id="button-addon2">
-                    <p class="text-white pt-1.5 text-md font-circularxx">
-                        Search
-                    </p>
-                </button>
-            </div>
-        </div>
-    </section>
+    <ListingsSearch />
 
     <section class="w-9/12 max-w-7xl mx-auto mb-8">
-        <h1 class="text-2xl font-bold mb-8">{{ pageTitle }}</h1>
+        <ul class="flex items-center gap-2 text-sm">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
+            </li>
+            <li class="text-gray-400">{{ pageTitle }}</li>
+        </ul>
+
+        <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
 
         <div class="flex justify-between mb-8">
             <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
+            <ul class="flex gap-2">
+                <li class="h-8">
+                    <button @click="updateCols(3)">
+                        <img src="/images/3-cols.png" />
+                    </button>
+                </li>
+                <li class="h-8">
+                    <button @click="updateCols(2)">
+                        <img src="/images/2-cols.png" />
+                    </button>
+                </li>
+                <li class="h-8">
+                    <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
+                        <option value="0">Date Modified (Newest First)</option>
+                        <option value="1">Date Modified (Oldest First)</option>
+                        <option value="2">Price (Highest First)</option>
+                        <option value="3">Price (Lowest First)</option>
+                    </select>
+                </li>
+            </ul>
         </div>
 
         <section>
 
-            <div class="grid grid-cols-3 gap-8">
+            <div class="grid gap-8" :class="columns">
                 <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
             </div>
 
@@ -100,12 +63,17 @@
 </template>
 
 <script>
-
-import { useSearchParamsStore } from '../stores/SearchParamsStore'
-import { useListingsStore } from '../stores/ListingsStore'
-import ListingsServices from '../services/ListingsServices'
+import { useSearchParamsStore } from '@/stores/SearchParamsStore'
+import { useListingsStore } from '@/stores/ListingsStore'
+import ListingsServices from '@/services/ListingsServices'
 
 export default {  
+    data(){
+        return {
+            columns: 3,
+            sorting: 0,
+        }
+    }, 
     setup(){
         const SearchParamsStore = useSearchParamsStore()
         const ListingsStore = useListingsStore()
@@ -129,6 +97,9 @@ export default {
     computed: {
         pageTitle(){
             return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category
+        },        
+        columns(){
+            return 'grid-cols-'+this.columns
         }
     },
     methods: {
@@ -139,7 +110,17 @@ export default {
             console.log(params)
 
             this.ListingsStore.listings = await ListingsServices._getListings(params)
-        }, 
+        },         
+        
+        updateSort(){
+            this.SearchParamsStore.orderBy = this.sorting == 0 || this.sorting == 1 ? 'updated_at' : 'price'
+            this.SearchParamsStore.order = this.sorting == 0 || this.sorting == 2 ? 'desc' : 'asc'
+            this.fetchListings();
+        },
+
+        updateCols(cols){
+            this.columns = cols
+        },
 
         titleCase(str) {
             return str.toLowerCase().split(' ').map(function(word) {

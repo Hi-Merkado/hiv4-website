@@ -1,23 +1,23 @@
 <template>
-    <section class="bg-gray-100 bg-blend-luminosity bg-no-repeat bg-bottom bg-[url('/images/city.png')]">
-        <div class="container mx-auto h-[720px] text-center pt-16 pb-32 flex flex-col items-center bg-bottom ">
+    <section class="bg-gray-100 bg-blend-luminosity bg-no-repeat bg-bottom bg-contain lg:bg-auto bg-[url('/images/city.png')]">
+        <div class="container mx-auto h-[463px] lg:h-[720px] text-center lg:pt-16 lg:pb-32 flex flex-col items-center bg-bottom ">
             <h2 class="text-3xl font-bold align-middle py-14">Your next move?</h2>
 
-            <form class="w-1/2 mx-auto">
-                <div class="relative h-12 rounded-lg bg-white border flex justify-between items-stretch mb-4">
-                    <div class="w-12 h-full p-3">
-                        <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada' }"/>
+            <form class="w-full lg:w-1/2 lg:mx-auto px-7">
+                <div class="relative h-12 rounded-lg bg-white border flex justify-between items-stretch mb-4 p-2 lg:p-0">
+                    <div class="lg:w-12 h-full p-1 lg:p-3">
+                        <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada', height: '20px' }"/>
                     </div>
                     <div class="flex-1 relative">
                         <input
                         type="text"
-                        class="w-full h-full focus:outline-none text-xl font-500"
+                        class="w-full h-full focus:outline-none text-sm lg:text-xl font-500"
                         placeholder="Search by building, city or area"
                         aria-label="Search by building, city or area"
                         aria-describedby="button-addon2"
                         v-model="SearchParamsStore.search"
                         v-on:input="fetchSuggestions"/>
-                        <div class="w-full bg-white border text-left">
+                        <div class="w-full bg-white border text-left hidden">
                             <ul>
                                 <li v-for="(suggestion, key) in suggestions.data" :index="key">
                                     <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"
@@ -29,19 +29,19 @@
                         </div>
                     </div>
                     <button
-                        class="w-32 h-full bg-green-default flex text-white rounded-r-lg font-bold"
+                        class="lg:w-32 lg:h-full bg-green-default flex items-center rounded px-2 text-white lg:rounded-r-lg lg:font-bold "
                         type="button"
                         id="button-addon2"
                         @click="initiateSearch">
-                        <div class="w-12 h-full p-3">
+                        <div class="w-12 h-full p-3 hidden lg:block">
                             <font-awesome-icon icon="magnifying-glass" :style="{ color: '#fff' }"/>
                         </div>
-                        <p class="text-white pt-2.5 text-xl font-circularxx">
+                        <p class="text-white flex rounded-lg items-center text-sm lg:text-xl font-circularxx">
                             Search
                         </p>
                     </button>
                 </div>
-                <div class="flex gap-6">
+                <div class="lg:flex gap-6 hidden">
                     <div class="flex gap-4">
                         <div 
                             class="rounded-lg h-10 p-0.5"
@@ -97,6 +97,40 @@
                                 <option value="3">3+</option>
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2 lg:hidden">
+                    <div>
+                        <select class="w-full border rounded-lg h-[32px] text-sm px-3" @change="updateBedrooms($event)">
+                            <option value="sale">Buy</option>
+                            <option value="rent">Rent</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="w-full border rounded-lg h-[32px] text-sm px-3" @change="updateBedrooms($event)">
+                            <option value="">Type</option>
+                            <option value="condo">Condo</option>
+                            <option value="house">House</option>
+                            <option value="lot">Lot</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="w-full border rounded-lg h-[32px] text-sm px-3" @change="updateBedrooms($event)">
+                            <option value="">Bedrooms</option>
+                            <option value="0">Studio</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3+</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="w-full border rounded-lg h-[32px] text-sm px-3" @change="updateBedrooms($event)">
+                            <option value="">Bedrooms</option>
+                            <option value="0">Studio</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3+</option>
+                        </select>
                     </div>
                 </div>
             </form>

@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-gray-850 mt-24 py-20">
+    <section class="bg-gray-850 mt-24 py-20 hidden lg:block">
         <div class="w-9/12 mx-auto max-w-7xl flex justify-between items-center">
             <div id="testimonial-image" class="w-[400px]">
                 <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/properties/property-35384/condo-rent-taguig-35384-1-255x182.jpg" class="object-fit w-full">

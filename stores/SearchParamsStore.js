@@ -14,7 +14,9 @@ export const useSearchParamsStore = defineStore('searchParamsStore', {
         city_name: null,
         area_name: null,
         building_name: null,
-        page: 1
+        page: 1,
+        order: 'desc',
+        orderBy: 'updated_at'
         // featured: true
     })
 })
