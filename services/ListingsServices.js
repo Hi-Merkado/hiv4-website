@@ -41,6 +41,13 @@ export default {
         } )
     },
 
+    _getDivisionTypes(id){
+        return useFetch( baseUrl + 'website/divisions/'+`${id}`+ '/types', {
+            method: 'GET',
+            headers: headers
+        })
+    },
+
     buildQueryParams(parameters) {
         let params = [];
         for (const [key, value] of Object.entries(parameters)) {

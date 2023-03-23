@@ -43,9 +43,7 @@
                 </select>
                 <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.type_name">
                     <option value="null">Type</option>
-                    <option value="House">House</option>
-                    <option value="Condo">Condo</option>
-                    <option value="lot">Lot</option>
+                    <option v-for="(type, index) in types" :key="index" :value="type.slug">{{ type.name }}</option>
                 </select>
                 <div class="flex flex-1">
                     <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-model="SearchParamsStore.priceMin">
@@ -86,7 +84,8 @@ export default {
         return {
             suggestions: [],
             showGallery: false,
-            showEnquiry: false
+            showEnquiry: false,
+            types: []
         }
     },
 
@@ -96,6 +95,10 @@ export default {
         return {
             SearchParamsStore
         }
+    },
+
+    created() {
+        this.fetchDivisionTypes()
     },
 
     methods: {
@@ -108,6 +111,11 @@ export default {
             }
 
         },
+
+        async fetchDivisionTypes(){
+            this.types = ListingsServices._getDivisionTypes(this.SearchParamsStore.division).data
+        }, 
+
         updateQuery(value, description){
             this.SearchParamsStore.search = value
             this.SearchParamsStore.searchDescription = description
@@ -123,6 +131,7 @@ export default {
             this.SearchParamsStore.priceParam = this.SearchParamsStore.division == 1 ?  'price' : 'pps'
             this.SearchParamsStore.priceMin = 0
             this.SearchParamsStore.priceMax = 0
+            this.fetchDivisionTypes();
         }, 
 
         updateCategory(){
