@@ -28,7 +28,15 @@ export default {
     },
 
     _getListingImages(id){
-        return useFetch( baseUrl + 'website/properites/' + `${id}` + '/images', {
+        console.log(id)
+        return useFetch( baseUrl + 'website/properties/' + `${id}` + '/images', {
+            method: 'GET',
+            headers: headers
+        } )
+    },
+
+    _getListingThumbnailImages(id){
+        return useFetch( baseUrl + 'website/properties/' + `${id}` + '/thumbnailImages', {
             method: 'GET',
             headers: headers
         } )

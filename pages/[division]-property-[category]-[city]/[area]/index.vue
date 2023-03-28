@@ -1,8 +1,8 @@
 <template>
     <ListingsSearch />
 
-    <section class="w-9/12 max-w-7xl mx-auto mb-8">
-        <ul class="flex items-center gap-2 text-sm">
+    <section class="lg:w-9/12 lg:max-w-7xl mx-auto mb-8 p-4">
+        <ul class="flex flex-wrap items-center gap-2 text-sm">
             <li>
                 <a href="/">Home</a>
             </li>
@@ -28,25 +28,25 @@
 
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
 
-        <div class="flex justify-between mb-8">
+        <div class="flex justify-between items-center mb-8">
             <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
-                <li class="h-8">
+                <li class="h-8 hidden lg:block">
                     <button @click="updateCols(3)">
                         <img src="/images/3-cols.png" />
                     </button>
                 </li>
-                <li class="h-8">
+                <li class="h-8 hidden lg:block">
                     <button @click="updateCols(2)">
                         <img src="/images/2-cols.png" />
                     </button>
                 </li>
                 <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
-                        <option value="0">Date Modified (Newest First)</option>
-                        <option value="1">Date Modified (Oldest First)</option>
-                        <option value="2">Price (Highest First)</option>
-                        <option value="3">Price (Lowest First)</option>
+                        <option value="0">Newest First</option>
+                        <option value="1">Oldest First</option>
+                        <option value="2">Highest First</option>
+                        <option value="3">Lowest First</option>
                     </select>
                 </li>
             </ul>
@@ -54,7 +54,7 @@
 
         <section>
 
-            <div class="grid gap-8" :class="columns">
+            <div class="grid gap-8 md:grid-cols-2" :class="columns">
                 <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
             </div>
 
@@ -131,7 +131,7 @@ export default {
             return this.titleCase(this.$route.params.area.replace('-', ' '))
         },
         columns(){
-            return 'grid-cols-'+this.columns
+            return 'lg:grid-cols-'+this.columns
         }
     },
     methods: {

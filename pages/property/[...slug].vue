@@ -2,19 +2,40 @@
     <div>
         <ListingsSearch />
 
-        <section class="w-9/12 max-w-7xl mx-auto mb-8">
-            <div class="flex gap-2 justify-between mb-8">
+        <section class="lg:w-9/12 lg:max-w-7xl mx-auto mb-8 p-4">
+            <ul class="flex flex-wrap items-center gap-2 text-sm">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
+                </li>
+                <li>
+                    <a :href="listingData.parentUrl">{{ listingData.parentTitle }}</a>
+                </li>
+                <li>
+                    <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
+                </li>
+                <li>
+                    <a :href="listingData.cityUrl">{{ listingData.city }}</a>
+                </li>
+                <li>
+                    <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
+                </li>
+                <li class="text-gray-400">{{ listingData.area }}</li>
+            </ul>
+            <div class="flex flex-wrap md:flex-row md:flex-nowrap gap-2 justify-between my-8">
                 <div>
-                    <h1 class="text-2xl font-bold">{{ listingData.property_name }}</h1>
-                    <h6 class="flex h-[17px] gap-2">{{ listingData.address }} <font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
+                    <h1 class="text-xl lg:text-2xl font-bold">{{ listingData.property_name }}</h1>
+                    <h6 class="flex h-[17px] gap-2 my-4 lg:my-0">{{ listingData.address }} <font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
                 </div>
-                <div>
-                    <div class="flex bg-blue-light w-[297px] h-[52px] rounded-full items-center p-2 gap-2" v-if="listingData.rent">
+                <div class="w-full md:w-auto">
+                    <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2" v-if="listingData.rent">
                         <p class="font-bold ml-5">Rental Price</p>
                         <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listingData.rental_price }} / month</span>
                     </div>
 
-                    <div class="flex bg-blue-light w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
+                    <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
                         :class="listingData.rent ? 'mt-4' : ''"
                         v-if="listingData.sale"
                     >
@@ -24,34 +45,34 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-2 gap-2 mb-8">
-                <div class="grid grid-cols-1 grid-rows-1 object-fit">
-                    <img :src="images[0].url" alt="" class="h-full rounded-lg cursor-pointer"
+            <div class="grid lg:grid-cols-2 gap-2 mb-8">
+                <div class="grid grid-cols-1 grid-rows-1 object-fit md:object-contain">
+                    <img :src="listingData.thumbnail" alt="" class="md:w-full h-full rounded-lg cursor-pointer"
                         v-on:click="toggleGallery()">
                 </div>
-                <div class="grid grid-cols-2 grid-rows-2 gap-2">
-                    <img v-for="n in 4" :src="images[n].url" alt="" class="rounded-lg cursor-pointer" v-on:click="toggleGallery()">
+                <div class="lg:grid grid-cols-2 grid-rows-2 gap-2 hidden">
+                    <img v-for="(thumbnail, index) in thumbnails" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer" v-on:click="toggleGallery()">
                 </div>
             </div>
 
-            <div class="flex justify-between mb-8">
+            <div class="flex flex-col lg:flex-row justify-between mb-8">
                 <div>
-                    <div class="flex gap-8">
-                        <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-[175px] h-16">
+                    <div class="flex flex-col md:flex-row lg:flex-row gap-8">
+                        <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
                             <img src="/images/home.png" alt=""> 
                             <div>
                                 <p class="font-bold uppercase">Status</p>
                                 <p>{{ listingData.status_name }}</p>
                             </div>
                         </div>
-                        <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-[175px] h-16">
+                        <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
                             <img src="/images/calendar.png" alt=""> 
                             <div>
                                 <p class="font-bold uppercase">Available On</p>
                                 <p>{{ listingData.availability }}</p>
                             </div>
                         </div>
-                        <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-[175px] h-16">
+                        <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
                             <img src="/images/calendar.png" alt=""> 
                             <div>
                                 <p class="font-bold uppercase">Last Updated</p>
@@ -102,7 +123,7 @@
                 </div>
 
                 <div>
-                    <div class="w-[380px] bg-gray-50 rounded-lg px-6 py-4">
+                    <div class="w-full lg:w-[380px] bg-gray-50 rounded-lg px-6 py-4">
                         <div class="flex gap-4 mb-6">
                             <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt="">
                             <div>
@@ -119,13 +140,14 @@
                 </div>
             </div>
 
-            <div>
-                <!-- <GoogleMaps /> -->
+            <div class="mb-8">
+                <h3 class="font-bold text-xl mb-4">Location</h3>
+                <GoogleMaps />
             </div>
 
             <div>
                 <h3 class="font-bold text-xl mb-4">Other residential properties for rent</h3>
-                <section class="grid grid-cols-3 gap-8">
+                <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <ListingsListing v-for="(listing, index) in listingData.other" :key="index" :listing="listing"/>
                 </section>
             </div>
@@ -150,7 +172,9 @@ export default {
     data(){
         return {
             listing: [],
+            id: 0,
             images: {},
+            thumbnails: {},
             listingData: {
                 property_name: '',
                 address: '',
@@ -166,7 +190,10 @@ export default {
                 other: {},
                 rent: true,
                 sale: false,
-                uploader: ''
+                uploader: '',
+                thumbnail: '',
+                parentTitle: '',
+                parentUrl: '',
             },
             showGallery: false,
             showEnquiry: false
@@ -184,34 +211,46 @@ export default {
     created(){
 
         let slug = this.$route.params.slug[0].split('-')
-        const id = slug.slice(-1)[0]
-
-        this.fetchListing(id)
-        this.fetchListingImages(id)
+        this.id = slug.slice(-1)[0]
+        this.fetchListing(this.id)
+        this.fetchListingImages(this.id)
+        this.fetchListingThumbnailImages(this.id)
 
     }, 
 
     methods: {
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
-            this.listingData.property_name = this.listing.data.property_name
-            this.listingData.address = this.listing.data.area_name+', '+this.listing.data.city_name
-            this.listingData.rental_price = "₱ "+this.formatMoney(this.listing.data.rent_price)
-            this.listingData.sale_price = "₱ "+this.formatMoney(this.listing.data.sale_price)
-            this.listingData.status_name = this.listing.data.status_name
-            this.listingData.availability = this.listing.data.formatted_availability
-            this.listingData.last_updated = this.listing.data.updated_at
-            this.listingData.description = this.listing.data.description
-            this.listingData.bedrooms = this.listing.data.bedrooms
-            this.listingData.bathrooms = this.listing.data.bathrooms
-            this.listingData.floor = this.listing.data.floor_area
-            this.listingData.lot = this.listing.data.lot_area
-            this.listingData.parking = this.listing.data.car_space
-            this.listingData.amenities = this.listing.data.amenities
-            this.listingData.other = this.listing.other
-            this.listingData.sale = this.listing.data.is_for_sale ? true : false
-            this.listingData.rent = this.listing.data.is_for_rent ? true : false
-            this.listingData.uploader = this.listing.data.uploader_name
+            this.listingData.division       = this.listing.data.division_id == 1 ? 'Residential' : 'Commercial'
+            this.listingData.category       = this.listing.data.is_for_rent == 1 ? 'Rent' : 'Sale' 
+            this.listingData.property_name  = this.listing.data.property_name
+            this.listingData.city           = this.listing.data.city_name
+            this.listingData.area           = this.listing.data.area_name
+            this.listingData.address        = this.listing.data.area_name+', '+this.listing.data.city_name
+            this.listingData.rental_price   = "₱ "+this.formatMoney(this.listing.data.rent_price)
+            this.listingData.sale_price     = "₱ "+this.formatMoney(this.listing.data.sale_price)
+            this.listingData.status_name    = this.listing.data.status_name
+            this.listingData.availability   = this.listing.data.formatted_availability
+            this.listingData.last_updated   = this.listing.data.updated_at
+            this.listingData.description    = this.listing.data.description
+            this.listingData.bedrooms       = this.listing.data.bedrooms
+            this.listingData.bathrooms      = this.listing.data.bathrooms
+            this.listingData.floor          = this.listing.data.floor_area
+            this.listingData.lot            = this.listing.data.lot_area
+            this.listingData.parking        = this.listing.data.car_space
+            this.listingData.amenities      = this.listing.data.amenities
+            this.listingData.other          = this.listing.other
+            this.listingData.sale           = this.listing.data.is_for_sale ? true : false
+            this.listingData.rent           = this.listing.data.is_for_rent ? true : false
+            this.listingData.uploader       = this.listing.data.uploader_name
+            this.listingData.thumbnail      = this.listing.data.thumbnail
+            this.listingData.parentTitle    = this.listingData.division + ' properties for ' + this.listingData.category
+            this.listingData.parentUrl      = '/'+this.listingData.division.toLowerCase()+'-property-'+this.listingData.category.toLowerCase()
+            this.listingData.cityUrl        = this.listingData.parentUrl+'-'+this.listing.data.city_name.toLowerCase()
+        },
+
+        async fetchListingThumbnailImages(id){
+            this.thumbnails = await ListingsServices._getListingThumbnailImages(id).data
         },
 
         async fetchListingImages(id){
