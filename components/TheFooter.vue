@@ -15,8 +15,8 @@
                             6th Flr. LDM Building Polaris St. Makati City
                         </p>
                     </div>
-                    <div class="flex lg:flex-col items-center gap-4 lg:gap-0">
-                        <div>
+                    <div class="flex flex-col lg:flex-row items-center lg:items-start gap-4">
+                        <div class="flex items-center">
                             <font-awesome-icon icon="phone" :style="{ height: '18px', color: '#dadada' }" />
                         </div>
                         <div class="w-full flex flex-row lg:flex-col lg:justify-start justify-between">

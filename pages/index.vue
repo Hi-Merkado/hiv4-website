@@ -7,7 +7,7 @@
 
     <TheSteps />
 
-    <Sitemap />
+    <!-- <Sitemap /> -->
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
     <section class="shadow-lg">
-        <div class="container mx-auto flex gap-4 px-7 py-4 mb-4">
-            <div class="relative w-1/4 h-8 rounded-lg bg-white border flex justify-between items-stretch">
+        <div class="container mx-auto flex gap-4 px-4 lg:px-7 py-4 mb-4">
+            <div class="relative w-full lg:w-1/4 h-8 rounded-lg bg-white border flex justify-between items-stretch">
                 <div class="w-8 h-full p-2">
                     <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada' }"/>
                 </div>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex gap-4 h-8">
+            <div class="hidden lg:flex gap-4 h-8 ">
                 <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.division"
                     @change="updateDivision"
                 >

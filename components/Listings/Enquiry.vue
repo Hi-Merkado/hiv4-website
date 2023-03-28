@@ -2,7 +2,7 @@
     <div>
         <div v-if="showEnquiry"
             class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div class="relative w-2/6 my-6 mx-auto max-w-3xl">
+            <div class="relative w-11/12 lg:w-2/6 my-6 mx-auto lg:max-w-3xl">
                 <!--content-->
                 <div
                     class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -17,12 +17,8 @@
                         </div>
 
                         <button
-                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                            v-on:click="toggleModal()">
-                            <span
-                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                ×
-                            </span>
+                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-25 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                            v-on:click="toggleModal()">x
                         </button>
                     </div>
                     <!--body-->

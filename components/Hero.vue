@@ -17,7 +17,7 @@
                         aria-describedby="button-addon2"
                         v-model="SearchParamsStore.search"
                         v-on:input="fetchSuggestions"/>
-                        <div class="w-full bg-white border text-left hidden">
+                        <div class="w-full bg-white border text-left">
                             <ul>
                                 <li v-for="(suggestion, key) in suggestions.data" :index="key">
                                     <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"

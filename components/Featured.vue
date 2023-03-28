@@ -17,14 +17,14 @@
                             <button 
                                 class="border rounded-l-lg border-r-0 px-5 h-9 font-bold flex items-center gap-1"
                                 :class="SearchParamsStore.division == 1 ? 'border-blue-default text-blue-default' : 'border-gray-400 text-gray-400'"
-                                @click.prevent="updateDivision(1)"
+                                @click="updateDivision(1)"
                             >
                                 Residential
                             </button>
                             <button 
                                 class="border rounded-r-lg px-5 h-9 font-bold flex items-center gap-1"
                                 :class="SearchParamsStore.division == 2 ? 'border-blue-default text-blue-default' : 'border-gray-400 text-gray-400'"
-                                @click.prevent="updateDivision(2)"
+                                @click="updateDivision(2)"
                             >
                                 Commercial
                             </button>
@@ -32,25 +32,25 @@
                         <div class="flex" v-if="SearchParamsStore.division == 1">
                             <button class="border rounded-l-lg border-r-0 px-5 h-9 font-bold flex items-center gap-1"
                                 :class="SearchParamsStore.bedrooms == 0 ? 'border-blue-default text-blue-default' : 'border-gray-400 text-gray-400'"
-                                @click.prevent="updateBedrooms(0)"
+                                @click="updateBedrooms(0)"
                             >
                                 Studios
                             </button>
                             <button class="border px-5 h-9 border-r-0 font-bold flex items-center gap-1"
                                 :class="SearchParamsStore.bedrooms == 1 ? 'border-blue-default text-blue-default' : 'border-gray-400 text-gray-400'"
-                                @click.prevent="updateBedrooms(1)"
+                                @click="updateBedrooms(1)"
                             >
                                 1
                             </button>
                             <button class="border px-5 h-9 border-r-0 font-bold flex items-center gap-1"
                                 :class="SearchParamsStore.bedrooms == 2 ? 'border-blue-default text-blue-default' : 'border-gray-400 text-gray-400'"
-                                @click.prevent="updateBedrooms(2)"
+                                @click="updateBedrooms(2)"
                             >
                                 2
                             </button>
                             <button class="border rounded-r-lg px-5 h-9 font-bold flex items-center gap-1"
                                 :class="SearchParamsStore.bedrooms == 3 ? 'border-blue-default text-blue-default' : 'border-gray-400 text-gray-400'"
-                                @click.prevent="updateBedrooms(3)"
+                                @click="updateBedrooms(3)"
                             >
                                 3+ br
                             </button>
