@@ -14,7 +14,7 @@
                     aria-describedby="button-addon2"
                     v-model="SearchParamsStore.search"
                     v-on:input="fetchSuggestions">
-                    <div class="w-full bg-white border text-left">
+                    <div class="w-full bg-white border text-left" v-if="showSuggestions">
                         <ul>
                             <li v-for="(suggestion, key) in suggestions.data" :index="key">
                                 <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"
@@ -25,6 +25,15 @@
                         </ul>
                     </div>
                 </div>
+                <button
+                    class="lg:hidden w-[100px] h-full bg-green-default flex justify-center text-white rounded-r-lg font-bold"
+                    type="button"
+                    id="button-addon2"
+                    @click="initiateSearch">
+                    <p class="text-white pt-1.5 text-md font-circularxx">
+                        Search
+                    </p>
+                </button>
             </div>
             <div class="hidden lg:flex gap-4 h-8 ">
                 <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.division"
@@ -82,6 +91,7 @@ import ListingsServices from '~/services/ListingsServices'
 export default {
     data(){
         return {
+            showSuggestions: false,
             suggestions: [],
             showGallery: false,
             showEnquiry: false,
@@ -109,6 +119,7 @@ export default {
             if(this.suggestions.data.data){
                 this.suggestions.data = this.suggestions.data.data
             }
+            this.showSuggestions = true
 
         },
 
@@ -120,6 +131,7 @@ export default {
             this.SearchParamsStore.search = value
             this.SearchParamsStore.searchDescription = description
             this.suggestions = []
+            this.showSuggestions = false
         },
         titleCase(str) {
             return str.toLowerCase().split(' ').map(function(word) {

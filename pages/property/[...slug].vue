@@ -50,7 +50,7 @@
                     <img :src="listingData.thumbnail" alt="" class="md:w-full h-full rounded-lg cursor-pointer"
                         v-on:click="toggleGallery()">
                 </div>
-                <div class="lg:grid grid-cols-2 grid-rows-2 gap-2 hidden">
+                <div class="lg:grid grid-cols-2 grid-rows-2 gap-2 hidden lg:block">
                     <img v-for="(thumbnail, index) in thumbnails" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer" v-on:click="toggleGallery()">
                 </div>
             </div>
@@ -208,6 +208,7 @@ export default {
         }
     },
 
+
     created(){
 
         let slug = this.$route.params.slug[0].split('-')
@@ -227,6 +228,7 @@ export default {
             this.listingData.city           = this.listing.data.city_name
             this.listingData.area           = this.listing.data.area_name
             this.listingData.address        = this.listing.data.area_name+', '+this.listing.data.city_name
+            this.ListingsStore.address      = this.listing.data.area_name+', '+this.listing.data.city_name
             this.listingData.rental_price   = "₱ "+this.formatMoney(this.listing.data.rent_price)
             this.listingData.sale_price     = "₱ "+this.formatMoney(this.listing.data.sale_price)
             this.listingData.status_name    = this.listing.data.status_name

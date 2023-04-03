@@ -39,7 +39,7 @@
                         <span class="hidden lg:inline">Log in</span>
                         <font-awesome-icon icon="user" size="xs" class="place-items-end" :style="{ color: '#2f80ed', width: '37px', height: '20px', lineHeight: '1' }"/>
                     </NuxtLink>
-                    <a href="#" class="lg:hidden">
+                    <a href="#" class="lg:hidden" @click="showMobilemenu = !showMobilemenu">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="apps_24px">
                                 <path id="icon/navigation/apps_24px" fill-rule="evenodd" clip-rule="evenodd" d="M4 8H8V4H4V8ZM10 20H14V16H10V20ZM8 20H4V16H8V20ZM4 14H8V10H4V14ZM14 14H10V10H14V14ZM16 4V8H20V4H16ZM14 8H10V4H14V8ZM16 14H20V10H16V14ZM20 20H16V16H20V20Z" fill="black" fill-opacity="0.54"/>
@@ -48,6 +48,33 @@
                     </a>
                 </div>
             </nav>
+        </div>
+        <div class="container" v-if="showMobilemenu">
+            <ul class="w-full font-bold text-base px-6" @click-away="closeSubmenu">
+                <li v-for="(link, index) in links" :key="index" class="relative py-1">
+                    <a :href="link.url" v-if="!link.submenu" class="block">
+                        <span>{{ link.text }}</span>
+                    </a>
+                    <a v-else class="flex gap-2 cursor-pointer block" v-on:click="links[index].showSubmenu = !links[index].showSubmenu">
+                        <span>{{ link.text }}</span>
+                        <font-awesome-icon icon="chevron-down" style="height: 13px;margin-top: 5px" v-if="link.submenu"/>
+                    </a>
+                    <div v-if="link.submenu" 
+                            :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" 
+                            class="opacity-0 fixed inset-0 z-10 bg-white" @click="closeSubmenu(index)"></div>
+                    <div class="origin-top-right absolute left-0 right-0 mt-2 rounded-md shadow-lg bg-white focus:outline-none z-40 w-40"
+                        role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
+                        :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" v-if="link.submenu">
+                        <ul class="py-1" role="none">
+                            <li class="pt-1.5 pb-0.5 px-2 hover:bg-gray-5" v-for="(menu, index) in link.submenus" :key="menu.text">
+                                <a :href="menu.url" class="flex gap-2" @click.native="closeSubmenu(index)">
+                                    {{ menu.text }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
     </header>
 </template>
@@ -59,6 +86,7 @@ export default {
     data(){
         return {
             showSubmenu: false,
+            showMobilemenu: false,
             links: [
                 {
                     name: '',
@@ -181,6 +209,7 @@ export default {
 
         closeSubmenu(index){
             this.links[index].showSubmenu = false
+            this.showMobilemenu = false
         },
     }
 }

@@ -17,7 +17,7 @@
                         aria-describedby="button-addon2"
                         v-model="SearchParamsStore.search"
                         v-on:input="fetchSuggestions"/>
-                        <div class="w-full bg-white border text-left">
+                        <div class="w-full bg-white border text-left" v-if="showSuggestions">
                             <ul>
                                 <li v-for="(suggestion, key) in suggestions.data" :index="key">
                                     <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"
@@ -146,6 +146,7 @@ import ListingsServices from '../services/ListingsServices'
 export default {
     data(){
         return {
+            showSuggestions: false,
             suggestions: []
         }
     },
@@ -168,6 +169,7 @@ export default {
             if(this.suggestions.data.data){
                 this.suggestions.data = this.suggestions.data.data
             }
+            this.showSuggestions = true
 
         },
 
@@ -185,6 +187,7 @@ export default {
             this.SearchParamsStore.search = value
             this.SearchParamsStore.searchDescription = description
             this.suggestions = []
+            this.showSuggestions = false
         },
 
         updateDivision(){
