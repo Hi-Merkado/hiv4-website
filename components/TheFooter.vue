@@ -1,4 +1,5 @@
 <template>
+    <Sitemap />
     <footer class="bg-gray-50 lg:bg-white text-xs p-7">
         <div class="w-full text-center lg:text-left lg:w-9/12 grid grid-cols-1 lg:grid-cols-3 lg:mx-auto lg:max-w-7xl lg:border-y-2 lg:border-neutral-200 lg:pt-12 lg:pb-24 lg:bg-white bg-blend-luminosity bg-no-repeat bg-left-bottom lg:bg-[url('/images/city-footer.png')]">
             <div class="flex justify-center lg:justify-start">

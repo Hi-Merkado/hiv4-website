@@ -1,7 +1,7 @@
 <template>
     <ListingsSearch />
 
-    <header class="bg-gray-100 bg-blend-luminosity bg-no-repeat bg-bottom bg-contain bg-[url('/images/about.png')] h-[234px] md:h-[340px] lg:h-[489px] pt-10 md:pt-5 lg:pt-20">
+    <header class="bg-gray-100 bg-blend-luminosity bg-no-repeat bg-bottom bg-contain lg:bg-auto bg-[url('/images/about.png')] h-[234px] md:h-[340px] lg:h-[489px] pt-10 md:pt-5 lg:pt-20">
         <h1 class="text-center font-bold text-[24px] md:text-[32px] lg:text-[36px] leading-10">About Housinginteractive</h1>
     </header>
     <section>

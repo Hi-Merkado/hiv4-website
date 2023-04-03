@@ -6,8 +6,6 @@
     <Testimonial />
 
     <TheSteps />
-
-    <!-- <Sitemap /> -->
 </template>
 
 <script>

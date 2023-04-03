@@ -3,7 +3,8 @@ import ListingsServices from '../services/ListingsServices'
 
 export const useListingsStore = defineStore('ListingsStore', {
     state: () => ({
-        listings: []
+        listings: [],
+        address: ''
     }),
     actions: {
         async fetchListings(){
