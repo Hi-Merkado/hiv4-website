@@ -1,7 +1,8 @@
 <template>
     <section class="bg-gray-100 bg-blend-luminosity bg-no-repeat bg-bottom bg-contain lg:bg-auto bg-[url('/images/city.png')]">
         <div class="container mx-auto h-[463px] lg:h-[720px] text-center lg:pt-16 lg:pb-32 flex flex-col items-center bg-bottom ">
-            <h2 class="text-3xl font-bold align-middle py-14">Your next move?</h2>
+            <h1 class="text-3xl font-bold align-middle pt-14">Your next move?</h1>
+            <h2 class="text-xl align-middle pb-14">Search for your properties for sale or rent in the Philippines</h2>
 
             <form class="w-full lg:w-1/2 lg:mx-auto px-7">
                 <div class="relative h-12 rounded-lg bg-white border flex justify-between items-stretch mb-4 p-2 lg:p-0">
