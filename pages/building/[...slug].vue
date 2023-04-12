@@ -87,12 +87,6 @@
                         </ul>
                     </div -->
 
-                    <div class="py-6">
-                        <h3 class="font-bold text-xl mb-4">Room Types</h3>
-                        <p class="mb-4" v-if="buildingData.property_sale > 0">There are {{ buildingData.property_sale }} condos for sale in {{ buildingData.name }} available from {{ buildingData.property_sale_min }} to {{ buildingData.property_sale_max }}</p>
-                        <p class="mb-4" v-if="buildingData.property_rent > 0">There are {{ buildingData.property_rent }} condos for rent in {{ buildingData.name }} available for {{ buildingData.property_rent_min }} to {{ buildingData.property_rent_max }} per month (based on 1 year rental term)</p>
-                    </div>
-
                 </div>
 
                 <div>
@@ -113,9 +107,16 @@
                 </div>
             </div>
 
+
+            <div class="py-6">
+                <h3 class="font-bold text-xl mb-4">Room Types</h3>
+                <p class="mb-4" v-if="buildingData.property_sale > 0">There are {{ buildingData.property_sale }} condos for sale in {{ buildingData.name }} available from {{ buildingData.property_sale_min }} to {{ buildingData.property_sale_max }}</p>
+                <p class="mb-4" v-if="buildingData.property_rent > 0">There are {{ buildingData.property_rent }} condos for rent in {{ buildingData.name }} available for {{ buildingData.property_rent_min }} to {{ buildingData.property_rent_max }} per month (based on 1 year rental term)</p>
+            </div>
+
             <div class="mb-8">
                 <h3 class="font-bold text-xl mb-4">Location</h3>
-                <GoogleMaps :location="buildingData.location"/>
+                <GoogleMaps :location="buildingData.coordinates"/>
             </div>
 
             <div>
@@ -135,6 +136,7 @@
 <script>
 import { useBuildingsStore } from '~/stores/BuildingsStore' 
 import BuildingsServices from '~/services/BuildingsServices'
+import { watchEffect } from 'vue'
 
 export default {
     data(){
@@ -171,10 +173,10 @@ export default {
     },
 
     created(){
-
-        let slug = this.$route.params.slug[0]
-        this.fetchBuilding(slug)
-
+        watchEffect( () => {
+            let slug = this.$route.params.slug[0]
+            this.fetchBuilding(slug)
+        })
     }, 
 
     methods: {
@@ -182,17 +184,19 @@ export default {
             this.building = await BuildingsServices._getBuilding(slug).data
             this.buildingData.name = this.building.data.building_name
             this.buildingData.location = this.building.data.area_name +', '+this.building.data.city_name
-            this.BuildingsStore.location = this.building.data.area_name +', '+this.building.data.city_name
             this.buildingData.description = this.building.data.description
             this.buildingData.amenities = this.building.data.amenities
             this.buildingData.property_count = this.building.data.property_count
             this.buildingData.property_sale = this.building.data.property_sale
             this.buildingData.property_rent = this.building.data.property_rent
+            this.buildingData.coordinates = { lat: this.building.data.latitude, lng: this.building.data.longitude }
+            console.log(this.buildingData.coordinates)
             this.buildingData.property_rent_min = "₱ "+this.formatMoney(this.building.data.property_rent_min)
             this.buildingData.property_rent_max = "₱ "+this.formatMoney(this.building.data.property_rent_max)
             this.buildingData.property_sale_min = "₱ "+this.formatMoney(this.building.data.property_sale_min)
             this.buildingData.property_sale_max = "₱ "+this.formatMoney(this.building.data.property_sale_max)
             this.listings = this.building.other
+
         },
 
         formatMoney(value){

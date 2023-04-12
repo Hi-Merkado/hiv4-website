@@ -66,6 +66,7 @@
 import { useSearchParamsStore } from '@/stores/SearchParamsStore'
 import { useListingsStore } from '@/stores/ListingsStore'
 import ListingsServices from '@/services/ListingsServices'
+import { watchEffect } from 'vue'
 
 export default {  
     data(){
@@ -84,14 +85,16 @@ export default {
         }
     },
     created(){
-        useHead({
-            title: `${this.pageTitle} | Housinginteractive.com.ph`
-        })
+        watchEffect( () => {
+            useHead({
+                title: `${this.pageTitle} | Housinginteractive.com.ph`
+            })
 
-        const division = this.$route.params.division == 'residential' ? 1 : 2
-        this.SearchParamsStore.division = division
-        this.SearchParamsStore.category = this.$route.params.category
-        this.fetchListings();
+            const division = this.$route.params.division == 'residential' ? 1 : 2
+            this.SearchParamsStore.division = division
+            this.SearchParamsStore.category = this.$route.params.category
+            this.fetchListings();
+        })
 
     }, 
     computed: {
@@ -120,6 +123,19 @@ export default {
 
         updateCols(cols){
             this.columns = cols
+        },
+
+        updatePage(value){
+
+            if(value == '&laquo;'){
+                this.SearchParamsStore.page--
+            } else if (value == '&raquo;'){
+                this.SearchParamsStore.page++
+            } else {
+                this.SearchParamsStore.page = parseInt(value)
+            }
+            this.fetchListings()
+            
         },
 
         titleCase(str) {
