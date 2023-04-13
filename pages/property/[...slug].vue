@@ -161,7 +161,9 @@
             @toggleGallery="toggleGallery"/>
         <ListingsEnquiry 
             :showEnquiry="showEnquiry"
-            :listingData="listingData" 
+            :referrerUrl="buildingData.parentUrl" 
+            :model="`property`" 
+            :modelId="listingData.id"
             @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>

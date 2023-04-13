@@ -128,8 +128,12 @@
         </section>
         <ListingsEnquiry 
             :showEnquiry="showEnquiry"
-            :listingData="listingData"
-            @toggleEnquiry="toggleEnquiry"/>
+            :referrerUrl="buildingData.slug" 
+            :model="`building`" 
+            :modelId="buildingData.id"
+            @toggleEnquiry="toggleEnquiry"
+            
+            />
     </div>
 </template>
 
@@ -147,6 +151,7 @@ export default {
                 uploader: 'Housinginteractive'
             },
             buildingData: {
+                id : null,
                 name: '',
                 location: '',
                 description: '',
@@ -182,6 +187,8 @@ export default {
     methods: {
         async fetchBuilding(slug){
             this.building = await BuildingsServices._getBuilding(slug).data
+            this.buildingData.id = this.building.data.id
+            this.buildingData.slug = slug
             this.buildingData.name = this.building.data.building_name
             this.buildingData.location = this.building.data.area_name +', '+this.building.data.city_name
             this.buildingData.description = this.building.data.description
