@@ -61,7 +61,7 @@
                             </label>
 
                             <div class="text-center">
-                                <button class="bg-green-default text-white py-2 px-16 rounded-lg font-bold">Send</button>
+                                <button class="bg-green-default text-white py-2 px-16 rounded-lg font-bold" @click="save">Send</button>
                             </div>
                         </div>
 
@@ -74,10 +74,16 @@
 </template>
 
 <script>
+
+import EnquiryServices from '~/services/EnquiryServices'
+
 export default {
     props: {
         showEnquiry: Boolean,
-        listingData: Object,
+        //listingData: Object,
+        referrerUrl : { type : String },
+        model : { type : String },
+        modelId : { type : Number }
     },
     data(){
         return {
@@ -85,7 +91,10 @@ export default {
                 name: '',
                 email: '',
                 phone: '',
-                message: ''
+                message: '',
+                referrer : this.referrerUrl,
+                model : this.model,
+                model_id : this.modelId
             }
         }
     },
@@ -98,6 +107,28 @@ export default {
 
         toggleModal(){
             this.$emit('toggleEnquiry')
+        },
+
+        async save() {
+            
+
+            const result = await EnquiryServices._store(this.enquiryData);
+
+            //if(result && result.success) {
+            //    showToast({ title: 'Your enquiry submitted successfully!' })
+            //}
+
+            this.toggleModal();
+
+            this.resetForm();
+            
+        },
+
+        resetForm() {
+            this.enquiryData.name = null;
+            this.enquiryData.email = null;
+            this.enquiryData.phone = null;
+            this.enquiryData.message = null;
         }
     }
 }
