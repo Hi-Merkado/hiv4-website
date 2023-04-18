@@ -135,19 +135,12 @@ export default {
         }
     },
     methods: {
-        async fetchSuggestions(event){
-            const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
-            this.suggestions = await ListingsServices._getSuggestions(params)
-            
-            if(this.suggestions.data.data){
-                this.suggestions.data = this.suggestions.data.data
-            }
-
-        },
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            this.ListingsStore.listings = await ListingsServices._getListings(params)
+            if(!this.SearchParamsStore.triggered){
+                this.ListingsStore.listings = await ListingsServices._getListings(params)
+            }
         }, 
 
         updateSort(){
@@ -160,38 +153,10 @@ export default {
             this.columns = cols
         },
 
-        updateQuery(value, description){
-            this.SearchParamsStore.search = value
-            this.SearchParamsStore.searchDescription = description
-            this.suggestions = []
-        },
-
         titleCase(str) {
             return str.toLowerCase().split(' ').map(function(word) {
                 return (word.charAt(0).toUpperCase() + word.slice(1));
             }).join(' ');
-        },
-
-        updateDivision(){
-            this.SearchParamsStore.priceParam = this.SearchParamsStore.division == 1 ?  'price' : 'pps'
-            this.SearchParamsStore.priceMin = 0
-            this.SearchParamsStore.priceMax = 0
-        }, 
-
-        updateCategory(){
-            this.SearchParamsStore.category == 'rent' ? this.SearchParamsStore.category = 'sale' : this.SearchParamsStore.category = 'rent'
-            this.fetchListings()
-        },
-
-        updatePriceParam(event){
-            this.SearchParamsStore.priceParam = event.target.value
-            this.SearchParamsStore.priceMin = 0
-            this.SearchParamsStore.priceMax = 0
-        },
-
-        updateBedrooms(event){
-            this.SearchParamsStore.bedrooms = event.target.value
-            this.fetchListings()
         },
 
         updatePage(value){
@@ -205,22 +170,6 @@ export default {
             }
             this.fetchListings()
         },
-        initiateSearch(){  
-
-            const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
-            let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category
-
-            if(this.SearchParamsStore.search !== null && this.SearchParamsStore.searchDescription.includes('City')){
-
-                landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
-                this.SearchParamsStore.search = null
-                this.SearchParamsStore.searchDescription = null
-
-            }
-
-            navigateTo(landingPage)
-
-        }
 
     }
 }

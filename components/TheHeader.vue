@@ -96,92 +96,344 @@ export default {
                     submenus: [
                         {
                             url: '/residential-property-sale',
-                            text: 'Residential'
+                            text: 'Residential',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/house-sale',
-                            text: 'House'
+                            text: 'House',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/condo-sale',
-                            text: 'Condo'
+                            text: 'Condo',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/lot-sale',
-                            text: 'Lot'
+                            text: 'Lot',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/commercial-property-sale',
-                            text: 'Commercial'
+                            text: 'Commercial',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/office-space-sale',
-                            text: 'Office Space'
+                            text: 'Office Space',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/building-sale',
-                            text: 'Building'
+                            text: 'Building',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/serviced-office-sale',
-                            text: 'Serviced Office'
+                            text: 'Serviced Office',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                         {
                             url: '/warehouse-sale',
-                            text: 'Warehouse'
+                            text: 'Warehouse',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                                {
+                                    url: '/residential-property-sale-makati',
+                                    text: 'Residential Property in Makati',
+                                },
+                            ]
                         },
                     ]
 
                 },                
-                {
-                    name: '',
-                    text: 'Rent',
-                    submenu: true,
-                    showSubmenu: false,
-                    submenus: [
-                        {
-                            url: '/residential-property-rent',
-                            text: 'Residential'
-                        },
-                        {
-                            url: '/house-rent',
-                            text: 'House'
-                        },
-                        {
-                            url: '/condo-rent',
-                            text: 'Condo'
-                        },
-                        {
-                            url: '/condo-rent',
-                            text: 'Condo'
-                        },
-                        {
-                            url: '/lot-rent',
-                            text: 'Lot'
-                        },
-                        {
-                            url: '/commercial-property-rent',
-                            text: 'Commercial'
-                        },
-                        {
-                            url: '/office-space-rent',
-                            text: 'Office Space'
-                        },
-                        {
-                            url: '/building-rent',
-                            text: 'Building'
-                        },
-                        {
-                            url: '/serviced-office-rent',
-                            text: 'Serviced Office'
-                        },
-                        {
-                            url: '/warehouse-rent',
-                            text: 'Warehouse'
-                        },
-                    ]
+                // {
+                //     name: '',
+                //     text: 'Rent',
+                //     submenu: true,
+                //     showSubmenu: false,
+                //     submenus: [
+                //         {
+                //             url: '/residential-property-rent',
+                //             text: 'Residential'
+                //         },
+                //         {
+                //             url: '/house-rent',
+                //             text: 'House'
+                //         },
+                //         {
+                //             url: '/condo-rent',
+                //             text: 'Condo'
+                //         },
+                //         {
+                //             url: '/condo-rent',
+                //             text: 'Condo'
+                //         },
+                //         {
+                //             url: '/lot-rent',
+                //             text: 'Lot'
+                //         },
+                //         {
+                //             url: '/commercial-property-rent',
+                //             text: 'Commercial'
+                //         },
+                //         {
+                //             url: '/office-space-rent',
+                //             text: 'Office Space'
+                //         },
+                //         {
+                //             url: '/building-rent',
+                //             text: 'Building'
+                //         },
+                //         {
+                //             url: '/serviced-office-rent',
+                //             text: 'Serviced Office'
+                //         },
+                //         {
+                //             url: '/warehouse-rent',
+                //             text: 'Warehouse'
+                //         },
+                //     ]
 
-                },
+                // },
                 {
                     url: '/about-us',
                     text: 'About',
@@ -204,7 +456,6 @@ export default {
     methods: {
         initiateSubmenu(index){
             this.links[index].showSubmenu = !this.links[index].showSubmenu
-            console.log(this.links[index].showSubmenu)
         },
 
         closeSubmenu(index){
