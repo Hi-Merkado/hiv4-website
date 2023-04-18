@@ -1,8 +1,8 @@
-const baseUrl = 'http://api.housinginteractive.local:8000/'
+const baseUrl = 'http://api.laravel.test/api/'
 const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: 'Bearer 2|btWgHYc1T9MS9x0o6wYhVSfMljXjWfd4tbiAucfA'
+    Authorization: 'Bearer 4|urISlJJjvgtJ8ovkxQLDUPkujiAOuvDCE3teQJ2u'
 }
 
 export default {

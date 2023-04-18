@@ -227,16 +227,15 @@ export default {
             
             if(this.SearchParamsStore.search !== null){
 
-                if(this.SearchParamsStore.searchDescription.includes('City')){
-                    landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
-                } else if(this.SearchParamsStore.searchDescription.includes('Area')) {
-                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
-                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
-                } else if(this.SearchParamsStore.searchDescription.includes('Building')){
-                    console.log(1)
+                if(this.SearchParamsStore.searchDescription.includes('Building')){
                     landingPage += '-'+this.SearchParamsStore.city_name+'/'
                     landingPage += this.SearchParamsStore.area_name+'/'
                     landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                } else if(this.SearchParamsStore.searchDescription.includes('Area')) {
+                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                } else if(this.SearchParamsStore.searchDescription.includes('City')){
+                    landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
                 }
 
                 this.SearchParamsStore.search = null

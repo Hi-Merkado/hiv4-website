@@ -385,55 +385,55 @@ export default {
                     ]
 
                 },                
-                // {
-                //     name: '',
-                //     text: 'Rent',
-                //     submenu: true,
-                //     showSubmenu: false,
-                //     submenus: [
-                //         {
-                //             url: '/residential-property-rent',
-                //             text: 'Residential'
-                //         },
-                //         {
-                //             url: '/house-rent',
-                //             text: 'House'
-                //         },
-                //         {
-                //             url: '/condo-rent',
-                //             text: 'Condo'
-                //         },
-                //         {
-                //             url: '/condo-rent',
-                //             text: 'Condo'
-                //         },
-                //         {
-                //             url: '/lot-rent',
-                //             text: 'Lot'
-                //         },
-                //         {
-                //             url: '/commercial-property-rent',
-                //             text: 'Commercial'
-                //         },
-                //         {
-                //             url: '/office-space-rent',
-                //             text: 'Office Space'
-                //         },
-                //         {
-                //             url: '/building-rent',
-                //             text: 'Building'
-                //         },
-                //         {
-                //             url: '/serviced-office-rent',
-                //             text: 'Serviced Office'
-                //         },
-                //         {
-                //             url: '/warehouse-rent',
-                //             text: 'Warehouse'
-                //         },
-                //     ]
+                {
+                    name: '',
+                    text: 'Rent',
+                    submenu: true,
+                    showSubmenu: false,
+                    submenus: [
+                        {
+                            url: '/residential-property-rent',
+                            text: 'Residential'
+                        },
+                        {
+                            url: '/house-rent',
+                            text: 'House'
+                        },
+                        {
+                            url: '/condo-rent',
+                            text: 'Condo'
+                        },
+                        {
+                            url: '/condo-rent',
+                            text: 'Condo'
+                        },
+                        {
+                            url: '/lot-rent',
+                            text: 'Lot'
+                        },
+                        {
+                            url: '/commercial-property-rent',
+                            text: 'Commercial'
+                        },
+                        {
+                            url: '/office-space-rent',
+                            text: 'Office Space'
+                        },
+                        {
+                            url: '/building-rent',
+                            text: 'Building'
+                        },
+                        {
+                            url: '/serviced-office-rent',
+                            text: 'Serviced Office'
+                        },
+                        {
+                            url: '/warehouse-rent',
+                            text: 'Warehouse'
+                        },
+                    ]
 
-                // },
+                },
                 {
                     url: '/about-us',
                     text: 'About',

@@ -128,13 +128,15 @@ export default {
         }, 
 
         updateQuery(value, description, city, area){
-            this.SearchParamsStore.triggered = true
+            console.log(value)
             this.SearchParamsStore.search = value
+            console.log(this.SearchParamsStore.search)
             this.SearchParamsStore.searchDescription = description
             this.SearchParamsStore.city_name = city
             this.SearchParamsStore.area_name = area
             this.suggestions = []
             this.showSuggestions = false
+            this.SearchParamsStore.triggered = true
         },
         titleCase(str) {
             return str.toLowerCase().split(' ').map(function(word) {
@@ -183,25 +185,17 @@ export default {
             const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
             let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category
 
-            if(this.SearchParamsStore.search !== null && this.SearchParamsStore.searchDescription.includes('City')){
-
-                landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
-                this.SearchParamsStore.search = null
-                this.SearchParamsStore.searchDescription = null
-
-            }
-
             if(this.SearchParamsStore.search !== null){
 
-                if(this.SearchParamsStore.searchDescription.includes('City')){
-                    landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
-                } else if(this.SearchParamsStore.searchDescription.includes('Area')) {
-                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
-                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
-                } else if(this.SearchParamsStore.searchDescription.includes('Building')){
+                if(this.SearchParamsStore.searchDescription.includes('Building')){
                     landingPage += '-'+this.SearchParamsStore.city_name+'/'
                     landingPage += this.SearchParamsStore.area_name+'/'
                     landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                } else if(this.SearchParamsStore.searchDescription.includes('Area')) {
+                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                } else if(this.SearchParamsStore.searchDescription.includes('City')){
+                    landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
                 }
 
                 this.SearchParamsStore.search = null
