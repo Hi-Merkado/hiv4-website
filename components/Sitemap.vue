@@ -1,18 +1,11 @@
 <template>
-    <div class="w-9/12 mx-auto max-w-7xl grid grid-cols-2 py-20">
-        <div>
-            <h6 class="text-xs uppercase font-medium mb-8">Residential Listings</h6>
+    <div class="w-9/12 mx-auto max-w-7xl lg:grid lg:grid-cols-2 py-20 hidden">
+
+        <div v-for="(division, index) in sitemap.data" :key="index">
+            <h6 class="text-xs uppercase font-medium mb-8">{{ index }} Listings</h6>
             <ul class="grid grid-cols-3">
-                <li v-for="(residential, index) in sitemap.data.residential" :key="index">
-                    <a :href="defineUrl('residential', 'rent', residential.location)" class="text-gray-950">Rent in {{ residential.location }}</a>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h6 class="text-xs uppercase font-medium mb-8">Commercial Listings</h6>
-            <ul class="grid grid-cols-3">
-                <li v-for="(commercial, index) in sitemap.data.commercial" :key="index">
-                    <a :href="defineUrl('commercial', 'rent', commercial.location)" class="text-gray-950">Rent in {{ commercial.location }}</a>
+                <li v-for="(location, key) in division" :key="key">
+                    <a :href="defineUrl(index, 'rent', location.location)" class="text-gray-950">Rent in {{ location.location }}</a>
                 </li>
             </ul>
         </div>

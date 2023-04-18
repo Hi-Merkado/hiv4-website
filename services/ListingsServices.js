@@ -1,20 +1,22 @@
-const baseUrl = 'http://api.housinginteractive.com.ph/api/'
+//const baseUrl = 'http://api.laravel.test/api/'
+const baseUrl = 'http://api.housinginteractive.local:8000/'
 const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: 'Bearer 2|higter1Njiay60kVW5OcZBI1sGAR0a4AZomSHZik'
+    // Authorization: 'Bearer 2|higter1Njiay60kVW5OcZBI1sGAR0a4AZomSHZik'
+    Authorization: 'Bearer 2|btWgHYc1T9MS9x0o6wYhVSfMljXjWfd4tbiAucfA'
 }
 
 export default {
     _getListing(id){
-        return useFetch( baseUrl + 'website/' + `${id}`, {
+        return useFetch( baseUrl + 'website/properties/' + `${id}`, {
             method: 'GET',
             headers: headers
         } )
     },
 
     _getListings(params = ''){
-        return useFetch( baseUrl + 'website' + `${params}`, {
+        return useFetch( baseUrl + 'website/properties' + `${params}`, {
             method: 'GET',
             headers: headers
         } )
@@ -28,17 +30,24 @@ export default {
     },
 
     _getListingImages(id){
-        return useFetch( baseUrl + 'website/' + `${id}` + '/images', {
+        return useFetch( baseUrl + 'website/properties/' + `${id}` + '/images', {
             method: 'GET',
             headers: headers
         } )
     },
 
     _getSitemap(){
-        return useFetch( baseUrl + 'sitemap/', {
+        return useFetch( baseUrl + 'website/sitemap/', {
             method: 'GET',
             headers: headers
         } )
+    },
+
+    _getDivisionTypes(id){
+        return useFetch( baseUrl + 'website/divisions/'+`${id}`+ '/types', {
+            method: 'GET',
+            headers: headers
+        })
     },
 
     buildQueryParams(parameters) {
