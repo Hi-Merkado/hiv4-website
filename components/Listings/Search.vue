@@ -18,7 +18,7 @@
                         <ul>
                             <li v-for="(suggestion, key) in suggestions.data" :index="key">
                                 <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"
-                                    @click="updateQuery(suggestion.location, suggestion.description)">
+                                    @click="updateQuery(suggestion.location, suggestion.description, suggestion.city, suggestion.area)">
                                 {{ suggestion.location }} ({{ suggestion.description }})
                                 </button>
                             </li>
@@ -127,9 +127,12 @@ export default {
             this.types = ListingsServices._getDivisionTypes(this.SearchParamsStore.division).data
         }, 
 
-        updateQuery(value, description){
+        updateQuery(value, description, city, area){
+            this.SearchParamsStore.triggered = true
             this.SearchParamsStore.search = value
             this.SearchParamsStore.searchDescription = description
+            this.SearchParamsStore.city_name = city
+            this.SearchParamsStore.area_name = area
             this.suggestions = []
             this.showSuggestions = false
         },
@@ -175,6 +178,8 @@ export default {
         },
         initiateSearch(){  
 
+            this.SearchParamsStore.triggered = false
+
             const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
             let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category
 
@@ -186,7 +191,27 @@ export default {
 
             }
 
-            navigateTo(landingPage)
+            if(this.SearchParamsStore.search !== null){
+
+                if(this.SearchParamsStore.searchDescription.includes('City')){
+                    landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
+                } else if(this.SearchParamsStore.searchDescription.includes('Area')) {
+                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                } else if(this.SearchParamsStore.searchDescription.includes('Building')){
+                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
+                    landingPage += this.SearchParamsStore.area_name+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                }
+
+                this.SearchParamsStore.search = null
+                this.SearchParamsStore.city_name = null
+                this.SearchParamsStore.area_name = null
+                this.SearchParamsStore.searchDescription = null
+
+            }
+
+            window.location.href = landingPage
 
         }
 

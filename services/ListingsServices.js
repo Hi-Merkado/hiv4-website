@@ -53,7 +53,7 @@ export default {
     buildQueryParams(parameters) {
         let params = [];
         for (const [key, value] of Object.entries(parameters)) {
-            if (value !== null) {
+            if (value !== null && key !== 'triggered') {
                 params.push(`${key}=${value}`);
             }
         }
