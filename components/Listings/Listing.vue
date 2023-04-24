@@ -1,6 +1,7 @@
 <template>
     <div>
-        <a :href="listing.url">
+        <a :href="listing.url" class="relative">
+            <span class="absolute inline bg-blue-light rounded-lg text-blue-default px-2 py-1 top-2 right-2 font-bold">{{ listing.city_name }}</span>
             <img :src="listing.thumbnail" class="w-full">
             <div class="flex justify-between items-center my-2 text-sm">
                 <p v-if="listing.is_for_sale">

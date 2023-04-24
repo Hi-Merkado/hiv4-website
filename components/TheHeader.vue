@@ -35,8 +35,8 @@
             </div>
             <nav class="grid place-items-end">
                 <div class="flex justify-end">
-                    <NuxtLink to="http://app.housinginteractive.com.ph" class="lg:flex lg:gap-4 lg:w-32 lg:h-5 font-bold text-base">
-                        <span class="hidden lg:inline">Log in</span>
+                    <NuxtLink to="http://app.housinginteractive.com.ph" class="lg:flex lg:gap-4 lg:w-52 lg:h-5 font-bold text-base">
+                        <span class="hidden lg:inline">Free Listing Upload</span>
                         <font-awesome-icon icon="user" size="xs" class="place-items-end" :style="{ color: '#2f80ed', width: '37px', height: '20px', lineHeight: '1' }"/>
                     </NuxtLink>
                     <a href="#" class="lg:hidden" @click="showMobilemenu = !showMobilemenu">

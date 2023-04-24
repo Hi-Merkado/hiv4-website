@@ -84,7 +84,9 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            this.ListingsStore.listings = await ListingsServices._getListings(params)
+            if(!this.SearchParamsStore.triggered){
+                this.ListingsStore.listings = await ListingsServices._getListings(params)
+            }
         }, 
 
         updateSort(){

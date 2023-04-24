@@ -145,7 +145,7 @@ import { watchEffect } from 'vue'
 export default {
     data(){
         return {
-            building: '',
+            building: {},
             images: {},
             listingData: {
                 uploader: 'Housinginteractive'
@@ -197,7 +197,6 @@ export default {
             this.buildingData.property_sale = this.building.data.property_sale
             this.buildingData.property_rent = this.building.data.property_rent
             this.buildingData.coordinates = { lat: this.building.data.latitude, lng: this.building.data.longitude }
-            console.log(this.buildingData.coordinates)
             this.buildingData.property_rent_min = "₱ "+this.formatMoney(this.building.data.property_rent_min)
             this.buildingData.property_rent_max = "₱ "+this.formatMoney(this.building.data.property_rent_max)
             this.buildingData.property_sale_min = "₱ "+this.formatMoney(this.building.data.property_sale_min)

@@ -2,7 +2,7 @@
         <section class="lg:w-9/12 lg:mx-auto lg:max-w-7xl mt-6 lg:mt-24 px-4">
             <header class="flex gap-4 justify-between items-center mb-8">
                 <div class="flex gap-8 items-center">
-                    <h2 class="text-2xl font-bold hidden lg:block">Explore</h2>
+                    <h2 class="text-2xl font-bold hidden lg:block">Explore Properties</h2>
                     <button class="border-2 py-1.5 px-6 text-sm font-semibold lg:hidden">Filters</button>
                     <div class="lg:flex gap-4 hidden">
                         <button 
@@ -101,7 +101,10 @@ export default {
     methods: {
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            this.ListingsStore.listings = await ListingsServices._getListings(params)
+            console.log(params)
+            if(!this.SearchParamsStore.triggered){
+                this.ListingsStore.listings = await ListingsServices._getListings(params)
+            }
         }, 
 
         updatedFeatured(value){
