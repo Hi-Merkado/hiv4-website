@@ -4,14 +4,14 @@
 
             <img src="/images/explore.png" alt="Explore" class="mx-auto">
             <h3 class="font-bold text-3xl my-4">Explore</h3>
-            <p class="text-lg">We have quality listings from pro brokers to ignite your real estate dreams</p>
+            <p class="text-lg">Browse thru our collection of high-quality listings from Pro brokers and owners to ignite your real estate dreams</p>
         </div>
         <div class="text-center px-10">
 
             <img src="/images/discover.png" alt="Discover" class="mx-auto">
 
             <h3 class="font-bold text-3xl my-4">Discover</h3>
-            <p class="text-lg">Time to make your choice. Dream home or perfectly efficient office?</p>
+            <p class="text-lg">Discover your next property investment whether it be your dream home or a perfectly efficient office</p>
 
         </div>
 
@@ -20,7 +20,7 @@
             <img src="/images/engage.png" alt="Engage" class="mx-auto">
 
             <h3 class="font-bold text-3xl my-4">Engage</h3>
-            <p class="text-lg">Each listing is backed by a pro broker ready to help you.</p>
+            <p class="text-lg">Let us connect you with the listing agent or property owner. Each listing is backed by a Pro broker ready to help you.</p>
 
         </div>
     </section>

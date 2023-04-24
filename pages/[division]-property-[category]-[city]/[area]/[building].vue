@@ -129,22 +129,22 @@ export default {
             return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category
         },
         pageTitle(){
-            return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category + ' in ' + this.titleCase(this.$route.params.building.replace('-', ' ')) +' '+ this.titleCase(this.$route.params.area.replace('-', ' '))+', '+this.titleCase(this.$route.params.city.replace('-', ' '))
+            return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category + ' in ' + this.titleCase(this.$route.params.building.replace(/-/g, ' ')) +' '+ this.titleCase(this.$route.params.area.replace(/-/g, ' '))+', '+this.titleCase(this.$route.params.city.replace(/-/g, ' '))
         },
         cityUrl(){
             return '/'+this.$route.params.division +'-property-'+ this.$route.params.category +'-'+ this.$route.params.city
         },
         cityTitle(){
-            return this.titleCase(this.$route.params.city.replace('-', ' '))
+            return this.titleCase(this.$route.params.city.replace(/-/g, ' '))
         },
         areaUrl(){
             return '/'+this.$route.params.division +'-property-'+ this.$route.params.category +'-'+ this.$route.params.city+'/'+this.$route.params.area
         },
         areaTitle(){
-            return this.titleCase(this.$route.params.area.replace('-', ' '))
+            return this.titleCase(this.$route.params.area.replace(/-/g, ' '))
         },
         buildingTitle(){
-            return this.titleCase(this.$route.params.building.replace('-', ' '))
+            return this.titleCase(this.$route.params.building.replace(/-/g, ' '))
         },
         columns(){
             return 'lg:grid-cols-'+this.columns
@@ -154,6 +154,7 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
+            console.log(params)
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
             }
