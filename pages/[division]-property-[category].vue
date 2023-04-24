@@ -157,6 +157,7 @@ export default {
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
             }
+            console.log(this.ListingsStore.listings)
             
         },    
         
