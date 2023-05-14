@@ -84,7 +84,9 @@
                     <li>
                         <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
                     </li>
-                    <li>Privacy Policy</li>
+                    <li>
+                        <a href="/privacy-policy">Privacy Policy</a>
+                    </li>
                 </ul>
             </nav>
         </div>
