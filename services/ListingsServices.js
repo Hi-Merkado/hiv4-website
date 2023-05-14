@@ -1,10 +1,10 @@
-//const baseUrl = 'http://api.laravel.test/api/'
-const baseUrl = 'http://api.housinginteractive.local:8000/'
+// const baseUrl = 'http://api.housinginteractive.com.ph/api/'
+const baseUrl = 'http://api.laravel.test/api/'
 const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    // Authorization: 'Bearer 2|higter1Njiay60kVW5OcZBI1sGAR0a4AZomSHZik'
-    Authorization: 'Bearer 2|btWgHYc1T9MS9x0o6wYhVSfMljXjWfd4tbiAucfA'
+    Authorization: 'Bearer 4|urISlJJjvgtJ8ovkxQLDUPkujiAOuvDCE3teQJ2u' // Local
+    // Authorization: 'Bearer 4|xGskwbaKxUi05a4xr8JAIx6ReP1bHQ3OCGVSw0iG' //website
 }
 
 export default {
@@ -16,6 +16,7 @@ export default {
     },
 
     _getListings(params = ''){
+        console.log(baseUrl + 'website/properties' + `${params}`)
         return useFetch( baseUrl + 'website/properties' + `${params}`, {
             method: 'GET',
             headers: headers
@@ -53,7 +54,7 @@ export default {
     buildQueryParams(parameters) {
         let params = [];
         for (const [key, value] of Object.entries(parameters)) {
-            if (value !== null) {
+            if (value !== null && key !== 'triggered') {
                 params.push(`${key}=${value}`);
             }
         }

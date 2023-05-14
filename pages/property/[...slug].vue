@@ -161,7 +161,7 @@
             @toggleGallery="toggleGallery"/>
         <ListingsEnquiry 
             :showEnquiry="showEnquiry"
-            :referrerUrl="buildingData.parentUrl" 
+            :referrerUrl="listingData.parentUrl" 
             :model="`property`" 
             :modelId="listingData.id"
             @toggleEnquiry="toggleEnquiry"/>
@@ -241,7 +241,7 @@ export default {
             this.listingData.parentTitle    = this.listingData.division + ' properties for ' + this.listingData.category
             this.listingData.parentUrl      = '/'+this.listingData.division.toLowerCase()+'-property-'+this.listingData.category.toLowerCase()
 
-            this.listingData.cityUrl        = this.listingData.parentUrl+'-'+this.listing.data.city_name.toLowerCase()
+            this.listingData.cityUrl        = this.listingData.parentUrl+'-'+this.listing.data.city_name.toLowerCase().replace(/\s+/g, '-')
 
             if(this.listing.data.building_name !== null) {
                 this.listingData.address += this.listing.data.building_name+' '

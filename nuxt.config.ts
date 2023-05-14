@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
     app: {
         head: {
+            meta: [
+                { name: 'robots', content: 'index,follow' },
+                { property: 'og:type', content: 'website' }
+            ],
             bodyAttrs: {
                 class: 'bg-white font-circularxx'
             }

@@ -1,12 +1,15 @@
-const baseUrl = 'http://api.housinginteractive.local:8000/'
+// const baseUrl = 'http://api.housinginteractive.com.ph/api/'
+const baseUrl = 'http://api.laravel.test/api/'
 const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: 'Bearer 2|btWgHYc1T9MS9x0o6wYhVSfMljXjWfd4tbiAucfA'
+    Authorization: 'Bearer 4|urISlJJjvgtJ8ovkxQLDUPkujiAOuvDCE3teQJ2u' // Local
+    // Authorization: 'Bearer 4|xGskwbaKxUi05a4xr8JAIx6ReP1bHQ3OCGVSw0iG' //website
 }
 
 export default {
     _getBuilding(id){
+        console.log(baseUrl + 'website/buildings/' + `${id}`)
         return useFetch( baseUrl + 'website/buildings/' + `${id}`, {
             method: 'GET',
             headers: headers

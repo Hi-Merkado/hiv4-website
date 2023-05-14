@@ -79,7 +79,7 @@
             <nav>
                 <ul class="flex items-center justify-between gap-2">
                     <li>
-                        Terms & conditions
+                        <a href="/terms-of-use">Terms & Conditions</a>
                     </li>
                     <li>
                         <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>

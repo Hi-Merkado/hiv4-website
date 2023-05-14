@@ -5,7 +5,6 @@
             <Meta name="description" :content="description" />
         </Head>
     </div>
-
     <ListingsSearch />
 
     <section class="w-9/12 max-w-7xl mx-auto">
@@ -16,7 +15,14 @@
             <li>
                 <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
             </li>
-            <li class="text-gray-400">{{ pageTitle }}</li>
+            <li>
+                <a :href="parentUrl" v-if="$route.params.category != 'property'">{{ parentTitle }}</a>
+                <span class="text-gray-400" v-else>{{ cityTitle }}</span>
+            </li>
+            <li v-if="$route.params.category != 'property'">
+                <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
+            </li>
+            <li class="text-gray-400" v-if="$route.params.category != 'property'">{{ cityTitle }}</li>
         </ul>
 
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
@@ -49,7 +55,7 @@
             <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
         </section>
 
-        <section class="mt-10" id="page-description">
+        <section class="mt-10" id="page-description" v-if="ListingsStore.listings.data.seo.page_description != null">
             <span v-html="ListingsStore.listings.data.seo.page_description"></span>
         </section>
 
@@ -97,8 +103,8 @@
 
 <script>
 import { useSearchParamsStore } from '@/stores/SearchParamsStore'
-import { useListingsStore } from '../stores/ListingsStore'
-import ListingsServices from '../services/ListingsServices'
+import { useListingsStore } from '@/stores/ListingsStore'
+import ListingsServices from '@/services/ListingsServices'
 
 export default {  
     data(){
@@ -120,15 +126,43 @@ export default {
     },
     created(){
 
-        this.SearchParamsStore.type_name = this.$route.params.type
-
+        if(this.$route.params.category == 'property'){
+            const division = this.$route.params.type == 'residential' ? 1 : 2
+            this.SearchParamsStore.division = division
+            this.SearchParamsStore.category = this.$route.params.city
+        } else {
+            this.SearchParamsStore.type_name = this.$route.params.type
+            this.SearchParamsStore.city_name = this.$route.params.city
+        }
+        
         this.fetchListings();
 
     }, 
     computed: {
+        parentUrl(){
+            return '/'+this.$route.params.type +'-'+ this.$route.params.category
+        },
+        parentTitle(){
+            if(this.$route.params.category == 'property'){
+                return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.city
+            } else {
+                return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category +' in '+ this.$route.params.city
+            }
+        },
         pageTitle(){
-            return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category
-        },        
+            if(this.$route.params.category == 'property'){
+                return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.city
+            } else {
+                return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category +' in '+ this.$route.params.city
+            }
+        },      
+        cityTitle(){
+            if(this.$route.params.category != 'property'){
+                return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category +' in '+ this.$route.params.city
+            } else {
+                return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category;
+            }
+        },       
         columns(){
             return 'grid-cols-'+this.columns
         }
@@ -137,7 +171,6 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            console.log(params)
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
                 this.title = this.ListingsStore.listings.data.seo.keyword +' | Housinginteractive.com.ph'

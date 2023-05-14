@@ -22,7 +22,7 @@
                             <ul>
                                 <li v-for="(suggestion, key) in suggestions.data" :index="key">
                                     <button type="button" class="w-full h-full p-2 cursor-pointer hover:bg-gray-100 text-left"
-                                        @click="updateQuery(suggestion.location, suggestion.description)">
+                                        @click="updateQuery(suggestion.location, suggestion.description, suggestion.city, suggestion.area)">
                                     {{ suggestion.location }} ({{ suggestion.description }})
                                     </button>
                                 </li>
@@ -163,6 +163,7 @@ export default {
     },
     methods: {
         async fetchSuggestions(event){
+            this.SearchParamsStore.triggered = false
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
 
             this.suggestions = await ListingsServices._getSuggestions(params)
@@ -181,12 +182,16 @@ export default {
                 params += '&searchColumn=location'
             }
 
-            this.ListingsStore.listings = await ListingsServices._getListings(params)
+            if(!this.SearchParamsStore.triggered){
+                this.ListingsStore.listings = await ListingsServices._getListings(params)
+            }
         }, 
 
-        updateQuery(value, description){
+        updateQuery(value, description, city, area){
             this.SearchParamsStore.search = value
             this.SearchParamsStore.searchDescription = description
+            this.SearchParamsStore.city_name = city
+            this.SearchParamsStore.area_name = area
             this.suggestions = []
             this.showSuggestions = false
         },
@@ -220,15 +225,27 @@ export default {
             const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
             let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category
             
-            if(this.SearchParamsStore.search !== null && this.SearchParamsStore.searchDescription.includes('City')){
+            if(this.SearchParamsStore.search !== null){
 
-                landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
+                if(this.SearchParamsStore.searchDescription.includes('Building')){
+                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
+                    landingPage += this.SearchParamsStore.area_name+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                } else if(this.SearchParamsStore.searchDescription.includes('Area')) {
+                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                } else if(this.SearchParamsStore.searchDescription.includes('City')){
+                    landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
+                }
+
                 this.SearchParamsStore.search = null
+                this.SearchParamsStore.city_name = null
+                this.SearchParamsStore.area_name = null
                 this.SearchParamsStore.searchDescription = null
 
             }
 
-            navigateTo(landingPage)
+            window.location.href = landingPage
             
         }
     }

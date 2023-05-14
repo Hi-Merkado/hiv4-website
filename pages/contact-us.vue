@@ -1,4 +1,16 @@
 <template>
+    <div>
+        <Head>
+            <Title>{{ title }}</Title>
+            <Meta name="description" :content="description" />
+            <Meta property="og:title" :content="title" />
+            <Meta property="og:type" content="website" />
+            <Meta property="og:url" :content="currentPath" />
+            <Meta property="og:image" content="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/images/HousingInteractive_Logo.png" />
+            <Link rel="canonical" :href="currentPath" />
+        </Head>
+    </div>
+
     <ListingsSearch />
     <section class="lg:w-9/12 lg:max-w-7xl flex flex-col lg:flex-row mx-auto gap-8 mt-8 mb-16 px-4 lg:px-0">
         <div class="bg-gray-50 p-6 w-full lg:w-1/2 rounded-lg">
@@ -84,7 +96,10 @@ export default {
         const SearchParamsStore = useSearchParamsStore()
 
         return {
-            SearchParamsStore
+            SearchParamsStore,
+            title: ref('Contact Us | Housinginteractive.com.ph'),
+            description: ref('Contact Us'),
+            currentPath: 'https://housinginteractive.com.ph/contact-us'
         }
     },
 }
