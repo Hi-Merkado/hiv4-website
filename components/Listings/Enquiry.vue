@@ -10,7 +10,7 @@
                     <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                         <div>
                             <h3 class="text-3xl font-semibold text-[20px] mb-0 leading-none">
-                                {{ listingData.uploader }}
+                                {{ model == 'building' ? 'Housinginteractive Inc' : listingData.uploader }}
                             </h3>
                             <p>Address: 6th floor LDM Building, Polaris St. Makati City</p>
                             <p>Telephone: (632) 8809 7574</p>

@@ -82,6 +82,43 @@
             </nav>
 
         </section>
+
+
+        <section class="mt-10" id="page-description">
+            <span v-html="ListingsStore.listings.data.seo.page_description" v-if="ListingsStore.listings.data.seo.page_description != null"></span>
+        </section>
+
+        <section id="seo-allocation" class="mt-10">
+            <h2 class="text-xl font-bold mb-4">How much is a {{ pageTitle }}?</h2>
+
+            <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
+
+            <p class="mb-4">You may find the most expensive and luxurious {{ $route.params.division }} properties for {{ $route.params.category }} at <span v-html="ListingsStore.listings.data.location.expensive"></span>. While you can find classy yet affordable ones at <span v-html="ListingsStore.listings.data.location.affordable"></span>.</p>
+
+            <p class="mb-4">Below are the average sales prices according to the number of bedrooms in this location.</p>
+
+            <div class="overflow-x-auto w-full">
+                <table class="table-auto border-collapse w-full">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left">Bedrooms</th>
+                            <th class="px-4 py-2 text-left">Average Floor Area/SQM</th>
+                            <th class="px-4 py-2 text-left">Average Sales Price</th>
+                            <th class="px-4 py-2 text-left">Average Cost Price/SQM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(bedroom, index) in ListingsStore.listings.data.bedrooms" :key="index">
+                            <td class="border px-4 py-2 border-l-0 border-r-0">{{ bedroom.key == 0 ? 'Studio' : bedroom.key + ' bedroom(s)' }}</td>
+                            <td class="border px-4 py-2 border-l-0 border-r-0">{{ formatMoney(bedroom.avg_floor_area.value) }} sqm</td>
+                            <td class="border px-4 py-2 border-l-0 border-r-0">₱{{ formatMoney(bedroom.avg_price.value) }}</td>
+                            <td class="border px-4 py-2 border-l-0 border-r-0">₱{{ formatMoney(bedroom.avg_pps.value) }} sqm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </section>
 </template>
 
@@ -159,6 +196,11 @@ export default {
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
             }
         }, 
+
+        formatMoney(value){
+            const numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
+            return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
+        },
 
         updateSort(){
             this.SearchParamsStore.orderBy = this.sorting == 0 || this.sorting == 1 ? 'updated_at' : 'price'
