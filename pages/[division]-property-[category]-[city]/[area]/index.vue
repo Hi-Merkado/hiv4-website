@@ -106,15 +106,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="border px-4 py-2 border-l-0 border-r-0">10 bedrooms</td>
-                            <td class="border px-4 py-2 border-l-0 border-r-0">30sqm</td>
-                            <td class="border px-4 py-2 border-l-0 border-r-0">₱230,533,455</td>
-                            <td class="border px-4 py-2 border-l-0 border-r-0">₱174,709sqm</td>
+                        <tr v-for="(bedroom, index) in ListingsStore.listings.data.bedrooms" :key="index">
+                            <td class="border px-4 py-2 border-l-0 border-r-0">{{ bedroom.key == 0 ? 'Studio' : bedroom.key + ' bedroom(s)' }}</td>
+                            <td class="border px-4 py-2 border-l-0 border-r-0">{{ formatMoney(bedroom.avg_floor_area.value) }} sqm</td>
+                            <td class="border px-4 py-2 border-l-0 border-r-0">₱{{ formatMoney(bedroom.avg_price.value) }}</td>
+                            <td class="border px-4 py-2 border-l-0 border-r-0">₱{{ formatMoney(bedroom.avg_pps.value) }} sqm</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </section>
+
+        <section id="quick-links" class="mt-10">
+            <h2 class="text-lg font-bold mb-4">Quick Links</h2>
+            <ul class="grid grid-cols-3">
+                <li v-for="(link, index) in ListingsStore.listings.data.quickLinks" :key="index">
+                    <a :href="$route.path+'/'+link.key.replace(/\s+/g, '-').toLowerCase()">{{ link.key }}</a>
+                </li>
+            </ul>
         </section>
     </section>
 </template>

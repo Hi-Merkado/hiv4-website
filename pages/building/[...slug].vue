@@ -132,7 +132,6 @@
             :model="`building`" 
             :modelId="buildingData.id"
             @toggleEnquiry="toggleEnquiry"
-            
             />
     </div>
 </template>

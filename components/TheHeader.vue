@@ -8,27 +8,45 @@
                 <nav class="lg:block hidden">
                     <ul class="flex gap-8 font-bold text-base" @click-away="closeSubmenu">
                         <li v-for="(link, index) in links" :key="index" class="relative">
+
                             <a :href="link.url" v-if="!link.submenu">
                                 <span>{{ link.text }}</span>
                             </a>
+
                             <a v-else class="flex gap-2 cursor-pointer" v-on:click="links[index].showSubmenu = !links[index].showSubmenu">
                                 <span>{{ link.text }}</span>
-                                <font-awesome-icon icon="chevron-down" style="height: 13px;margin-top: 5px" v-if="link.submenu"/>
+                                <font-awesome-icon icon="chevron-down" style="height: 13px; margin-top: 5px" v-if="link.submenu"/>
                             </a>
+
                             <div v-if="link.submenu" 
                                     :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" 
                                     class="opacity-0 fixed inset-0 z-10 bg-white" @click="closeSubmenu(index)"></div>
-                            <div class="origin-top-right absolute left-0 right-0 mt-2 rounded-md shadow-lg bg-white focus:outline-none z-40 w-40"
-                                role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
-                                :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" v-if="link.submenu">
-                                <ul class="py-1" role="none">
-                                    <li class="pt-1.5 pb-0.5 px-2 hover:bg-gray-5" v-for="(menu, index) in link.submenus" :key="menu.text">
-                                        <a :href="menu.url" class="flex gap-2" @click.native="closeSubmenu(index)">
-                                            {{ menu.text }}
-                                        </a>
-                                    </li>
-                                </ul>
+
+                            <div class="absolute" v-if="link.submenu" :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'">
+                                <div class="bg-white rounded-md p-3 min-w-[220px] top-1 w-full absolute z-10">
+                                    <ul class="[&>li]:text-base [&>li]:cursor-pointer [&>li]:px-2 [&>li]:py-1 [&>li]:rounded-md [&>li]:transition-all">
+                                        <li v-for="(menu, mindex) in link.submenus" :key="mindex" class="hover:text-white hover:bg-gray-600">
+                                            <div :class="menu.thirdmenu ? 'flex justify-between' : ''">
+                                                <a :href="menu.url" v-if="!menu.thirdmenu">{{ menu.text }}</a>
+                                                <a href="#" v-else v-on:click="links[index].submenus[mindex].showThirdMenu = !links[index].submenus[mindex].showThirdMenu"
+                                                @click.prevent="closeThirdmenu(index, mindex)">{{ menu.text }}</a>
+                                                <font-awesome-icon icon="chevron-right" style="height: 13px; margin-top: 5px" v-if="menu.thirdmenu"/>
+                                            </div>
+
+                                            
+                                            <div
+                                                v-if="menu.thirdmenu"  
+                                                :class="!links[index].submenus[mindex].showThirdMenu ? 'hidden' : 'inline-block'"
+                                                class="bg-white rounded-md max-w-[220px] w-full p-3 absolute -right-[220px] top-1 [&>span]:text-base [&>span]:cursor-pointer [&>span]:px-2 [&>span]:py-1 [&>span]:rounded-md">
+                                                <span class="block text-black" v-for="(tmenu, tindex) in menu.thirdmenus" :key="tindex">
+                                                    <a :href="tmenu.url">{{ tmenu.text }}</a>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+
                         </li>
                     </ul>
                 </nav>
@@ -49,33 +67,6 @@
                 </div>
             </nav>
         </div>
-        <div class="container" v-if="showMobilemenu">
-            <ul class="w-full font-bold text-base px-6" @click-away="closeSubmenu">
-                <li v-for="(link, index) in links" :key="index" class="relative py-1">
-                    <a :href="link.url" v-if="!link.submenu" class="block">
-                        <span>{{ link.text }}</span>
-                    </a>
-                    <a v-else class="flex gap-2 cursor-pointer block" v-on:click="links[index].showSubmenu = !links[index].showSubmenu">
-                        <span>{{ link.text }}</span>
-                        <font-awesome-icon icon="chevron-down" style="height: 13px;margin-top: 5px" v-if="link.submenu"/>
-                    </a>
-                    <div v-if="link.submenu" 
-                            :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" 
-                            class="opacity-0 fixed inset-0 z-10 bg-white" @click="closeSubmenu(index)"></div>
-                    <div class="origin-top-right absolute left-0 right-0 mt-2 rounded-md shadow-lg bg-white focus:outline-none z-40 w-40"
-                        role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
-                        :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" v-if="link.submenu">
-                        <ul class="py-1" role="none">
-                            <li class="pt-1.5 pb-0.5 px-2 hover:bg-gray-5" v-for="(menu, index) in link.submenus" :key="menu.text">
-                                <a :href="menu.url" class="flex gap-2" @click.native="closeSubmenu(index)">
-                                    {{ menu.text }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
     </header>
 </template>
 
@@ -95,290 +86,398 @@ export default {
                     showSubmenu: false,
                     submenus: [
                         {
-                            url: '/residential-property-sale',
+                            url: '#',
                             text: 'Residential',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
                                     url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/residential-property-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/residential-property-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/residential-property-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/residential-property-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/residential-property-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/residential-property-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/residential-property-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/residential-property-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/house-sale',
+                            url: '#',
                             text: 'House',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/house-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/house-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/house-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/house-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/house-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/house-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/house-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/house-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/house-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/condo-sale',
+                            url: '#',
                             text: 'Condo',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/condo-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/condo-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/condo-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/condo-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/condo-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/condo-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/condo-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/condo-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/condo-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/lot-sale',
+                            url: '#',
                             text: 'Lot',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/lot-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/lot-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/lot-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/lot-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/lot-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/lot-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/lot-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/lot-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/lot-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/commercial-property-sale',
+                            url: '#',
                             text: 'Commercial',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/commercial-property-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/commercial-property-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/commercial-property-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/commercial-property-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/commercial-property-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/commercial-property-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/commercial-property-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/commercial-property-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/commercial-property-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/office-space-sale',
+                            url: '#',
                             text: 'Office Space',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/office-space-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/office-space-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/office-space-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/office-space-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/office-space-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/office-space-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/office-space-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/office-space-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/office-space-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/building-sale',
+                            url: '#',
                             text: 'Building',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/building-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/building-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/building-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/building-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/building-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/building-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/building-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/building-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/building-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/serviced-office-sale',
+                            url: '#',
                             text: 'Serviced Office',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/serviced-office-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/serviced-office-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/serviced-office-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/serviced-office-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/serviced-office-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/serviced-office-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/serviced-office-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/serviced-office-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/serviced-office-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
                         {
-                            url: '/warehouse-sale',
+                            url: '#',
                             text: 'Warehouse',
                             thirdmenu: true,
                             showThirdMenu: false,
                             thirdmenus: [
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/warehouse-sale-makati',
+                                    text: 'Makati',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/warehouse-sale-taguig',
+                                    text: 'Taguig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/warehouse-sale-pasig',
+                                    text: 'Pasig',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/warehouse-sale-mandaluyong',
+                                    text: 'Mandaluyong',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/warehouse-sale-muntinlupa',
+                                    text: 'Muntinlupa',
                                 },
                                 {
-                                    url: '/residential-property-sale-makati',
-                                    text: 'Residential Property in Makati',
+                                    url: '/warehouse-sale-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/warehouse-sale-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/warehouse-sale-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/warehouse-sale-las-pinas',
+                                    text: 'Las Pinas',
                                 },
                             ]
                         },
@@ -460,7 +559,18 @@ export default {
 
         closeSubmenu(index){
             this.links[index].showSubmenu = false
+            this.links[index].submenus.forEach(function(item){
+                item.showThirdMenu = false
+            })
             this.showMobilemenu = false
+        },
+
+        closeThirdmenu(index, mindex){
+            this.links[index].submenus.forEach(function(item){
+                item.showThirdMenu = false
+            })
+            this.links[index].submenus[mindex].showThirdMenu = !this.links[index].submenus[mindex].showThirdMenu
+            // console.log(this.links[index].submenus[mindex].showThirdMenu)
         },
     }
 }

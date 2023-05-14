@@ -5,18 +5,31 @@
             <Meta name="description" :content="description" />
         </Head>
     </div>
-
     <ListingsSearch />
 
     <section class="w-9/12 max-w-7xl mx-auto">
-        <ul class="flex items-center gap-2 text-sm">
+        <ul class="flex flex-wrap items-center gap-2 text-sm">
             <li>
                 <a href="/">Home</a>
             </li>
             <li>
                 <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
             </li>
-            <li class="text-gray-400">{{ pageTitle }}</li>
+            <li>
+                <a :href="parentUrl">{{ parentTitle }}</a>
+            </li>            
+            <li>
+                <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
+            </li>
+            <li>
+                <a :href="cityUrl">
+                    {{ cityTitle }}
+                </a>
+            </li>
+            <li>
+                <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
+            </li>
+            <li class="text-gray-400">{{ areaTitle }}</li>
         </ul>
 
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
@@ -97,8 +110,8 @@
 
 <script>
 import { useSearchParamsStore } from '@/stores/SearchParamsStore'
-import { useListingsStore } from '../stores/ListingsStore'
-import ListingsServices from '../services/ListingsServices'
+import { useListingsStore } from '@/stores/ListingsStore'
+import ListingsServices from '@/services/ListingsServices'
 
 export default {  
     data(){
@@ -121,14 +134,30 @@ export default {
     created(){
 
         this.SearchParamsStore.type_name = this.$route.params.type
-
+        this.SearchParamsStore.city_name = this.$route.params.city
+        this.SearchParamsStore.area_name = this.$route.params.area
         this.fetchListings();
 
     }, 
     computed: {
-        pageTitle(){
+        parentUrl(){
+            return '/'+this.$route.params.type +'-'+ this.$route.params.category
+        },
+        parentTitle(){
             return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category
-        },        
+        },
+        pageTitle(){
+            return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category + ' in ' + this.titleCase(this.$route.params.area.replace(/-/g, ' ')) +', '+ this.titleCase(this.$route.params.city.replace('-', ' '))
+        },      
+        cityUrl(){
+            return '/'+this.$route.params.type +'-'+ this.$route.params.category +'-'+ this.$route.params.city
+        },
+        cityTitle(){
+            return this.titleCase(this.$route.params.city.replace('-', ' '))
+        },
+        areaTitle(){
+            return this.titleCase(this.$route.params.area.replace(/-/g, ' '))
+        },     
         columns(){
             return 'grid-cols-'+this.columns
         }
@@ -137,7 +166,6 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            console.log(params)
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
                 this.title = this.ListingsStore.listings.data.seo.keyword +' | Housinginteractive.com.ph'
