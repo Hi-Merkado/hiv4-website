@@ -73,7 +73,7 @@
 
         </section>
 
-        <section class="mt-10" id="page-description">
+        <section class="mt-10" id="page-description" v-if="ListingsStore.listings.data.seo.page_description != null">
             <span v-html="ListingsStore.listings.data.seo.page_description"></span>
         </section>
 
@@ -108,7 +108,7 @@
             </div>
         </section>
 
-        <section id="quick-links" class="mt-10">
+        <section id="quick-links" class="mt-10" v-if="ListingsStore.listings.data.quickLinks.length > 0">
             <h2 class="text-lg font-bold mb-4">Quick Links</h2>
             <ul class="grid grid-cols-3">
                 <li v-for="(link, index) in ListingsStore.listings.data.quickLinks" :key="index">

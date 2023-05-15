@@ -88,7 +88,7 @@
             <h2 class="text-lg font-bold mb-4">Quick Links</h2>
             <ul class="grid grid-cols-3">
                 <li v-for="(link, index) in ListingsStore.listings.data.quickLinks" :key="index">
-                    <a :href="$route.path+'/'+link.key.replace(/\s+/g, '-').toLowerCase()">{{ link.key }}</a>
+                    <a :href="$route.path+'-'+link.key.replace(/\s+/g, '-').toLowerCase()">{{ link.key }}</a>
                 </li>
             </ul>
         </section>

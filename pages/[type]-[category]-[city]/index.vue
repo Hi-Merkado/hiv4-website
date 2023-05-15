@@ -90,11 +90,13 @@
             </div>
         </section>
 
+        
+
         <section id="quick-links" class="mt-10">
             <h2 class="text-lg font-bold mb-4">Quick Links</h2>
             <ul class="grid grid-cols-3">
                 <li v-for="(link, index) in ListingsStore.listings.data.quickLinks" :key="index">
-                    <a :href="$route.path+'/'+link.key.replace(/\s+/g, '-').toLowerCase()">{{ link.key }}</a>
+                    <a :href="quickLinkUrl(link.key)">{{ link.key }}</a>
                 </li>
             </ul>
         </section>
@@ -191,6 +193,16 @@ export default {
 
         updateCols(cols){
             this.columns = cols
+        },
+
+        quickLinkUrl(linKey){
+
+            if(this.$route.params.category == 'property'){
+                return this.$route.path+'-'+linKey.replace(/\s+/g, '-').toLowerCase()
+            } else {
+                return this.$route.path+'/'+linKey.replace(/\s+/g, '-').toLowerCase()
+            }
+
         },
 
         titleCase(str) {

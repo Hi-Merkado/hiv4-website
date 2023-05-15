@@ -35,6 +35,7 @@
         </ul>
 
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
+        <a :href="getBuildingUrl()">Check Building Profile</a>
 
         <div class="flex justify-between items-center mb-8">
             <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
@@ -216,6 +217,10 @@ export default {
             return str.toLowerCase().split(' ').map(function(word) {
                 return (word.charAt(0).toUpperCase() + word.slice(1));
             }).join(' ');
+        },
+
+        getBuildingUrl(){
+            return '/building/'+this.$route.params.building
         },
 
         updatePage(value){
