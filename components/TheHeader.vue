@@ -17,10 +17,19 @@
                                 <span>{{ link.text }}</span>
                                 <font-awesome-icon icon="chevron-down" style="height: 13px; margin-top: 5px" v-if="link.submenu"/>
                             </a>
+                            
+                            <!-- <a v-else class="flex gap-2 cursor-pointer" 
+                                @mouseenter="openSubmenu(index)"
+                                >
+                                <span>{{ link.text }}</span>
+                                <font-awesome-icon icon="chevron-down" style="height: 13px; margin-top: 5px" v-if="link.submenu"/>
+                            </a> -->
 
                             <div v-if="link.submenu" 
                                     :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" 
-                                    class="opacity-0 fixed inset-0 z-10 bg-white" @click="closeSubmenu(index)"></div>
+                                    class="opacity-0 fixed inset-0 z-10 bg-white" @click="closeSubmenu(index)"
+                                    >
+                                </div>
 
                             <div class="absolute" v-if="link.submenu" :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'">
                                 <div class="bg-white rounded-md p-3 min-w-[220px] top-1 w-full absolute z-10">
@@ -28,11 +37,14 @@
                                         <li v-for="(menu, mindex) in link.submenus" :key="mindex" class="hover:text-white hover:bg-gray-600">
                                             <div :class="menu.thirdmenu ? 'flex justify-between' : ''">
                                                 <a :href="menu.url" v-if="!menu.thirdmenu">{{ menu.text }}</a>
-                                                <a href="#" v-else v-on:click="links[index].submenus[mindex].showThirdMenu = !links[index].submenus[mindex].showThirdMenu"
-                                                @click.prevent="closeThirdmenu(index, mindex)">{{ menu.text }}</a>
+                                                    <!-- @mouseenter="links[index].submenus[mindex].showThirdMenu = true" -->
+                                                <a href="#" v-else 
+                                                    v-on:click="links[index].submenus[mindex].showThirdMenu = !links[index].submenus[mindex].showThirdMenu"
+                                                    @click.prevent="closeThirdmenu(index, mindex)">
+                                                    {{ menu.text }}
+                                                </a>
                                                 <font-awesome-icon icon="chevron-right" style="height: 13px; margin-top: 5px" v-if="menu.thirdmenu"/>
                                             </div>
-
                                             
                                             <div
                                                 v-if="menu.thirdmenu"  
@@ -557,6 +569,13 @@ export default {
             this.links[index].showSubmenu = !this.links[index].showSubmenu
         },
 
+        openSubmenu(index){
+            this.links[index].showSubmenu = true
+            this.links[index].submenus.forEach(function(item){
+                item.showThirdMenu = false
+            })
+        },
+
         closeSubmenu(index){
             this.links[index].showSubmenu = false
             this.links[index].submenus.forEach(function(item){
@@ -570,7 +589,6 @@ export default {
                 item.showThirdMenu = false
             })
             this.links[index].submenus[mindex].showThirdMenu = !this.links[index].submenus[mindex].showThirdMenu
-            // console.log(this.links[index].submenus[mindex].showThirdMenu)
         },
     }
 }

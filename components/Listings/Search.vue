@@ -5,7 +5,7 @@
                 <div class="w-8 h-full p-2">
                     <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada' }"/>
                 </div>
-                <div class="flex-1 relative">
+                <div class="flex-1 relative z-50">
                     <input
                     type="text"
                     class="w-full h-full focus:outline-none text-xs font-500"
@@ -50,7 +50,8 @@
                     <option value="sale">Buy</option>
                     <option value="rent">Rent</option>
                 </select>
-                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.type_name">
+                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.type_name"
+                >
                     <option value="null">Type</option>
                     <option v-for="(type, index) in types" :key="index" :value="type.slug">{{ type.name }}</option>
                 </select>
@@ -128,9 +129,7 @@ export default {
         }, 
 
         updateQuery(value, description, city, area){
-            console.log(value)
             this.SearchParamsStore.search = value
-            console.log(this.SearchParamsStore.search)
             this.SearchParamsStore.searchDescription = description
             this.SearchParamsStore.city_name = city
             this.SearchParamsStore.area_name = area
@@ -152,8 +151,13 @@ export default {
         }, 
 
         updateCategory(){
-            this.SearchParamsStore.category == 'rent' ? this.SearchParamsStore.category = 'sale' : this.SearchParamsStore.category = 'rent'
+            this.SearchParamsStore.category == 'rent' ? this.SearchParamsStore.category = 'rent' : this.SearchParamsStore.category = 'sale'
             this.fetchListings()
+        },
+
+        updateType(){
+            // this.SearchParamsStore.type_name
+            // this.fetchListings()
         },
 
         updatePriceParam(event){
@@ -183,7 +187,13 @@ export default {
             this.SearchParamsStore.triggered = false
 
             const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
+            const type = this.SearchParamsStore.type_name
+
             let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category
+
+            if( type != null ){
+                landingPage = '/'+type+'-'+this.SearchParamsStore.category
+            }
 
             if(this.SearchParamsStore.search !== null){
 

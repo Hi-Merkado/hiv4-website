@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div @keydown.esc="toggleModal()">
         <div v-if="showGallery"
             class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div class="relative w-11/12 lg:w-3/6 my-6 mx-auto lg:max-w-7xl">
+            <div class="relative w-11/12 lg:w-[825px] my-6 mx-auto lg:max-w-6xl">
                 <!--content-->
                 <div
                     class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -23,11 +23,8 @@
                     </div>
                     <!--body-->
                     <div class="relative p-6 flex h-[481px]">
-                        
                         <div class="h-full flex-1 mr-3">
-                            <div v-if="hasCurrentImage" >
-                                <!-- <img class="w-full h-full object-cover" :src="currentImage.url" alt="Image"> -->
-                            </div>
+                            <img v-if="hasCurrentImage" class="w-full h-full object-contain" :src="currentImage.url" alt="Image" />
                         </div>
                     
                         <div class="h-full relative">
@@ -107,7 +104,7 @@ export default {
         }
     },
 
-    created(){
+    mounted(){
         this.currentImage = this.images[0]
         this.hasCurrentImage = true
     },

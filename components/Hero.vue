@@ -30,7 +30,8 @@
                         </div>
                     </div>
                     <button
-                        class="lg:w-32 lg:h-full bg-green-default flex items-center rounded px-2 text-white lg:rounded-r-lg lg:font-bold "
+                        class="lg:w-32 lg:h-full flex items-center rounded px-2 text-white lg:rounded-r-lg lg:font-bold "
+                        :class="[SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default']"
                         type="button"
                         id="button-addon2"
                         @click="initiateSearch">
@@ -46,34 +47,34 @@
                     <div class="flex gap-4">
                         <div 
                             class="rounded-lg h-10 p-0.5"
-                            :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-gray-default'"
+                            :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
                             >
                             <button 
                                 class="bg-white font-bold py-1.5 px-4 mr-4 rounded-lg flex items-center gap-4"
-                                :class="SearchParamsStore.division == 1 ? 'border-green-default' : 'border-gray-default'"
+                                :class="SearchParamsStore.division == 1 ? 'border-green-default' : 'border-blue-default'"
                                 @click.prevent="updateDivision()"
                                 >
                                 <p>{{ SearchParamsStore.division == 1 ? 'Residential' : 'Commercial' }}</p>
                                 <span 
                                     class="rounded-full w-2 h-2"
-                                    :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-gray-default'"
+                                    :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
                                     >&nbsp;</span>
                             </button>
                         </div>
                         <div 
                             class="rounded-lg h-10 p-0.5"
-                            :class="SearchParamsStore.category == 'rent' ? 'bg-green-default' : 'bg-gray-default'"
+                            :class="SearchParamsStore.category == 'rent' ? 'bg-'+defaultColor+'-default' : 'bg-gray-default'"
                             >
                             <button 
                                 type="submit"
                                 class="bg-white font-bold py-1.5 px-4 mr-4 rounded-lg flex items-center gap-4"
-                                :class="SearchParamsStore.category == 1 ? 'border-green-default' : 'border-gray-default'"
+                                :class="SearchParamsStore.category == 1 ? 'border-'+defaultColor+'-default' : 'border-gray-default'"
                                 @click.prevent="updateCategory()"
                                 >
                                 <p>{{ SearchParamsStore.category == 'rent' ? 'Rent' : 'Buy' }}</p>
                                 <span 
                                     class="rounded-full w-2 h-2"
-                                    :class="SearchParamsStore.category == 'rent' ? 'bg-green-default' : 'bg-gray-default'"
+                                    :class="SearchParamsStore.category == 'rent' ? 'bg-'+defaultColor+'-default' : 'bg-gray-default'"
                                     >&nbsp;</span>
                             </button>
                         </div>
@@ -161,6 +162,13 @@ export default {
             ListingsStore
         }
     },
+
+    computed:{
+        defaultColor(){
+            return this.SearchParamsStore.division == 1 ? 'green' : 'blue'
+        }
+    },
+
     methods: {
         async fetchSuggestions(event){
             this.SearchParamsStore.triggered = false
@@ -247,6 +255,10 @@ export default {
 
             window.location.href = landingPage
             
+        },
+
+        formatNumber(event){
+            console.log(event.target.value)
         }
     }
 }
