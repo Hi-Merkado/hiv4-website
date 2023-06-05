@@ -19,7 +19,8 @@
     <section>
         <div class="lg:w-[789px] mx-auto lg:max-w-3xl py-[60px] px-6 lg:px-0">
 
-          
+            
+
         </div>
     </section>
 </template>
