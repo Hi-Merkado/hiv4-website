@@ -1,7 +1,9 @@
 <template>
     <div>
         <a :href="listing.url" class="relative">
-            <span class="absolute inline bg-blue-light rounded-lg text-blue-default px-2 py-1 top-2 right-2 font-bold">{{ listing.city_name }}</span>
+            <span class="absolute inline bg-blue-light rounded-lg text-blue-default px-2 py-1 top-2 right-2 font-bold"
+            :class="SearchParamsStore.division == 1 ? 'bg-green-light text-green-default' : 'bg-blue-light text-blue-default'"
+            >{{ listing.city_name }}</span>
             <img :src="listing.thumbnail" class="w-full">
             <div class="flex justify-between items-center my-2 text-sm">
                 <p v-if="listing.is_for_sale">
@@ -31,9 +33,19 @@
 </template>
 
 <script>
+import { useSearchParamsStore } from '@/stores/SearchParamsStore'
 
 export default {
     props: ['listing'],
+
+    setup(){
+        const SearchParamsStore = useSearchParamsStore()
+
+        return {
+            SearchParamsStore
+        }
+    },
+
     methods: {
         formatMoney(value){
             const numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;

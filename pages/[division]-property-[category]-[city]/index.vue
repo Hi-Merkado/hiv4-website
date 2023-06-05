@@ -28,7 +28,7 @@
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
 
         <div class="flex justify-between items-center mb-8">
-            <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
+            <p class="text-lg font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
                 <li class="h-8 hidden lg:block">
                     <button @click="updateCols(3)">

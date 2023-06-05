@@ -35,37 +35,37 @@
                 <h6 class="text-xs uppercase font-bold mb-6">Social Media</h6>
                 <ul class="flex gap-4 justify-center lg:justify-start">
                     <li>
-                        <NuxtLink to="/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center">
+                        <NuxtLink to="https://www.facebook.com/HousingInteractive/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center" target="_blank">
                             <font-awesome-icon :icon="['fab', 'facebook-f']" :style="{ height: '20px', color: '#333' }" />
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center">
+                        <NuxtLink to="https://twitter.com/housinginteract" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center" target="_blank">
                             <font-awesome-icon :icon="['fab', 'twitter']" :style="{ height: '20px', color: '#333' }" />
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center">
+                        <NuxtLink to="http://www.linkedin.com/company/housinginteractive" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center" target="_blank">
                             <font-awesome-icon :icon="['fab', 'linkedin']" :style="{ height: '20px', color: '#333' }" />
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center">
+                        <NuxtLink to="https://www.instagram.com/housinginteractive/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center" target="_blank">
                             <font-awesome-icon :icon="['fab', 'instagram']" :style="{ height: '20px', color: '#333' }" />
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center">
+                        <NuxtLink to="https://www.youtube.com/channel/UCLrjZZZQO7aLsaA65kPIegA?view_as=subscriber" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center" target="_blank">
                             <font-awesome-icon :icon="['fab', 'youtube']" :style="{ height: '20px', color: '#333' }" />
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center">
+                        <NuxtLink to="https://www.tiktok.com/@housinginteractive" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center" target="_blank">
                             <font-awesome-icon :icon="['fab', 'tiktok']" :style="{ height: '20px', color: '#333' }" />
                         </NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="/" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center">
+                        <NuxtLink to="mailto:info@housinginteractive.com" class="w-8 h-8 bg-gray-400 rounded-full block flex items-center justify-center" target="_blank">
                             <font-awesome-icon :icon="['fas', 'envelope']" :style="{ height: '20px', color: '#333' }" />
                         </NuxtLink>
                     </li>
@@ -84,7 +84,9 @@
                     <li>
                         <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
                     </li>
-                    <li>Privacy Policy</li>
+                    <li>
+                        <a href="/privacy-policy">Privacy Policy</a>
+                    </li>
                 </ul>
             </nav>
         </div>

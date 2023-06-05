@@ -30,17 +30,24 @@
                     <h6 class="flex h-[17px] gap-2 my-4 lg:my-0">{{ listingData.address }} <font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
                 </div>
                 <div class="w-full md:w-auto">
-                    <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2" v-if="listing.data.is_for_rent">
+                    <div 
+                        class="flex lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
+                        :class="SearchParamsStore.division == 1 ? 'bg-green-light' : 'bg-blue-light'"
+                        v-if="listing.data.is_for_rent">
                         <p class="font-bold ml-5">Rental Price</p>
-                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listingData.rental_price }} / month</span>
+                        <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
+                        :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
+                        >{{ listingData.rental_price }} / month</span>
                     </div>
 
-                    <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
-                        :class="listing.data.is_for_sale ? 'mt-4' : ''"
+                    <div class="flex w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
+                        :class="[listing.data.is_for_sale ? 'mt-4' : '', SearchParamsStore.division == 1 ? 'bg-green-light' : 'bg-blue-light' ]"
                         v-if="listing.data.sale_price"
                     >
                         <p class="font-bold ml-5">Sale Price</p>
-                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listingData.sale_price }}</span>
+                        <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
+                            :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
+                        >{{ listingData.sale_price }}</span>
                     </div>
                 </div>
             </div>
@@ -169,6 +176,7 @@
 </template>
 
 <script>
+import { useSearchParamsStore } from '@/stores/SearchParamsStore'
 import { useListingsStore } from '~/stores/ListingsStore'
 import ListingsServices from '~/services/ListingsServices'
 import { watchEffect } from 'vue'
@@ -207,13 +215,18 @@ export default {
     },
 
     setup(){
+        const SearchParamsStore = useSearchParamsStore()
         const ListingsStore = useListingsStore()
 
         return {
+            SearchParamsStore,
             ListingsStore
         }
     },
 
+    computed:{
+
+    },
 
     created(){
         watchEffect(() => {

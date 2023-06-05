@@ -3,9 +3,9 @@
 
         <div v-for="(division, index) in sitemap.data" :key="index">
             <h6 class="text-xs uppercase font-medium mb-8">{{ index }} Listings</h6>
-            <ul class="grid grid-cols-3">
-                <li v-for="(location, key) in division" :key="key">
-                    <a :href="defineUrl(index, 'rent', location.location)" class="text-gray-950">Rent in {{ location.location }}</a>
+            <ul class="grid grid-cols-3" v-for="(category, key) in division" :key="key">
+                <li v-for="(location, locKey) in category" :key="locKey">
+                    <a :href="defineUrl(index, key, location.location)" class="text-gray-950">{{ capitalize(key) }} in {{ location.location }}</a>
                 </li>
             </ul>
         </div>
@@ -38,6 +38,10 @@ export default {
                 .replace(/[^\w\s-]/g, '')
                 .replace(/[\s_-]+/g, '-')
                 .replace(/^-+|-+$/g, '')
+        },
+
+        capitalize(str){
+            return str.charAt(0).toUpperCase() + str.slice(1);
         }
     }
 }

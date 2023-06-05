@@ -38,7 +38,7 @@
         <a :href="getBuildingUrl()">Check Building Profile</a>
 
         <div class="flex justify-between items-center mb-8">
-            <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
+            <p class="text-lg font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
                 <li class="h-8 hidden lg:block">
                     <button @click="updateCols(3)">
@@ -192,7 +192,6 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            console.log(params)
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
             }

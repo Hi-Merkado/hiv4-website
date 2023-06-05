@@ -35,7 +35,7 @@
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
 
         <div class="flex justify-between mb-8">
-            <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
+            <p class="text-lg font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
                 <li class="h-8">
                     <button @click="updateCols(3)">
@@ -59,6 +59,7 @@
         </div>
 
         <section class="grid gap-8" :class="columns">
+            {{ ListingsStore.listings.data.data }}
             <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
         </section>
 
@@ -69,9 +70,9 @@
         <section id="seo-allocation" class="mt-10">
             <h2 class="text-xl font-bold mb-4">How much is a {{ pageTitle }}?</h2>
 
-            <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
+            <!-- <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p> -->
 
-            <p class="mb-4">You may find the most expensive and luxurious {{ $route.params.division }} properties for {{ $route.params.category }} at <span v-html="ListingsStore.listings.data.location.expensive"></span>. While you can find classy yet affordable ones at <span v-html="ListingsStore.listings.data.location.affordable"></span>.</p>
+            <!-- <p class="mb-4">You may find the most expensive and luxurious {{ $route.params.division }} properties for {{ $route.params.category }} at <span v-html="ListingsStore.listings.data.location.expensive"></span>. While you can find classy yet affordable ones at <span v-html="ListingsStore.listings.data.location.affordable"></span>.</p> -->
 
             <p class="mb-4">Below are the average sales prices according to the number of bedrooms in this location.</p>
 
