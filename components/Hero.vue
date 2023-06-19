@@ -173,6 +173,7 @@ export default {
         async fetchSuggestions(event){
             this.SearchParamsStore.triggered = false
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
+            console.log(params)
 
             this.suggestions = await ListingsServices._getSuggestions(params)
             

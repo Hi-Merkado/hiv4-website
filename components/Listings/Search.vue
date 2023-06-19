@@ -5,7 +5,7 @@
                 <div class="w-8 h-full p-2">
                     <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada' }"/>
                 </div>
-                <div class="flex-1 relative z-50">
+                <div class="flex-1 relative z-20">
                     <input
                     type="text"
                     class="w-full h-full focus:outline-none text-xs font-500"
@@ -56,7 +56,7 @@
                     <option v-for="(type, index) in types" :key="index" :value="type.slug">{{ type.name }}</option>
                 </select>
                 <div class="flex flex-1">
-                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-model="SearchParamsStore.priceMin">
+                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" @keyup="formatMoney(event)" v-model="SearchParamsStore.priceMin">
                     <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4" v-model="SearchParamsStore.priceMax">
                     <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="SearchParamsStore.priceParam">
                         <option value="pps">P / sqm</option>
@@ -182,6 +182,7 @@ export default {
             }
             this.fetchListings()
         },
+
         initiateSearch(){  
 
             this.SearchParamsStore.triggered = false
@@ -217,6 +218,10 @@ export default {
 
             window.location.href = landingPage
 
+        },
+
+        formatMoney(event){
+            this.SearchParamstore.priceMin = parseInt(this.SearchParamsStore.priceMin).toLocaleString('en-US')
         }
 
     }
