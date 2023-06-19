@@ -27,7 +27,6 @@
                         <div class="text-center">
                             <h2 class="font-bold">Ask Agent</h2>
                         </div>
-
                         <div>
                             <label class="block mb-4">
                                 <span class="block text-sm font-medium text-slate-700">Name</span>
@@ -80,7 +79,7 @@ import EnquiryServices from '~/services/EnquiryServices'
 export default {
     props: {
         showEnquiry: Boolean,
-        //listingData: Object,
+        listingData: Object,
         referrerUrl : { type : String },
         model : { type : String },
         modelId : { type : Number }
@@ -100,7 +99,6 @@ export default {
     },
 
     created(){
-
     },
 
     methods: {
@@ -110,13 +108,15 @@ export default {
         },
 
         async save() {
-            
 
-            const result = await EnquiryServices._store(this.enquiryData);
+            console.log(this.enquiryData)
+            console.log(this.listingData.parentUrl)
 
-            //if(result && result.success) {
-            //    showToast({ title: 'Your enquiry submitted successfully!' })
-            //}
+            const result = await EnquiryServices._store(this.enquiryData)
+
+            if(result && result.success) {
+               showToast({ title: 'Your enquiry submitted successfully!' })
+            }
 
             this.toggleModal();
 

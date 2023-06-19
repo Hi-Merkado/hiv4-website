@@ -1,10 +1,15 @@
 <template>
-    <div>
+    <div class="relative overflow-hidden">
+        <div class="absolute" v-if="listing.status_id == 5 || listing.status_id == 2">
+            <div class="absolute left-[-39px] top-[26px] w-[170px] transform -rotate-45 text-center font-semibold py-2 z-20"
+            :class="SearchParamsStore.division == 1 ? 'bg-green-light text-green-default' : 'bg-blue-light text-blue-default'"
+            >{{ listing.status_id == 2 ? 'Rented' : listing.status_name }}</div>
+        </div>
         <a :href="listing.url" class="relative">
             <span class="absolute inline bg-blue-light rounded-lg text-blue-default px-2 py-1 top-2 right-2 font-bold"
             :class="SearchParamsStore.division == 1 ? 'bg-green-light text-green-default' : 'bg-blue-light text-blue-default'"
             >{{ listing.city_name }}</span>
-            <img :src="listing.thumbnail" class="w-full">
+            <img :src="listing.thumbnail" class="w-[395px] h-[263px] object-fit">
             <div class="flex justify-between items-center my-2 text-sm">
                 <p v-if="listing.is_for_sale">
                     ₱ <span class="font-bold text-sm lg:text-xl">{{ formatMoney(listing.sale_price) }}</span>

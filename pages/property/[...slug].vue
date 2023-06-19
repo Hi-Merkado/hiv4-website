@@ -132,12 +132,12 @@
                 <div>
                     <div class="w-full lg:w-[380px] bg-gray-50 rounded-lg px-6 py-4">
                         <div class="flex gap-4 mb-6">
-                            <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt="">
+                            <!-- <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt=""> -->
                             <div>
                                 <p class="font-bold">{{ listingData.uploader }}</p>
                                 <p>Address: 6th floor LDM Building</p>
                                 <p>Polaris St. Makati City</p>
-                                <p>Telephone: (632) 8097574</p>
+                                <!-- <p>Telephone: (632) 8097574</p> -->
                             </div>
                         </div>
                         <button class="w-full bg-green-default text-center py-2 text-white font-bold rounded-lg" v-on:click="toggleEnquiry()">
@@ -154,7 +154,7 @@
                 </div>
             </template>
 
-            <div>
+            <div v-if="listing.other.length > 0">
                 <h3 class="font-bold text-xl mb-4">Other residential properties for rent</h3>
                 <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <ListingsListing v-for="(listing, index) in listing.other" :key="index" :listing="listing"/>
@@ -171,6 +171,7 @@
             :referrerUrl="listingData.parentUrl" 
             :model="`property`" 
             :modelId="listingData.id"
+            :listingData="listingData"
             @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>
@@ -236,6 +237,10 @@ export default {
             this.fetchListingImages(this.id)
         })
     }, 
+
+    mounted(){
+        ListingsServices._recordVisit(this.id)
+    },
 
     methods: {
         async fetchListing(id){

@@ -200,6 +200,7 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
+            console.log(params)
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
                 this.title = this.ListingsStore.listings.data.seo.keyword +' | Housinginteractive.com.ph'

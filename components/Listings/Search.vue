@@ -5,7 +5,7 @@
                 <div class="w-8 h-full p-2">
                     <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada' }"/>
                 </div>
-                <div class="flex-1 relative z-50">
+                <div class="flex-1 relative z-20">
                     <input
                     type="text"
                     class="w-full h-full focus:outline-none text-xs font-500"
