@@ -75,6 +75,7 @@
 <script>
 
 import EnquiryServices from '~/services/EnquiryServices'
+import showToast from '~/helpers/helpers';
 
 export default {
     props: {
@@ -109,9 +110,6 @@ export default {
 
         async save() {
 
-            console.log(this.enquiryData)
-            console.log(this.listingData.parentUrl)
-
             const result = await EnquiryServices._store(this.enquiryData)
 
             if(result && result.success) {
@@ -119,9 +117,7 @@ export default {
             }
 
             this.toggleModal();
-
             this.resetForm();
-            
         },
 
         resetForm() {

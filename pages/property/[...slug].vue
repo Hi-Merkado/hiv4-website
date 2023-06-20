@@ -30,24 +30,17 @@
                     <h6 class="flex h-[17px] gap-2 my-4 lg:my-0">{{ listingData.address }} <font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
                 </div>
                 <div class="w-full md:w-auto">
-                    <div 
-                        class="flex lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
-                        :class="SearchParamsStore.division == 1 ? 'bg-green-light' : 'bg-blue-light'"
-                        v-if="listing.data.is_for_rent">
+                    <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2" v-if="listing.data.is_for_rent">
                         <p class="font-bold ml-5">Rental Price</p>
-                        <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
-                        :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
-                        >{{ listingData.rental_price }} / month</span>
+                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listingData.rental_price }} / month</span>
                     </div>
 
-                    <div class="flex w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
-                        :class="[listing.data.is_for_sale ? 'mt-4' : '', SearchParamsStore.division == 1 ? 'bg-green-light' : 'bg-blue-light' ]"
+                    <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
+                        :class="listing.data.is_for_sale ? 'mt-4' : ''"
                         v-if="listing.data.sale_price"
                     >
                         <p class="font-bold ml-5">Sale Price</p>
-                        <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
-                            :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
-                        >{{ listingData.sale_price }}</span>
+                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listingData.sale_price }}</span>
                     </div>
                 </div>
             </div>
@@ -132,12 +125,12 @@
                 <div>
                     <div class="w-full lg:w-[380px] bg-gray-50 rounded-lg px-6 py-4">
                         <div class="flex gap-4 mb-6">
-                            <!-- <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt=""> -->
+                            <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt="">
                             <div>
                                 <p class="font-bold">{{ listingData.uploader }}</p>
                                 <p>Address: 6th floor LDM Building</p>
                                 <p>Polaris St. Makati City</p>
-                                <!-- <p>Telephone: (632) 8097574</p> -->
+                                <p>Telephone: (632) 8097574</p>
                             </div>
                         </div>
                         <button class="w-full bg-green-default text-center py-2 text-white font-bold rounded-lg" v-on:click="toggleEnquiry()">
@@ -154,7 +147,7 @@
                 </div>
             </template>
 
-            <div v-if="listing.other.length > 0">
+            <div>
                 <h3 class="font-bold text-xl mb-4">Other residential properties for rent</h3>
                 <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <ListingsListing v-for="(listing, index) in listing.other" :key="index" :listing="listing"/>
@@ -168,16 +161,14 @@
             @toggleGallery="toggleGallery"/>
         <ListingsEnquiry 
             :showEnquiry="showEnquiry"
-            :referrerUrl="listingData.parentUrl" 
+            :referrerUrl="buildingData.parentUrl" 
             :model="`property`" 
-            :modelId="listingData.id"
-            :listingData="listingData"
+            :modelId="id"
             @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>
 
 <script>
-import { useSearchParamsStore } from '@/stores/SearchParamsStore'
 import { useListingsStore } from '~/stores/ListingsStore'
 import ListingsServices from '~/services/ListingsServices'
 import { watchEffect } from 'vue'
@@ -216,18 +207,13 @@ export default {
     },
 
     setup(){
-        const SearchParamsStore = useSearchParamsStore()
         const ListingsStore = useListingsStore()
 
         return {
-            SearchParamsStore,
             ListingsStore
         }
     },
 
-    computed:{
-
-    },
 
     created(){
         watchEffect(() => {
@@ -237,10 +223,6 @@ export default {
             this.fetchListingImages(this.id)
         })
     }, 
-
-    mounted(){
-        ListingsServices._recordVisit(this.id)
-    },
 
     methods: {
         async fetchListing(id){
@@ -259,7 +241,7 @@ export default {
             this.listingData.parentTitle    = this.listingData.division + ' properties for ' + this.listingData.category
             this.listingData.parentUrl      = '/'+this.listingData.division.toLowerCase()+'-property-'+this.listingData.category.toLowerCase()
 
-            this.listingData.cityUrl        = this.listingData.parentUrl+'-'+this.listing.data.city_name.toLowerCase().replace(/\s+/g, '-')
+            this.listingData.cityUrl        = this.listingData.parentUrl+'-'+this.listing.data.city_name.toLowerCase()
 
             if(this.listing.data.building_name !== null) {
                 this.listingData.address += this.listing.data.building_name+' '
