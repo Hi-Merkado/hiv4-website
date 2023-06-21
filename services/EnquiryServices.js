@@ -1,14 +1,12 @@
-// const baseUrl = 'http://api.housinginteractive.com.ph/api/'
-const baseUrl = 'http://api.laravel.test/api/'
-const headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer 5|Qjv0RZ90RCZq8YzfZssTOPc7n5hgUMIYu4ADqMPQ' // Local
-    // Authorization: 'Bearer 4|xGskwbaKxUi05a4xr8JAIx6ReP1bHQ3OCGVSw0iG' //website
-}
-
 export default {
-    _store(data) {    
+    _store(data) {   
+        const runtimeConfig = useRuntimeConfig(); 
+        const baseUrl =  `${runtimeConfig.public.apiBase}/api/`;
+        const headers = {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${runtimeConfig.public.bearerToken}` // Local            
+        }
         return useFetch( baseUrl + 'inquiries', {
             method: 'POST',
             headers: headers,
