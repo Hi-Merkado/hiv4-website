@@ -25,16 +25,6 @@
             <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
                 <li class="h-8">
-                    <button @click="updateCols(3)">
-                        <img src="/images/3-cols.png" />
-                    </button>
-                </li>
-                <li class="h-8">
-                    <button @click="updateCols(2)">
-                        <img src="/images/2-cols.png" />
-                    </button>
-                </li>
-                <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
                         <option value="0">Date Modified (Newest First)</option>
                         <option value="1">Date Modified (Oldest First)</option>
@@ -50,7 +40,8 @@
         </section>
 
         <section class="mt-10" id="page-description">
-            <span v-html="ListingsStore.listings.data.seo.page_description"></span>
+            <span v-html="ListingsStore.listings.data.seo.page_description" v-show="readMoreActivated"></span>
+            <button class="underline" v-on:click="readMoreActivated = !readMoreActivated">Read property description</button>
         </section>
 
         <section id="seo-allocation" class="mt-10">
@@ -99,12 +90,13 @@
 import { useSearchParamsStore } from '@/stores/SearchParamsStore'
 import { useListingsStore } from '../stores/ListingsStore'
 import ListingsServices from '../services/ListingsServices'
+import { ref } from 'vue'
 
 export default {  
     data(){
         return {
             columns: 3,
-            sorting: 0,
+            sorting: 0
         }
     },   
     setup(){
@@ -115,7 +107,8 @@ export default {
             SearchParamsStore,
             ListingsStore,
             title: ref('Housinginteractive Inc'),
-            description: ref('')
+            description: ref(''),
+            readMoreActivated: ref(false)
         }
     },
     created(){
@@ -163,7 +156,7 @@ export default {
             return str.toLowerCase().split(' ').map(function(word) {
                 return (word.charAt(0).toUpperCase() + word.slice(1));
             }).join(' ');
-        }
+        }, 
 
     }
 }

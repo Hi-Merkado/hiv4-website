@@ -19,7 +19,14 @@
     <section>
         <div class="lg:w-[789px] mx-auto lg:max-w-3xl py-[60px] px-6 lg:px-0">
 
-            
+            <div v-for="(sValue, sKey) in sitemaps.data" :key="sKey">
+                <h2>{{ sKey }}</h2>
+                <ul>
+                    <li v-for="(sV, sK) in sValue">
+                        <a href="/{{ sK }}-for-{{ sKey }}">{{ sK }}</a>
+                    </li>
+                </ul>
+            </div>
 
         </div>
     </section>
@@ -27,8 +34,22 @@
 
 <script>
 import { useSearchParamsStore } from '@/stores/SearchParamsStore'
+import SitemapServices from '@/services/SitemapServices'
+
+const baseUrl = 'http://api.laravel.test/api/'
+const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer 5|ZeLetv0qjQ4S31UxlObPjbkelaQa9VRBisvf0f4U' // Local
+    // Authorization: 'Bearer 4|xGskwbaKxUi05a4xr8JAIx6ReP1bHQ3OCGVSw0iG' //website
+}
 
 export default {
+    data(){
+        return {
+            sitemaps: [],
+        }
+    },
     setup(){
         const SearchParamsStore = useSearchParamsStore()
 
@@ -39,5 +60,17 @@ export default {
             currentPath: 'https://housinginteractive.com.ph/privacy-policy'
         }
     },
+
+    created(){
+        watchEffect( () => {
+            this.getSitemaps()
+        })
+    },
+
+    methods:{
+        async getSitemaps(){
+            this.sitemaps = await SitemapServices._getSitemap()
+        }
+    }
 }
 </script>

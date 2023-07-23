@@ -17,7 +17,7 @@ export const useSearchParamsStore = defineStore('searchParamsStore', {
         page: 1,
         order: 'desc',
         orderBy: 'updated_at',
-        triggered: false
-        // featured: true
+        triggered: false,
+        featured: 0
     })
 })

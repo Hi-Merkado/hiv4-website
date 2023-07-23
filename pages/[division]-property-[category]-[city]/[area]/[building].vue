@@ -34,22 +34,14 @@
             <li class="text-gray-400">{{ buildingTitle }}</li>
         </ul>
 
-        <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
-        <a :href="getBuildingUrl()">Check Building Profile</a>
+        <h1 class="text-2xl font-bold mt-8 mb-1">{{ pageTitle }}</h1>
+        <a :href="getBuildingUrl()" class="mb-6 block flex">
+            <font-awesome-icon :icon="['fas', 'building']" style="height: 20px; color: #808080;"/> <span class="ml-2">Check Building Profile</span>
+        </a>
 
         <div class="flex justify-between items-center mb-8">
             <p class="text-lg font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
-                <li class="h-8 hidden lg:block">
-                    <button @click="updateCols(3)">
-                        <img src="/images/3-cols.png" />
-                    </button>
-                </li>
-                <li class="h-8 hidden lg:block">
-                    <button @click="updateCols(2)">
-                        <img src="/images/2-cols.png" />
-                    </button>
-                </li>
                 <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
                         <option value="0">Newest First</option>
@@ -63,8 +55,7 @@
 
         <section>
 
-            <div class="grid gap-8 md:grid-cols-2"
-                :class="columns">
+            <div class="grid gap-8 md:grid-cols-2" :class="columns">
                 <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
             </div>
 
@@ -84,9 +75,9 @@
 
         </section>
 
-
         <section class="mt-10" id="page-description">
-            <span v-html="ListingsStore.listings.data.seo.page_description" v-if="ListingsStore.listings.data.seo.page_description != null"></span>
+            <span v-html="ListingsStore.listings.data.seo.page_description" v-show="readMoreActivated"></span>
+            <button class="underline" v-on:click="readMoreActivated = !readMoreActivated">Read property description</button>
         </section>
 
         <section id="seo-allocation" class="mt-10">
@@ -128,6 +119,7 @@
 import { useSearchParamsStore } from '@/stores/SearchParamsStore'
 import { useListingsStore } from '@/stores/ListingsStore'
 import ListingsServices from '@/services/ListingsServices'
+import { ref } from 'vue'
 
 export default {   
     data(){
@@ -142,7 +134,8 @@ export default {
 
         return {
             SearchParamsStore,
-            ListingsStore
+            ListingsStore,
+            readMoreActivated: ref(false)
         }
     },
     created(){

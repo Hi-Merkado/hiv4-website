@@ -27,7 +27,8 @@
             <div class="flex flex-wrap md:flex-row md:flex-nowrap gap-2 justify-between my-8">
                 <div>
                     <h1 class="text-xl lg:text-2xl font-bold">{{ listing.data.property_name }}</h1>
-                    <h6 class="flex h-[17px] gap-2 my-4 lg:my-0">{{ listingData.address }} <font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
+                    <h6 class="flex h-[17px] gap-2 my-4"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ listingData.address }}</h6>
+                    <h6 class="flex h-[17px] gap-2 my-4 lg:my-0" v-if="listing.data.building_name"><font-awesome-icon icon="building" style="height: 17px; color: #2f80ed"/> <a :href="buildingLink()">{{ listing.data.building_name }}</a> </h6>
                 </div>
                 <div class="w-full md:w-auto">
                     <div 
@@ -54,11 +55,11 @@
             
             <div class="grid lg:grid-cols-2 gap-2 mb-8">
                 <div class="grid grid-cols-1 grid-rows-1 object-fit md:object-contain">
-                    <img :src="listing.data.thumbnail" alt="" class="md:w-full h-full rounded-lg cursor-pointer"
+                    <img :src="listing.data.thumbnail" alt="" class="md:w-full h-[466px] rounded-lg cursor-pointer"
                         v-on:click="toggleGallery()">
                 </div>
-                <div class="lg:grid grid-cols-2 grid-rows-2 gap-2">
-                    <img v-for="(thumbnail, index) in listingData.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer" v-on:click="toggleGallery()">
+                <div class="lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
+                    <img v-for="(thumbnail, index) in listingData.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery()">
                 </div>
             </div>
 
@@ -66,21 +67,21 @@
                 <div>
                     <div class="flex flex-col md:flex-row lg:flex-row gap-8">
                         <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
-                            <img src="/images/home.png" alt=""> 
+                            <font-awesome-icon :icon="['fas', 'house']" style="height: 20px; color: #808080"/>
                             <div>
                                 <p class="font-bold uppercase">Status</p>
                                 <p>{{ listing.data.status_name }}</p>
                             </div>
                         </div>
                         <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
-                            <img src="/images/calendar.png" alt=""> 
+                            <font-awesome-icon :icon="['fas', 'calendar']" style="height: 20px; color: #808080"/>
                             <div>
                                 <p class="font-bold uppercase">Available On</p>
                                 <p>{{ listing.data.formatted_availability }}</p>
                             </div>
                         </div>
                         <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
-                            <img src="/images/calendar.png" alt=""> 
+                            <font-awesome-icon :icon="['fas', 'calendar']" style="height: 20px; color: #808080"/>
                             <div>
                                 <p class="font-bold uppercase">Last Updated</p>
                                 <p>{{ listing.data.updated_at }}</p>
@@ -96,23 +97,23 @@
                         <h3 class="font-bold text-xl mb-4">Attributes</h3>
                         <ul>
                             <li class="flex mb-4 ml-4 items-center gap-2">
-                                <img src="/images/bedroom.png" alt=""> 
-                                <span>Bedrooms: {{ listing.data.bedrooms }}</span>
+                                <font-awesome-icon :icon="['fas', 'bed']" style="height: 20px; color: #808080"/>
+                                <span>Bedrooms: {{ listing.data.bedrooms > 0 ? listing.data.bedrooms : 'Studio' }}</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2">
-                                <img src="/images/bathroom.png" alt="">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.bathrooms > 0">
+                                <font-awesome-icon :icon="['fas', 'bath']" style="height: 20px; color: #808080"/>
                                 <span>Bathrooms: {{ listing.data.bathrooms }}</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.floor > 0">
                                 <img src="/images/floorarea.png" alt="">
                                 <span>Floor Area: {{ listing.data.floor }} sqm</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="lot > 0">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.lot > 0">
                                 <img src="/images/area.png" alt="">
                                 <span>Lot Area: {{ listing.data.lot }}</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="parking > 0">
-                                <img src="/images/parking.png" alt="">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.parking > 0">
+                                <font-awesome-icon :icon="['fas', 'square-parking']" style="height: 20px; color: #808080"/>
                                 <span>Parking: {{ listing.data.parking }}</span>
                             </li>
                         </ul>
@@ -122,7 +123,7 @@
                         <h3 class="font-bold text-xl mb-4">Building amenities & unit features</h3>
                         <ul>
                             <li v-for="(amenity, index) in listing.data.amenities" :key="index" class="flex mb-4 ml-4 gap-2">
-                                <img src="/images/check.png" alt="">
+                                <font-awesome-icon :icon="['fas', 'check']" style="height: 20px; color: #808080"/>
                                 <span>{{ amenity.name }}</span>
                             </li>
                         </ul>
@@ -156,9 +157,26 @@
 
             <div v-if="listing.other.length > 0">
                 <h3 class="font-bold text-xl mb-4">Other residential properties for rent</h3>
-                <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <ListingsListing v-for="(listing, index) in listing.other" :key="index" :listing="listing"/>
-                </section>
+
+                <div class="relative">
+                    <div class="slides-container h-[273px] flex snap-x snap-mandatory overflow-hidden overflow-x-auto space-x-2 rounded scroll-smooth before:w-[45vw] before:shrink-0 after:w-[45vw] after:shrink-0 md:before:w-0 md:after:w-0" ref="slidesContainer">
+                        <div v-for="(listing, index) in listing.other" :key="index" class="slide w-[395px] h-[350px] aspect-square h-full flex-shrink-0 rounded overflow-hidden" ref="slide" style="margin-right: 13px;">
+                            <ListingsListing :listing="listing"/>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="w-full flex justify-center mt-8" v-if="listing.other.count > 3">
+                    <ul class="flex gap-3"><!--[-->
+                        <li>
+                            <button class="text-sm" @click="prevSlide()">Prev</button>
+                        </li>
+                        <li>
+                            <button class="text-sm" @click="nextSlide()">Next</button>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </section>
         <ListingsGallery 
@@ -176,7 +194,18 @@
     </div>
 </template>
 
+<style>
+    .slides-container {
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        scrollbar-width: none; /* Firefox */
+    }
+    .slides-container::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
+</style>
+
 <script>
+
 import { useSearchParamsStore } from '@/stores/SearchParamsStore'
 import { useListingsStore } from '~/stores/ListingsStore'
 import ListingsServices from '~/services/ListingsServices'
@@ -211,7 +240,7 @@ export default {
                 coordinates: {}
             },
             showGallery: false,
-            showEnquiry: false
+            showEnquiry: false,
         }
     },
 
@@ -223,10 +252,6 @@ export default {
             SearchParamsStore,
             ListingsStore
         }
-    },
-
-    computed:{
-
     },
 
     created(){
@@ -243,11 +268,29 @@ export default {
     },
 
     methods: {
+        getWidth(){
+            return this.$refs.slide.clientWidth
+        },
+
+        getHeight(){
+            return this.$refs.slide.clientHeight
+        },
+
+        nextSlide(){
+            console.log(this.$refs.slidesContainer)
+            this.$refs.slidesContainer.scrollLeft += 408
+        },
+
+        prevSlide(){
+            this.$refs.slidesContainer.scrollLeft -= 408
+        },
+
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
             this.listingData.division       = this.listing.data.division_id == 1 ? 'Residential' : 'Commercial'
             this.listingData.category       = this.listing.data.is_for_rent == 1 ? 'Rent' : 'Sale' 
             this.listingData.building       = this.listing.data.building_name
+            this.listingData.building_slug  = this.listing.data.building_slug
             this.listingData.rental_price   = "₱ "+this.formatMoney(this.listing.data.rent_price)
             this.listingData.sale_price     = "₱ "+this.formatMoney(this.listing.data.sale_price)
             this.listingData.status_name    = this.listing.data.status_name
@@ -286,6 +329,10 @@ export default {
 
         toggleEnquiry(){
             this.showEnquiry = !this.showEnquiry
+        },
+
+        buildingLink(){
+            return '/building/'+ this.listing.data.buildling_slug
         }
     }
 }
