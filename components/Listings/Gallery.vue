@@ -28,22 +28,18 @@
                         </div>
                     
                         <div class="h-full relative">
-                            <div v-if="images.length > 5" @click="scrollUp"
-                                ref="scrollUp"
-                            class="w-28 h-9 absolute top-0 bg-white opacity-50 cursor-pointer text-center">
-                                Up
+                            <div v-if="images.length > 5" @click="scrollUp" ref="scrollUp" class="w-28 h-9 absolute top-0 bg-white opacity-50 cursor-pointer text-center justify-center grid">
+                                <font-awesome-icon :icon="['fas', 'arrow-up']" style="height: 28px;"/>
                             </div>
                             <div ref="thumbnails" class="h-full overflow-hidden">
                                 <div class="flex flex-col">
-                                    <div v-for="(image, index) in images" :key="index" @click="setCurrentImage(index)" :ref="`image-${index}`"
-                                    class="w-28 h-20 rounded overflow-hidden mb-3 cursor-pointer">
+                                    <div v-for="(image, index) in images" :key="index" @click="setCurrentImage(index)" :ref="`image-${index}`" class="w-28 h-20 rounded overflow-hidden mb-3 cursor-pointer">
                                     <img v-if="images" class="w-28 h-20 object-cover" :src="image.url" alt="Image">
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="images.length > 5" @click="scrollDown"
-                            class="w-28 h-9 absolute bottom-0 bg-white opacity-50 cursor-pointer text-center">
-                                Down
+                            <div v-if="images.length > 5" @click="scrollDown" class="w-28 h-9 absolute bottom-0 bg-white opacity-50 cursor-pointer text-center justify-center grid">
+                                <font-awesome-icon :icon="['fas', 'arrow-down']" style="height: 28px;"/>
                             </div>
                         </div>
 

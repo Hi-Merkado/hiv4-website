@@ -105,13 +105,14 @@ export default {
     methods: {
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
+
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
             }
         }, 
 
         updatedFeatured(value){
-            this.SearchParamsStore.featured = value
+            this.SearchParamsStore.featured = value == true ? 1 : 0
             this.fetchListings()
         },
 

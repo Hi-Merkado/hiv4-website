@@ -6,20 +6,27 @@
             <div class="flex gap-2 justify-between mb-8">
                 <div>
                     <h1 class="text-2xl font-bold">{{ buildingData.name }}</h1>
-                    <h6 class="flex h-[17px] gap-2">{{ buildingData.location }}<font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
+                    <h6 class="flex h-[17px] gap-2"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ buildingData.location }}</h6>
+                </div>
+                <div class="flex items-center">
+                    <font-awesome-icon icon="star" style="height: 30px; color: #FF5856"/>
+                    <div>
+                        <p>{{ towerZonalValue }}</p>
+                        <p class="font-bold text-2xl">{{ buildingData.zonal_value }}</p>
+                    </div>
                 </div>
 
             </div>
             
             <div class="grid lg:grid-cols-2 gap-2 mb-8">
                 <div class="grid lg:grid-cols-1 lg:grid-rows-1 lg:object-fit md:object-contain">
-                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-56216/conversions/condo-sale-manila-56216-0-635x423-watermarked.jpg" alt="" class="w-full h-full rounded-lg cursor-pointer">
+                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/9.1682645832.jpg" alt="" class="h-[466px] rounded-lg cursor-pointer w-full">
                 </div>
                 <div class="lg:grid grid-cols-2 grid-rows-2 gap-2 hidden lg:block">
-                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-56216/conversions/condo-sale-manila-56216-1-635x423-watermarked.jpg" alt="" class="rounded-lg cursor-pointer" >
-                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-56216/conversions/condo-sale-manila-56216-1-635x423-watermarked.jpg" alt="" class="rounded-lg cursor-pointer" >
-                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-56216/conversions/condo-sale-manila-56216-1-635x423-watermarked.jpg" alt="" class="rounded-lg cursor-pointer" >
-                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-56216/conversions/condo-sale-manila-56216-1-635x423-watermarked.jpg" alt="" class="rounded-lg cursor-pointer" >
+                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/conversions/10.1682645833-635x423-watermarked.jpg" alt="" class="h-[222px] rounded-lg cursor-pointer" >
+                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/conversions/10.1682645833-635x423-watermarked.jpg" alt="" class="h-[222px] rounded-lg cursor-pointer" >
+                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/conversions/10.1682645833-635x423-watermarked.jpg" alt="" class="h-[222px] rounded-lg cursor-pointer" >
+                    <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/9.1682645832.jpg" alt="" class="h-[222px] rounded-lg cursor-pointer" >
                 </div>
             </div>
 
@@ -55,7 +62,7 @@
                         <h3 class="font-bold text-xl mb-4">Building amenities & unit features</h3>
                         <ul>
                             <li class="flex mb-4 ml-4 gap-2" v-for="(amenity, index) in buildingData.amenities" :key="index">
-                                <img src="/images/check.png" alt="">
+                                <font-awesome-icon :icon="['fas', 'check']" style="height: 20px; color: #808080"/>
                                 <span>{{ amenity.name }}</span>
                             </li>
                         </ul>
@@ -92,12 +99,12 @@
                 <div>
                     <div class="lg:w-[380px] bg-gray-50 rounded-lg px-6 py-4">
                         <div class="flex gap-4 mb-6">
-                            <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt="">
+                            <!-- <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt=""> -->
                             <div>
-                                <p class="font-bold"></p>
+                                <p class="font-bold">Housinginteractive Inc</p>
                                 <p>Address: 6th floor LDM Building</p>
                                 <p>Polaris St. Makati City</p>
-                                <p>Telephone: (632) 8097574</p>
+                                <!-- <p>Telephone: (632) 8097574</p> -->
                             </div>
                         </div>
                         <button class="w-full bg-green-default text-center py-2 text-white font-bold rounded-lg" v-on:click="toggleEnquiry()">
@@ -183,6 +190,12 @@ export default {
         })
     }, 
 
+    computed: {
+        towerZonalValue(){
+            return 'Tower Zonal Value'
+        }
+    },
+
     methods: {
         async fetchBuilding(slug){
             this.building = await BuildingsServices._getBuilding(slug).data
@@ -195,6 +208,7 @@ export default {
             this.buildingData.property_count = this.building.data.property_count
             this.buildingData.property_sale = this.building.data.property_sale
             this.buildingData.property_rent = this.building.data.property_rent
+            this.buildingData.zonal_value = this.building.data.zonal_value
             this.buildingData.coordinates = { lat: this.building.data.latitude, lng: this.building.data.longitude }
             this.buildingData.property_rent_min = "₱ "+this.formatMoney(this.building.data.property_rent_min)
             this.buildingData.property_rent_max = "₱ "+this.formatMoney(this.building.data.property_rent_max)

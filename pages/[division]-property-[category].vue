@@ -17,16 +17,6 @@
         <div class="flex justify-between items-center mb-8">
             <p class="text-sm font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
-                <li class="h-8 hidden lg:block">
-                    <button @click="updateCols(3)">
-                        <img src="/images/3-cols.png" />
-                    </button>
-                </li>
-                <li class="h-8 hidden lg:block">
-                    <button @click="updateCols(2)">
-                        <img src="/images/2-cols.png" />
-                    </button>
-                </li>
                 <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
                         <option value="0">Newest First</option>

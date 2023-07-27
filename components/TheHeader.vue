@@ -18,13 +18,6 @@
                                 <font-awesome-icon icon="chevron-down" style="height: 13px; margin-top: 5px" v-if="link.submenu"/>
                             </a>
                             
-                            <!-- <a v-else class="flex gap-2 cursor-pointer" 
-                                @mouseenter="openSubmenu(index)"
-                                >
-                                <span>{{ link.text }}</span>
-                                <font-awesome-icon icon="chevron-down" style="height: 13px; margin-top: 5px" v-if="link.submenu"/>
-                            </a> -->
-
                             <div v-if="link.submenu" 
                                     :class="!links[index].showSubmenu ? 'hidden' : 'inline-block'" 
                                     class="opacity-0 fixed inset-0 z-10 bg-white" @click="closeSubmenu(index)"
@@ -37,7 +30,6 @@
                                         <li v-for="(menu, mindex) in link.submenus" :key="mindex" class="hover:text-white hover:bg-gray-600">
                                             <div :class="menu.thirdmenu ? 'flex justify-between' : ''">
                                                 <a :href="menu.url" v-if="!menu.thirdmenu">{{ menu.text }}</a>
-                                                    <!-- @mouseenter="links[index].submenus[mindex].showThirdMenu = true" -->
                                                 <a href="#" v-else 
                                                     v-on:click="links[index].submenus[mindex].showThirdMenu = !links[index].submenus[mindex].showThirdMenu"
                                                     @click.prevent="closeThirdmenu(index, mindex)">
@@ -65,10 +57,10 @@
             </div>
             <nav class="grid place-items-end">
                 <div class="flex justify-end">
-                    <NuxtLink to="http://app.housinginteractive.com.ph" class="lg:flex lg:gap-4 lg:w-52 lg:h-5 font-bold text-base">
+                    <a href="#" class="lg:flex lg:gap-4 lg:w-52 lg:h-5 font-bold text-base" v-on:click="toggleLogin()">
                         <span class="hidden lg:inline">Free Listing Upload</span>
                         <font-awesome-icon icon="user" size="xs" class="place-items-end" :style="{ color: '#2f80ed', width: '37px', height: '20px', lineHeight: '1' }"/>
-                    </NuxtLink>
+                    </a>
                     <a href="#" class="lg:hidden" @click="showMobilemenu = !showMobilemenu">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="apps_24px">
@@ -79,6 +71,16 @@
                 </div>
             </nav>
         </div>
+
+        <Login
+            :showLogin="showLogin"
+            :referrerUrl="[]" 
+            :model="`property`" 
+            :modelId="1"
+            :listingData="[]"
+            @toggleLogin="toggleLogin"
+        />
+
     </header>
 </template>
 
@@ -502,45 +504,401 @@ export default {
                     submenu: true,
                     showSubmenu: false,
                     submenus: [
-                        {
-                            url: '/residential-property-rent',
-                            text: 'Residential'
+                    {
+                            url: '#',
+                            text: 'Residential',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/residential-property-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/residential-property-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/residential-property-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/residential-property-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/residential-property-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/residential-property-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/residential-property-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/residential-property-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/residential-property-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/house-rent',
-                            text: 'House'
+                            url: '#',
+                            text: 'House',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/house-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/house-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/house-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/house-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/house-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/house-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/house-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/house-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/house-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/condo-rent',
-                            text: 'Condo'
+                            url: '#',
+                            text: 'Condo',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/condo-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/condo-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/condo-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/condo-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/condo-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/condo-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/condo-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/condo-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/condo-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/condo-rent',
-                            text: 'Condo'
+                            url: '#',
+                            text: 'Lot',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/lot-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/lot-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/lot-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/lot-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/lot-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/lot-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/lot-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/lot-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/lot-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/lot-rent',
-                            text: 'Lot'
+                            url: '#',
+                            text: 'Commercial',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/commercial-property-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/commercial-property-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/commercial-property-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/commercial-property-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/commercial-property-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/commercial-property-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/commercial-property-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/commercial-property-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/commercial-property-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/commercial-property-rent',
-                            text: 'Commercial'
+                            url: '#',
+                            text: 'Office Space',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/office-space-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/office-space-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/office-space-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/office-space-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/office-space-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/office-space-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/office-space-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/office-space-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/office-space-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/office-space-rent',
-                            text: 'Office Space'
+                            url: '#',
+                            text: 'Building',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/building-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/building-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/building-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/building-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/building-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/building-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/building-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/building-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/building-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/building-rent',
-                            text: 'Building'
+                            url: '#',
+                            text: 'Serviced Office',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/serviced-office-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/serviced-office-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/serviced-office-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/serviced-office-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/serviced-office-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/serviced-office-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/serviced-office-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/serviced-office-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/serviced-office-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                         {
-                            url: '/serviced-office-rent',
-                            text: 'Serviced Office'
-                        },
-                        {
-                            url: '/warehouse-rent',
-                            text: 'Warehouse'
+                            url: '#',
+                            text: 'Warehouse',
+                            thirdmenu: true,
+                            showThirdMenu: false,
+                            thirdmenus: [
+                                {
+                                    url: '/warehouse-rent-makati',
+                                    text: 'Makati',
+                                },
+                                {
+                                    url: '/warehouse-rent-taguig',
+                                    text: 'Taguig',
+                                },
+                                {
+                                    url: '/warehouse-rent-pasig',
+                                    text: 'Pasig',
+                                },
+                                {
+                                    url: '/warehouse-rent-mandaluyong',
+                                    text: 'Mandaluyong',
+                                },
+                                {
+                                    url: '/warehouse-rent-muntinlupa',
+                                    text: 'Muntinlupa',
+                                },
+                                {
+                                    url: '/warehouse-rent-pasay',
+                                    text: 'Pasay',
+                                },
+                                {
+                                    url: '/warehouse-rent-paranaque',
+                                    text: 'Paranaque',
+                                },
+                                {
+                                    url: '/warehouse-rent-quezon-city',
+                                    text: 'Quezon City',
+                                },
+                                {
+                                    url: '/warehouse-rent-las-pinas',
+                                    text: 'Las Pinas',
+                                },
+                            ]
                         },
                     ]
 
@@ -561,6 +919,7 @@ export default {
                     submenu: false
                 }
             ],
+            showLogin: false
         }
     },
 
@@ -590,6 +949,10 @@ export default {
             })
             this.links[index].submenus[mindex].showThirdMenu = !this.links[index].submenus[mindex].showThirdMenu
         },
+
+        toggleLogin(){
+            this.showLogin = !this.showLogin
+        }
     }
 }
 </script>

@@ -48,7 +48,7 @@
             </form>
         </div>
         <div class="bg-gray-50 p-6 w-full lg:w-1/2 rounded-lg">
-            <GoogleMaps />
+            <GoogleMaps style="height: 250px;"/>
             <div class="grid lg:grid-cols-2 py-5">
                 <div class="flex items-center gap-4 mb-4 lg:mb-0">
                     <div>
@@ -56,10 +56,13 @@
                     </div>
                     <div class="text-sm leading-4">
                         <p class="uppercase">
-                            t: (632) 8809 7574
+                            t: +63 956 134 3180
                         </p>
                         <p class="uppercase">
-                            t: (632) 7759 2026
+                            t: +63 919 474 1067
+                        </p>
+                        <p class="uppercase">
+                            t: +632 8401 6302
                         </p>
                     </div>
                 </div>                    

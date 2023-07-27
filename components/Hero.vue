@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-gray-100 bg-blend-luminosity bg-no-repeat bg-bottom bg-contain lg:bg-auto bg-[url('/images/city.png')]">
+    <section class="bg-blue-500 bg-no-repeat bg-center bg-cover lg:bg-cover bg-[url('/images/IMG_0080.JPG')]">
         <div class="container mx-auto h-[463px] lg:h-[720px] text-center lg:pt-16 lg:pb-32 flex flex-col items-center bg-bottom ">
             <h1 class="text-3xl font-bold align-middle pt-14">Your next move?</h1>
             <h2 class="text-xl align-middle pb-14">Search for your properties for sale or rent in the Philippines</h2>
@@ -81,10 +81,12 @@
                     </div>
                     <div class="flex justify-between gap-4">
                         <div class="flex flex-1">
-                            <input type="text" placeholder="1,375,000" v-model="SearchParamsStore.priceMin" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4"
+                            <input type="text" placeholder="1,375,000" id="priceMin" v-model="SearchParamsStore.priceMin" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4"
                                 v-on:keyup="formatNumber($event)"
                             >
-                            <input type="text" placeholder="2,000,000" v-model="SearchParamsStore.priceMax" class="w-1/3 border-y text-sm focus:outline-none px-4">
+                            <input type="text" placeholder="2,000,000" id="priceMax" v-model="SearchParamsStore.priceMax" class="w-1/3 border-y text-sm focus:outline-none px-4"
+                                v-on:keyup="formatNumber($event)"
+                            >
                             <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="SearchParamsStore.priceParam" @change="updatePriceParam($event)">
                                 <option value="pps">P / sqm</option>
                                 <option value="price">Price</option>
@@ -259,7 +261,22 @@ export default {
         },
 
         formatNumber(event){
-            console.log(event.target.value)
+            let numberRegex = /^(?:-(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))|(?:0|(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))))(?:.\d+|)$/
+
+            console.log(event.target.id)
+
+            let current_value = event.target.value
+
+            if(numberRegex.test(current_value)){
+                let tmp = current_value.replace(/,/g,'')
+                let val = Number(tmp).toLocaleString('en-US')
+
+                event.target.value = val
+            } else {
+                event.target.value = ''
+            }
+
+
         }
     }
 }
