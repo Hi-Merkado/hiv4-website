@@ -18,7 +18,8 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public : {
             apiBase : process.env.API_BASE_URL,
-            bearerToken : process.env.BEARER_TOKEN
+            bearerToken : process.env.BEARER_TOKEN,
+            platformURL : "https://app.housinginteractive.com.ph"
         },
         API_BASE_URL: process.env.API_BASE_URL
     }
