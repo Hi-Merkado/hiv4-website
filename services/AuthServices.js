@@ -1,5 +1,5 @@
 // const baseUrl = 'http://api.housinginteractive.com.ph/api/'
-const baseUrl = 'http://api.laravel.test/sanctum/csrf-cookie'
+const baseUrl = 'https://api.laravel.test/sanctum/csrf-cookie'
 // const headers = {
 //     Accept: 'application/json',
 //     'Content-Type': 'application/json',
