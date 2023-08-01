@@ -57,7 +57,7 @@
             </div>
             <nav class="grid place-items-end">
                 <div class="flex justify-end">
-                    <a href="#" class="lg:flex lg:gap-4 lg:w-52 lg:h-5 font-bold text-base" v-on:click="toggleLogin()">
+                    <a href="http://app.housinginteractive.com.ph" class="lg:flex lg:gap-4 lg:w-52 lg:h-5 font-bold text-base">
                         <span class="hidden lg:inline">Free Listing Upload</span>
                         <font-awesome-icon icon="user" size="xs" class="place-items-end" :style="{ color: '#2f80ed', width: '37px', height: '20px', lineHeight: '1' }"/>
                     </a>
