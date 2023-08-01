@@ -1,4 +1,4 @@
-const baseUrl = 'https://api.housinginteractive.com.ph/api/'
+const baseUrl = 'http://api.housinginteractive.com.ph/api/'
 //const baseUrl = 'http://api.laravel.test/api/'
 const headers = {
     Accept: 'application/json',
