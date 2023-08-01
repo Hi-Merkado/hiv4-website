@@ -11,7 +11,7 @@
         </Head>
     </div>
 
-    <Hero />
+    <!-- Hero / -->
 
     <!-- Featured / -->
 
