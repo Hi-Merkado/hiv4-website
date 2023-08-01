@@ -66,7 +66,8 @@
         </header>
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
+            {{ ListingsStore.listings }}
+            <!-- ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/ -->
 
         </section>
     </section>
