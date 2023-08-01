@@ -4,7 +4,7 @@ const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     //Authorization: 'Bearer 5|ZeLetv0qjQ4S31UxlObPjbkelaQa9VRBisvf0f4U' // Local
-    Authorization: 'Bearer 6|pGpJOLEugVA24Bw2YAlg7mhz2jxCWZipDkxErDkp' //website
+    Authorization: 'Bearer 7|xiMlQN3vT9SM1gIK2OAUPPmjcgDLlf35d7bwouol' //website
 }
 
 export default {
