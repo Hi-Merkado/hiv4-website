@@ -13,7 +13,7 @@
 
     <Hero />
 
-    <Featured />
+    <!-- Featured / -->
 
     <Testimonial />
 
