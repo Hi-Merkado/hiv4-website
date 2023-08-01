@@ -16,6 +16,9 @@ export default {
     },
 
     _getListings(params = ''){
+
+        console.log(baseUrl + 'website/properties' + `${params}`)
+        
         return useFetch( baseUrl + 'website/properties' + `${params}`, {
             method: 'GET',
             headers: headers
