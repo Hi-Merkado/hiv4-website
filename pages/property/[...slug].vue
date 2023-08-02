@@ -96,32 +96,7 @@ export default {
         },
 
         async fetchListing(id){
-            this.listing = await ListingsServices._getListing(id).data
-            this.listingData.division       = this.listing.data.division_id == 1 ? 'Residential' : 'Commercial'
-            this.listingData.category       = this.listing.data.is_for_rent == 1 ? 'Rent' : 'Sale' 
-            this.listingData.building       = this.listing.data.building_name
-            this.listingData.building_slug  = this.listing.data.building_slug
-            this.listingData.rental_price   = "₱ "+this.formatMoney(this.listing.data.rent_price)
-            this.listingData.sale_price     = "₱ "+this.formatMoney(this.listing.data.sale_price)
-            this.listingData.status_name    = this.listing.data.status_name
-            this.listingData.amenities      = this.listing.data.amenities
-            this.listingData.other          = this.listing.other
-            this.listingData.uploader       = this.listing.data.uploader_name
-            this.listingData.thumbnail      = this.listing.data.thumbnail
-            this.listingData.images         = this.listing.data.images
-            this.listingData.parentTitle    = this.listingData.division + ' properties for ' + this.listingData.category
-            this.listingData.parentUrl      = '/'+this.listingData.division.toLowerCase()+'-property-'+this.listingData.category.toLowerCase()
-
-            this.listingData.cityUrl        = this.listingData.parentUrl+'-'+this.listing.data.city_name.toLowerCase().replace(/\s+/g, '-')
-
-            if(this.listing.data.building_name !== null) {
-                this.listingData.address += this.listing.data.building_name+' '
-            }            
-            if(this.listing.data.area_name  !== null){
-                this.listingData.address += this.listing.data.area_name+', '
-            }
-            this.listingData.address        += this.listing.data.city_name
-            this.listingData.coordinates    = { lat: this.listing.data.latitude, lng: this.listing.data.longitude }
+            console.log(id)
         },
 
         async fetchListingImages(id){
