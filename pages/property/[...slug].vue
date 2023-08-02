@@ -69,6 +69,9 @@ export default {
             let slug = this.$route.params.slug[0].split('-')
             this.id = slug.slice(-1)[0]
             this.fetchListing(this.id)
+
+            console.log(this.listing)
+            
             this.fetchListingImages(this.id)
         })
     }, 
@@ -97,7 +100,6 @@ export default {
 
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
-            console.log(this.listing['data'])
         },
 
         async fetchListingImages(id){
