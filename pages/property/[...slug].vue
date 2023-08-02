@@ -97,7 +97,7 @@ export default {
 
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
-            console.log(this.listing.data)
+            console.log(this.listing)
         },
 
         async fetchListingImages(id){
