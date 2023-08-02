@@ -174,7 +174,11 @@ export default {
         }, 
 
         formatMoney(value){
-            const numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
+            let numericValue  = 0
+
+            if(value != null ){
+                numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
+            }
             return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
         },
 

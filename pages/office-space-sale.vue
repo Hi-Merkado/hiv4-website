@@ -39,7 +39,7 @@
             <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
         </section>
 
-        <section class="mt-10" id="page-description">
+        <section class="mt-10" id="page-description" v-if="ListingsStore.listings.data.seo">
             <span v-html="ListingsStore.listings.data.seo.page_description" v-show="readMoreActivated"></span>
             <button class="underline" v-on:click="readMoreActivated = !readMoreActivated">Read property description</button>
         </section>
@@ -120,7 +120,7 @@ export default {
     }, 
     computed: {
         pageTitle(){
-            return this.titleCase(this.$route.params.type) + ' properties for ' + this.$route.params.category
+            return 'Office space for ' + this.$route.params.category
         },        
         columns(){
             return 'grid-cols-'+this.columns
