@@ -277,7 +277,6 @@ export default {
         },
 
         nextSlide(){
-            console.log(this.$refs.slidesContainer)
             this.$refs.slidesContainer.scrollLeft += 408
         },
 
