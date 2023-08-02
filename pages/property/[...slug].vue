@@ -73,6 +73,8 @@ export default {
             console.log(this.listing)
             
             this.fetchListingImages(this.id)
+
+            console.log(this.listing.data)
         })
     }, 
 
