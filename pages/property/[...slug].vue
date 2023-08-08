@@ -286,6 +286,7 @@ export default {
 
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
+            this.listingData = this.listing
         },
 
         async fetchListingImages(id){
