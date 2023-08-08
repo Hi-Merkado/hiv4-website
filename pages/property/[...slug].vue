@@ -227,6 +227,7 @@ export default {
     methods: {
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
+            console.log(this.listing.data.division_id)
             this.listingData.division       = this.listing.data.division_id == 1 ? 'Residential' : 'Commercial'
             this.listingData.category       = this.listing.data.is_for_rent == 1 ? 'Rent' : 'Sale' 
             this.listingData.building       = this.listing.data.building_name
