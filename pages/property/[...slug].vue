@@ -59,7 +59,7 @@
                         v-on:click="toggleGallery()">
                 </div>
                 <div class="lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
-                    <img v-for="(thumbnail, index) in listingData.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery()">
+                    <img v-for="(thumbnail, index) in listing.data.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery()">
                 </div>
             </div>
 
