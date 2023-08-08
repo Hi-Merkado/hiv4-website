@@ -148,10 +148,10 @@
                 </div>
             </div>
 
-            <template v-if="listingData.coordinates">
+            <template v-if="listing.data.longitude">
                 <div class="mb-8">
                     <h3 class="font-bold text-xl mb-4">Location</h3>
-                    <GoogleMaps :location="listingData.coordinates"/>
+                    <GoogleMaps :location="{ lat: listing.data.latitude, lng: listing.data.longitude }"/>
                 </div>
             </template>
 
