@@ -11,13 +11,13 @@
                     <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
                 </li>
                 <li>
-                    <a :href="listingData.parentUrl">{{ listingData.parentTitle }}</a>
+                    <a :href="listing.data.parentUrl">{{ listing.data.parentTitle }}</a>
                 </li>
                 <li>
                     <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
                 </li>
                 <li>
-                    <a :href="listingData.cityUrl">{{ listing.data.city_name }}</a>
+                    <a :href="listing.data.cityUrl">{{ listing.data.city_name }}</a>
                 </li>
                 <li>
                     <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
@@ -27,12 +27,12 @@
             <div class="flex flex-wrap md:flex-row md:flex-nowrap gap-2 justify-between my-8">
                 <div>
                     <h1 class="text-xl lg:text-2xl font-bold">{{ listing.data.property_name }}</h1>
-                    <h6 class="flex h-[17px] gap-2 my-4 lg:my-0">{{ listingData.address }} <font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
+                    <h6 class="flex h-[17px] gap-2 my-4 lg:my-0">{{ listing.data.address }} <font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/></h6>
                 </div>
                 <div class="w-full md:w-auto">
                     <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2" v-if="listing.data.is_for_rent">
                         <p class="font-bold ml-5">Rental Price</p>
-                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listingData.rental_price }} / month</span>
+                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listing.data.rent_price }} / month</span>
                     </div>
 
                     <div class="flex bg-blue-light w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
@@ -40,7 +40,7 @@
                         v-if="listing.data.sale_price"
                     >
                         <p class="font-bold ml-5">Sale Price</p>
-                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listingData.sale_price }}</span>
+                        <span class="flex block bg-blue-default rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold">{{ listing.data.sale_price }}</span>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                         <div class="flex gap-4 mb-6">
                             <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt="">
                             <div>
-                                <p class="font-bold">{{ listingData.uploader }}</p>
+                                <p class="font-bold">{{ listing.data.uploader_name }}</p>
                                 <p>Address: 6th floor LDM Building</p>
                                 <p>Polaris St. Makati City</p>
                                 <p>Telephone: (632) 8097574</p>
@@ -161,9 +161,9 @@
             @toggleGallery="toggleGallery"/>
         <ListingsEnquiry 
             :showEnquiry="showEnquiry"
-            :referrerUrl="listingData.parentUrl" 
+            :referrerUrl="listing.data.parentUrl" 
             :model="`property`" 
-            :modelId="listingData.id"
+            :modelId="listing.data.id"
             @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>
@@ -227,6 +227,7 @@ export default {
     methods: {
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
+            this.listingData.images         = this.listing.data.images
             this.listingData.coordinates    = { lat: this.listing.data.latitude, lng: this.listing.data.longitude }
         },
 
