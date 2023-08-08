@@ -38,7 +38,7 @@
                         <p class="font-bold ml-5">Rental Price</p>
                         <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
                         :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
-                        >{{ listing.data.formatted_rent_price }} / month</span>
+                        >₱ {{ listing.data.formatted_rent_price }} / month</span>
                     </div>
 
                     <div class="flex w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
@@ -48,7 +48,7 @@
                         <p class="font-bold ml-5">Sale Price</p>
                         <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
                             :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
-                        >{{ listing.data.formatted_sale_price }}</span>
+                        >₱ {{ listing.data.formatted_sale_price }}</span>
                     </div>
                 </div>
             </div>
