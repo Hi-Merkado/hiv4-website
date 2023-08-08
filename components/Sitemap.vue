@@ -23,7 +23,7 @@ export default {
         }
     },
     created() {
-        // this.fetchSitemap()
+        this.fetchSitemap()
     },
 
     methods: {
