@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="showEnquiry"
+        <div v-if="EnquiryStore.showEnquiry"
             class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
             <div class="relative w-11/12 lg:w-2/6 my-6 mx-auto lg:max-w-3xl">
                 <!--content-->
@@ -10,7 +10,7 @@
                     <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                         <div>
                             <h3 class="text-3xl font-semibold text-[20px] mb-0 leading-none">
-                                {{ model == 'building' ? 'Housinginteractive Inc' : listingData.uploader }}
+                                {{ EnquiryStore.model == 'building' ? 'Housinginteractive Inc' : EnquiryStore.listing.uploader }}
                             </h3>
                             <p>Address: 6th floor LDM Building, Polaris St. Makati City</p>
                             <p>Telephone: (632) 8809 7574</p>
@@ -28,6 +28,9 @@
                             <h2 class="font-bold">Ask Agent</h2>
                         </div>
                         <div>
+                            <label class="block mb-4">
+                                <span class="block text-sm font-medium text-slate-700">Property ID: {{ EnquiryStore.listing.id }}</span>
+                            </label>
                             <label class="block mb-4">
                                 <span class="block text-sm font-medium text-slate-700">Name</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
@@ -68,23 +71,17 @@
                 </div>
             </div>
         </div>
-        <div v-if="showEnquiry" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        <div v-if="EnquiryStore.showEnquiry" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </div>
 </template>
 
 <script>
 
 import EnquiryServices from '~/services/EnquiryServices'
+import { useEnquiryStore } from '~/stores/EnquiryStore'
 import showToast from '~/helpers/helpers';
 
 export default {
-    props: {
-        showEnquiry: Boolean,
-        listingData: Object,
-        referrerUrl : { type : String },
-        model : { type : String },
-        modelId : { type : Number }
-    },
     data(){
         return {
             enquiryData: {
@@ -92,14 +89,17 @@ export default {
                 email: '',
                 phone: '',
                 message: '',
-                referrer : this.referrerUrl,
-                model : this.model,
-                model_id : this.modelId
+                referrer : '',
             }
         }
     },
 
-    created(){
+    setup(){
+        const EnquiryStore = useEnquiryStore()
+
+        return {
+            EnquiryStore
+        }
     },
 
     methods: {

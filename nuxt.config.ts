@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    imports: {
+        dirs: [
+            'services',
+        ]
+    },
     app: {
         head: {
             meta: [
@@ -17,9 +22,8 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
         public : {
-            apiBase : process.env.API_BASE_URL,
-            bearerToken : process.env.BEARER_TOKEN
+            apiBase: (process.env.ENVIRONMENT == 'local' ? process.env.LOCAL_BASE_URL : process.env.SERVER_BASE_URL),
+            bearerToken : (process.env.ENVIRONMENT == 'local' ? process.env.LOCAL_API_TOKEN : process.env.WEB_API_TOKEN),
         },
-        API_BASE_URL: process.env.API_BASE_URL
     }
 })
