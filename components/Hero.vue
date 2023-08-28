@@ -4,7 +4,7 @@
             <h1 class="text-3xl font-bold align-middle pt-14">Your next move?</h1>
             <h2 class="text-xl align-middle pb-14">Search for your properties for sale or rent in the Philippines</h2>
 
-            <form class="w-full lg:w-1/2 lg:mx-auto px-7">
+            <form class="w-full lg:w-3/4 lg:mx-auto px-7">
                 <div class="relative h-12 rounded-lg bg-white border flex justify-between items-stretch mb-4 p-2 lg:p-0">
                     <div class="lg:w-12 h-full p-1 lg:p-3">
                         <font-awesome-icon icon="magnifying-glass" :style="{ color: '#dadada', height: '20px' }"/>
@@ -175,7 +175,6 @@ export default {
         async fetchSuggestions(event){
             this.SearchParamsStore.triggered = false
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
-            console.log(params)
 
             this.suggestions = await ListingsServices._getSuggestions(params)
             

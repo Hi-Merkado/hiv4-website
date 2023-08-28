@@ -2,7 +2,7 @@
     <div>
         <ListingsSearch />
 
-       <section class="lg:w-9/12 lg:max-w-7xl mx-auto mb-8 p-4" v-if="listing.data">
+       <section class="lg:w-11/12 lg:max-w-7xl md:w-10/12 mx-auto mb-8 p-4" v-if="listing.data">
             <ul class="flex flex-wrap items-center gap-2 text-sm">
                 <li>
                     <a href="/">Home</a>
@@ -58,7 +58,7 @@
                     <img :src="listing.data.thumbnail" alt="" class="md:w-full h-[466px] rounded-lg cursor-pointer"
                         v-on:click="toggleGallery()">
                 </div>
-                <div class="lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
+                <div class="xs:hidden md:hidden lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
                     <img v-for="(thumbnail, index) in listing.data.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery()">
                 </div>
             </div>
@@ -184,13 +184,7 @@
             :listingData="listingData" 
             :images="images"
             @toggleGallery="toggleGallery"/>
-        <ListingsEnquiry 
-            :showEnquiry="showEnquiry"
-            :referrerUrl="listing.data.parentUrl" 
-            :model="`property`" 
-            :modelId="listing.data.id"
-            :listingData="listingData"
-            @toggleEnquiry="toggleEnquiry"/>
+        <ListingsEnquiry @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>
 
@@ -206,8 +200,8 @@
 
 <script>
 
-import { useSearchParamsStore } from '@/stores/SearchParamsStore'
-import { useListingsStore } from '~/stores/ListingsStore'
+import { useSearchParamsStore } from '~/stores/SearchParamsStore'
+import { useEnquiryStore } from '~/stores/EnquiryStore'
 import ListingsServices from '~/services/ListingsServices'
 import { watchEffect } from 'vue'
 
@@ -218,27 +212,6 @@ export default {
             id: 0,
             images: {},
             thumbnails: {},
-            listingData: {
-                property_name: '',
-                address: '',
-                status: '',
-                availability: '',
-                last_updated: '',
-                bedrooms: 0,
-                bathrooms: 0,
-                floor: 0,
-                lot: 0,
-                parking: 0,
-                amenities: {},
-                other: {},
-                rent: true,
-                sale: false,
-                uploader: '',
-                thumbnail: '',
-                parentTitle: '',
-                parentUrl: '',
-                coordinates: {}
-            },
             showGallery: false,
             showEnquiry: false,
         }
@@ -246,11 +219,11 @@ export default {
 
     setup(){
         const SearchParamsStore = useSearchParamsStore()
-        const ListingsStore = useListingsStore()
+        const EnquiryStore = useEnquiryStore()
 
         return {
             SearchParamsStore,
-            ListingsStore
+            EnquiryStore
         }
     },
 
@@ -259,12 +232,19 @@ export default {
             let slug = this.$route.params.slug[0].split('-')
             this.id = slug.slice(-1)[0]
             this.fetchListing(this.id)         
-            this.fetchListingImages(this.id)            
+            this.fetchListingImages(this.id)     
         })
     }, 
 
     mounted(){
+        watchEffect(() => {
+            let slug = this.$route.params.slug[0].split('-')
+            this.id = slug.slice(-1)[0]
+            this.fetchListing(this.id)         
+            this.fetchListingImages(this.id)     
+        })
         ListingsServices._recordVisit(this.id)
+
     },
 
     methods: {
@@ -286,7 +266,7 @@ export default {
 
         async fetchListing(id){
             this.listing = await ListingsServices._getListing(id).data
-            this.listingData = this.listing
+            this.EnquiryStore.listing = this.listing.data
         },
 
         async fetchListingImages(id){
@@ -307,7 +287,7 @@ export default {
         },
 
         toggleEnquiry(){
-            this.showEnquiry = !this.showEnquiry
+            this.EnquiryStore.showEnquiry = !this.EnquiryStore.showEnquiry
         },
 
         buildingLink(){

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-9/12 mx-auto max-w-7xl lg:grid lg:grid-cols-2 py-20 hidden">
+    <div class="lg:w-11/12 mx-auto lg:max-w-7xl lg:grid lg:grid-cols-2 py-20 hidden">
 
         <div v-for="(division, index) in sitemap.data" :key="index">
             <h6 class="text-xs uppercase font-medium mb-8">{{ index }} Listings</h6>
