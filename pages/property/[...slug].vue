@@ -260,8 +260,10 @@ export default {
         },
 
         async fetchListing(id){
-            console.log(id)
-            //this.listing = await ListingsServices._getListing(id).data
+            this.listing = await ListingsServices._getListing(id)
+
+            console.log(this.listing)
+            
             //this.EnquiryStore.listing = this.listing.data
         },
 
