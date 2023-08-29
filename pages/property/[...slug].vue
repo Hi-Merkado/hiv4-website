@@ -50,7 +50,7 @@ export default {
             let slug = this.$route.params.slug[0].split('-')
             this.id = slug.slice(-1)[0]
            this.fetchListing(this.id)         
-            //this.fetchListingImages(this.id)     
+            this.fetchListingImages(this.id)     
         })
     }, 
 
@@ -58,8 +58,8 @@ export default {
         watchEffect(() => {
             let slug = this.$route.params.slug[0].split('-')
             this.id = slug.slice(-1)[0]
-            //this.fetchListing(this.id)         
-            //this.fetchListingImages(this.id)     
+            this.fetchListing(this.id)         
+            this.fetchListingImages(this.id)     
         })
         ListingsServices._recordVisit(this.id)
 
