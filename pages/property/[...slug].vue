@@ -179,11 +179,6 @@
 
             </div>
         </section>
-        <ListingsGallery 
-            :showGallery="showGallery"
-            :listingData="listingData" 
-            :images="images"
-            @toggleGallery="toggleGallery"/>
         <ListingsEnquiry @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>
