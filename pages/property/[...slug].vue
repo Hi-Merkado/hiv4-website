@@ -119,15 +119,7 @@
                         </ul>
                     </div>
 
-                    <div v-if="listing.data.amenities.length > 0">
-                        <h3 class="font-bold text-xl mb-4">Building amenities & unit features</h3>
-                        <ul>
-                            <li v-for="(amenity, index) in listing.data.amenities" :key="index" class="flex mb-4 ml-4 gap-2">
-                                <font-awesome-icon :icon="['fas', 'check']" style="height: 20px; color: #808080"/>
-                                <span>{{ amenity.name }}</span>
-                            </li>
-                        </ul>
-                    </div>
+
                 </div>
 
                 <div>
