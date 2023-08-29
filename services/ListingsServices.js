@@ -7,6 +7,8 @@ const headers = {
 
 export default {
     _getListing(id){
+        console.log(baseUrl + 'website/properties/' + `${id}`)
+        
         return useFetch( baseUrl + 'website/properties/' + `${id}`, {
             method: 'GET',
             headers: headers
