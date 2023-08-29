@@ -2,7 +2,7 @@
     <div>
         <ListingsSearch />
 
-        <section class="lg:w-11/12 lg:max-w-7xl md:w-10/12 mx-auto mb-8 p-4">
+       <section class="lg:w-11/12 lg:max-w-7xl md:w-10/12 mx-auto mb-8 p-4">
             <ul class="flex flex-wrap items-center gap-2 text-sm">
                 <li>
                     <a href="/">Home</a>
@@ -147,29 +147,6 @@
                 </div>
             </template>
 
-            <div v-if="listing.other.length > 0">
-                <h3 class="font-bold text-xl mb-4">Other residential properties for rent</h3>
-
-                <div class="relative">
-                    <div class="slides-container h-[273px] flex snap-x snap-mandatory overflow-hidden overflow-x-auto space-x-2 rounded scroll-smooth before:w-[45vw] before:shrink-0 after:w-[45vw] after:shrink-0 md:before:w-0 md:after:w-0" ref="slidesContainer">
-                        <div v-for="(listing, index) in listing.other" :key="index" class="slide w-[395px] h-[350px] aspect-square h-full flex-shrink-0 rounded overflow-hidden" ref="slide" style="margin-right: 13px;">
-                            <ListingsListing :listing="listing"/>
-                        </div>
-                    </div>
-                </div>
-
-                <nav class="w-full flex justify-center mt-8" v-if="listing.other.count > 3">
-                    <ul class="flex gap-3"><!--[-->
-                        <li>
-                            <button class="text-sm" @click="prevSlide()">Prev</button>
-                        </li>
-                        <li>
-                            <button class="text-sm" @click="nextSlide()">Next</button>
-                        </li>
-                    </ul>
-                </nav>
-
-            </div>
         </section>
 
         <ListingsEnquiry @toggleEnquiry="toggleEnquiry"/>
