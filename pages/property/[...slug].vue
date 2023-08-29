@@ -230,7 +230,7 @@ export default {
 
             console.log(this.listing)
             
-            this.EnquiryStore.listing = this.listing.data
+//            this.EnquiryStore.listing = this.listing.data
         },
 
         async fetchListingImages(id){
