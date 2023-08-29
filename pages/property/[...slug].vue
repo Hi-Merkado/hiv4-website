@@ -226,7 +226,7 @@ export default {
         },
 
         async fetchListing(id){
-            this.listing = await ListingsServices._getListing(id).data
+            this.listing = await ListingsServices._getListing(id)['data']
             this.EnquiryStore.listing = this.listing.data
         },
 
