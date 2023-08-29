@@ -83,7 +83,8 @@ export default {
         },
 
         async fetchListing(id){
-            this.listing = await ListingsServices._getListing(id)
+            console.log('https://api.housinginteractive.com.ph/api/website/properties/7769')
+            //this.listing = await ListingsServices._getListing(id)
 
             console.log(this.listing)
             
