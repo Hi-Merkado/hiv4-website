@@ -2,7 +2,7 @@
     <div>
         <ListingsSearch />
 
-       <section class="lg:w-11/12 lg:max-w-7xl md:w-10/12 mx-auto mb-8 p-4">
+       <section class="lg:w-11/12 lg:max-w-7xl md:w-10/12 mx-auto mb-8 p-4" v-if="listing.data">
             <ul class="flex flex-wrap items-center gap-2 text-sm">
                 <li>
                     <a href="/">Home</a>
@@ -118,8 +118,6 @@
                             </li>
                         </ul>
                     </div>
-
-
                 </div>
 
                 <div>
@@ -146,9 +144,7 @@
                     <GoogleMaps :location="{ lat: listing.data.latitude, lng: listing.data.longitude }"/>
                 </div>
             </template>
-
         </section>
-
         <ListingsEnquiry @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>
@@ -230,11 +226,7 @@ export default {
         },
 
         async fetchListing(id){
-            console.log('https://api.housinginteractive.com.ph/api/website/properties/7769')
-            this.listing = await ListingsServices._getListing(id)
-
-            console.log(this.listing['data'])
-            
+            this.listing = await ListingsServices._getListing(id).data
             this.EnquiryStore.listing = this.listing.data
         },
 
