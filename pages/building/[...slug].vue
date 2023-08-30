@@ -198,7 +198,9 @@ export default {
 
     methods: {
         async fetchBuilding(slug){
-            this.building = await BuildingsServices._getBuilding(slug).data
+            let building = await BuildingsServices._getBuilding(slug)
+            this.building = building.data
+            
             this.buildingData.id = this.building.data.id
             this.buildingData.slug = slug
             this.buildingData.name = this.building.data.building_name
