@@ -9,7 +9,7 @@
 
     <ListingsSearch />
 
-    <section class="lg:w-9/12 lg:max-w-7xl mx-auto mb-8 p-4">
+    <section class="lg:w-11/12 lg:max-w-7xl mx-auto mb-8 p-4">
         <ul class="flex flex-wrap items-center gap-2 text-sm">
             <li>
                 <a href="/">Home</a>
@@ -52,7 +52,7 @@
 
         <section>
 
-            <div class="grid gap-8 md:grid-cols-2" :class="columns">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" :class="columns">
                 <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
             </div>
 

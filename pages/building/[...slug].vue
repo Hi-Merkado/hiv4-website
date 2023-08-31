@@ -2,14 +2,14 @@
     <div>
         <ListingsSearch />
 
-        <section class="w-full lg:w-9/12 lg:max-w-7xl mx-auto mb-8 p-4">
+        <section class="w-full lg:w-11/12 lg:max-w-7xl mx-auto mb-8 p-4">
             <div class="flex gap-2 justify-between mb-8">
                 <div>
                     <h1 class="text-2xl font-bold">{{ buildingData.name }}</h1>
                     <h6 class="flex h-[17px] gap-2"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ buildingData.location }}</h6>
                 </div>
                 <div class="flex items-center">
-                    <font-awesome-icon icon="star" style="height: 30px; color: #FF5856"/>
+                    <font-awesome-icon icon="star" style="height: 30px; color: #FF5856"></font-awesome-icon>
                     <div>
                         <p>Tower Zonal Value</p>
                         <p class="font-bold text-2xl">{{ buildingData.zonal_value }}</p>
@@ -17,7 +17,7 @@
                 </div>
 
             </div>
-            
+<!--             
             <div class="grid lg:grid-cols-2 gap-2 mb-8">
                 <div class="grid lg:grid-cols-1 lg:grid-rows-1 lg:object-fit md:object-contain">
                     <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/9.1682645832.jpg" alt="" class="h-[466px] rounded-lg cursor-pointer w-full">
@@ -28,7 +28,7 @@
                     <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/conversions/10.1682645833-635x423-watermarked.jpg" alt="" class="h-[222px] rounded-lg cursor-pointer" >
                     <img src="https://hi-web-cdn.s3.ap-southeast-1.amazonaws.com/hiv4/properties/property-564/9.1682645832.jpg" alt="" class="h-[222px] rounded-lg cursor-pointer" >
                 </div>
-            </div>
+            </div> -->
 
             <div class="flex flex-col lg:flex-row justify-between mb-8 gap-8">
                 <div class="w-full">
@@ -121,10 +121,10 @@
                 <p class="mb-4" v-if="buildingData.property_rent > 0">There are {{ buildingData.property_rent }} condos for rent in {{ buildingData.name }} available for {{ buildingData.property_rent_min }} to {{ buildingData.property_rent_max }} per month (based on 1 year rental term)</p>
             </div>
 
-            <div class="mb-8">
+            <!-- <div class="mb-8">
                 <h3 class="font-bold text-xl mb-4">Location</h3>
                 <GoogleMaps :location="buildingData.coordinates"/>
-            </div>
+            </div> -->
 
             <div>
                 <h3 class="font-bold text-xl mb-4">Similar projects near to {{ buildingData.name }} in Metro Manila</h3>
@@ -133,13 +133,13 @@
                 </section>
             </div>
         </section>
-        <ListingsEnquiry 
+        <!-- <ListingsEnquiry 
             :showEnquiry="showEnquiry"
             :referrerUrl="buildingData.slug" 
             :model="`building`" 
             :modelId="buildingData.id"
             @toggleEnquiry="toggleEnquiry"
-            />
+            /> -->
     </div>
 </template>
 
@@ -168,7 +168,8 @@ export default {
                 property_rent_min: 0,
                 property_rent_max: 0,
                 property_sale_min: 0,
-                property_sale_max: 0
+                property_sale_max: 0,
+                zonal_value: 0
             },
             showGallery: false,
             showEnquiry: false
@@ -190,12 +191,6 @@ export default {
         })
     }, 
 
-    computed: {
-        towerZonalValue(){
-            return 'Tower Zonal Value'
-        }
-    },
-
     methods: {
         async fetchBuilding(slug){
             let building = await BuildingsServices._getBuilding(slug)
@@ -206,11 +201,10 @@ export default {
             this.buildingData.name = this.building.data.building_name
             this.buildingData.location = this.building.data.area_name +', '+this.building.data.city_name
             this.buildingData.description = this.building.data.description
-            this.buildingData.amenities = this.building.data.amenities
-            this.buildingData.property_count = this.building.data.property_count
             this.buildingData.property_sale = this.building.data.property_sale
             this.buildingData.property_rent = this.building.data.property_rent
             this.buildingData.zonal_value = this.building.data.zonal_value
+            this.buildingData.amenities = this.building.data.amenities
             this.buildingData.coordinates = { lat: this.building.data.latitude, lng: this.building.data.longitude }
             this.buildingData.property_rent_min = "₱ "+this.formatMoney(this.building.data.property_rent_min)
             this.buildingData.property_rent_max = "₱ "+this.formatMoney(this.building.data.property_rent_max)
