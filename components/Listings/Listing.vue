@@ -11,7 +11,7 @@
             >{{ listing.city_name }}</span>
             <img :src="listing.thumbnail" class="w-[405px] h-[273px] object-fit">
             <div class="absolute bottom-0 w-full text-sm bg-black bg-opacity-50 pt-1">
-                <p class="text-sm w-full text-white px-2">{{ listing.property_name }}</p>
+                <p class="text-sm w-full text-white px-2" :alt="listing.property_name">{{ listing.property_name.substr(0,40) }}</p>
                 <div class="w-full flex justify-between items-center px-2 text-white">
                     <p v-if="listing.is_for_sale">
                         ₱ <span class="font-bold text-sm lg:text-xl">{{ formatMoney(listing.sale_price) }}</span>
