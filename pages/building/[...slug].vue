@@ -12,7 +12,7 @@
                     <font-awesome-icon icon="star" style="height: 30px; color: #FF5856"></font-awesome-icon>
                     <div>
                         <p>Tower Zonal Value</p>
-                        <p class="font-bold text-2xl">0.00</p>
+                        <p class="font-bold text-2xl">{{ buildingData.zonal_value }}</p>
                     </div>
                 </div>
 
