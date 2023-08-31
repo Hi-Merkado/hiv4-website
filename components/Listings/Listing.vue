@@ -5,7 +5,7 @@
             :class="SearchParamsStore.division == 1 ? 'bg-green-light text-green-default' : 'bg-blue-light text-blue-default'"
             >{{ listing.status_id == 2 ? 'Rented' : listing.status_name }}</div>
         </div>
-        <a :href="listing.url" class="relative">
+        <a :href="listing.url" class="relative block">
             <span class="absolute inline rounded-lg text-blue-default px-2 py-1 top-2 right-2 font-bold"
             :class="SearchParamsStore.division == 1 ? 'bg-green-light text-green-default' : 'bg-blue-light text-blue-default'"
             >{{ listing.city_name }}</span>
