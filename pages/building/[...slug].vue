@@ -11,7 +11,7 @@
                 <div class="flex items-center">
                     <font-awesome-icon icon="star" style="height: 30px; color: #FF5856"/>
                     <div>
-                        <p>{{ towerZonalValue }}</p>
+                        <p>Tower Zonal Value</p>
                         <p class="font-bold text-2xl">{{ buildingData.zonal_value }}</p>
                     </div>
                 </div>
