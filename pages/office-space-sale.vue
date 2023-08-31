@@ -8,7 +8,7 @@
 
     <ListingsSearch />
 
-    <section class="w-9/12 max-w-7xl mx-auto">
+    <section class="lg:w-11/12 lg:max-w-7xl mx-auto mb-8 p-4">
         <ul class="flex items-center gap-2 text-sm">
             <li>
                 <a href="/">Home</a>

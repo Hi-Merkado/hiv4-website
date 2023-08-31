@@ -7,7 +7,7 @@
     </div>
     <ListingsSearch />
 
-    <section class="w-9/12 max-w-7xl mx-auto">
+    <section class="w-11/12 max-w-7xl mx-auto">
         <ul class="flex flex-wrap items-center gap-2 text-sm">
             <li>
                 <a href="/">Home</a>
@@ -48,8 +48,7 @@
             </ul>
         </div>
 
-        <section class="grid gap-8" :class="columns">
-            {{ ListingsStore.listings.data.data }}
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8" :class="columns">
             <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
         </section>
 
@@ -153,7 +152,7 @@ export default {
             return this.titleCase(this.$route.params.area.replace(/-/g, ' '))
         },     
         columns(){
-            return 'grid-cols-'+this.columns
+            return 'lg:grid-cols-'+this.columns
         }
     },
     methods: {

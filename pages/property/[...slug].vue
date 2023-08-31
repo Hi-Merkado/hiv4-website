@@ -226,20 +226,13 @@ export default {
         watchEffect(() => {
             let slug = this.$route.params.slug[0].split('-')
             this.id = slug.slice(-1)[0]
-           this.fetchListing(this.id)         
+            this.fetchListing(this.id)         
             this.fetchListingImages(this.id)     
         })
     }, 
 
     mounted(){
-        watchEffect(() => {
-            let slug = this.$route.params.slug[0].split('-')
-            this.id = slug.slice(-1)[0]
-            this.fetchListing(this.id)         
-            this.fetchListingImages(this.id)     
-        })
         ListingsServices._recordVisit(this.id)
-
     },
 
     methods: {
@@ -262,12 +255,12 @@ export default {
         async fetchListing(id){
             let listing = await ListingsServices._getListing(id)
             this.listing = listing.data
-            
-//            this.EnquiryStore.listing = this.listing.data
+            this.EnquiryStore.listing = this.listing.data
         },
 
         async fetchListingImages(id){
-            this.images = await ListingsServices._getListingImages(id).data
+            let images = await ListingsServices._getListingImages(id)
+            this.images = images.data
         },
 
         formatMoney(value){
