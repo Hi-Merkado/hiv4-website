@@ -23,9 +23,9 @@
                         <li v-if="listing.bedrooms > 0">
                             <span class="font-bold text-sm lg:text-xl">{{ listing.bedrooms }}</span> bedrooms
                         </li>
-                        <li v-if="listing.bedrooms > 0 && listing.floor_area > 0.00" class="md:hidden">
+                        <!-- li v-if="listing.bedrooms > 0 && listing.floor_area > 0.00" class="md:hidden">
                             <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
-                        </li>
+                        </li -->
                         <li v-if="listing.floor_area == 0.00">
                             <span class="font-bold text-sm lg:text-xl">{{ listing.lot_area }}</span> sqm
                         </li>
