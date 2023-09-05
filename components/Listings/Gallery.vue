@@ -1,6 +1,6 @@
 <template>
     <div @keydown.esc="toggleModal()">
-        <div v-if="showGallery"
+        <div v-if="GalleryStore.showGallery"
             class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
             <div class="relative w-11/12 lg:w-[825px] my-6 mx-auto lg:max-w-6xl">
                 <!--content-->
@@ -12,7 +12,7 @@
                             <h3 class="text-3xl font-semibold text-[20px] mb-0 leading-none">
                                 Photo Gallery
                             </h3>
-                            <p>{{ listingData.property_name }}</p>
+                            <p>{{ GalleryStore.listing.property_name }}</p>
                         </div>
 
                         <button
@@ -51,11 +51,14 @@
                 </div>
             </div>
         </div>
-        <div v-if="showGallery" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        <div v-if="GalleryStore.showGallery" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </div>
 </template>
 
 <script>
+
+import { useGalleryStore } from '~/stores/GalleryStore'
+import ListingsServices from '~/services/ListingsServices'
 
 function scrollTop(e, scrollTop, duration = 300) {
     const originalScrollTop = e.scrollTop;
@@ -84,13 +87,9 @@ function scrollTop(e, scrollTop, duration = 300) {
 }
 
 export default {
-    props: {
-        showGallery: Boolean,
-        listingData: Object,
-        images: Object
-    },
     data(){
         return {
+            images: [],
             currentImageIndex: 0,
             currentImage : null,
             scrollTopIndex: 0,
@@ -100,12 +99,30 @@ export default {
         }
     },
 
+    setup(){
+        const GalleryStore = useGalleryStore()
+
+        return {
+            GalleryStore
+        }
+    },
+
+    created(){
+        this.fetchListingImages(this.GalleryStore.listing.id)
+    },
+
     mounted(){
-        this.currentImage = this.images[0]
         this.hasCurrentImage = true
     },
 
     methods: {
+        
+        async fetchListingImages(id){
+            let images = await ListingsServices._getListingImages(id)
+            this.images = images.data
+            this.currentImage = this.images[0]
+        },
+
         setCurrentImage(index) {
             this.currentImageIndex = index;
             this.currentImage = this.images[index];

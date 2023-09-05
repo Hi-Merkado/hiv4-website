@@ -3,6 +3,9 @@ import defaultTheme from 'tailwindcss/defaultTheme'
 export default {
     theme: {
         extend: {
+            screens: {
+                'xs': '300px'
+            },
             backgroundImage: {
                 'hero-pattern': "url('/assets/images/city.jpg')"
             },

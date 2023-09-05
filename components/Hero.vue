@@ -1,6 +1,6 @@
 <template>
     <section class="bg-blue-500 bg-no-repeat bg-center bg-cover lg:bg-cover bg-[url('/images/IMG_0080.JPG')]">
-        <div class="container mx-auto h-[463px] lg:h-[720px] text-center lg:pt-16 lg:pb-32 flex flex-col items-center bg-bottom ">
+        <div class="md:container mx-auto h-[463px] lg:h-[720px] text-center lg:pt-16 lg:pb-32 flex flex-col items-center bg-bottom ">
             <h1 class="text-3xl font-bold align-middle pt-14">Your next move?</h1>
             <h2 class="text-xl align-middle pb-14">Search for your properties for sale or rent in the Philippines</h2>
 
