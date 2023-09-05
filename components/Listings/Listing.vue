@@ -14,18 +14,18 @@
                 <p class="text-sm w-full text-white px-2" :alt="listing.property_name">{{ listing.property_name.substr(0,40).toLowerCase() }}</p>
                 <div class="w-full flex justify-between items-center px-2 text-white">
                     <p v-if="listing.is_for_sale">
-                        ₱ <span class="font-bold text-sm lg:text-xl">{{ listing.formatted_sale_price }}</span>
+                        ₱ <span class="font-bold text-sm lg:text-xl">{{ formatMoney(listing.sale_price) }}</span>
                     </p>
                     <p v-else>
-                        ₱ <span class="font-bold text-sm lg:text-xl">{{ listing.formatted_rent_price }}</span> / month
+                        ₱ <span class="font-bold text-sm lg:text-xl">{{ formatMoney(listing.rent_price) }}</span> / month
                     </p>
                     <ul class="flex justify-between items-center gap-2">
-                        <!-- li v-if="listing.bedrooms > 0">
-                            <span class="font-bold text-sm lg:text-xl">{{ listing.bedrooms }}</span> bedrooms
+                        <li v-if="listing.bedrooms > 0">
+                            <span class="font-bold text-sm lg:text-xl">{{ listing.bedrooms }}</span> br
                         </li>
                         <li v-if="listing.bedrooms > 0 && listing.floor_area > 0.00" class="md:hidden">
                             <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
-                        </li -->
+                        </li>
                         <li v-if="listing.floor_area == 0.00">
                             <span class="font-bold text-sm lg:text-xl">{{ listing.lot_area }}</span> sqm
                         </li>
@@ -55,8 +55,26 @@ export default {
 
     methods: {
         formatMoney(value){
-            const numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
-            return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
+
+            const map = [
+                { suffix: 'T', threshold: 1e12 },
+                { suffix: 'B', threshold: 1e9 },
+                { suffix: 'M', threshold: 1e6 },
+                { suffix: 'K', threshold: 1e3 },
+                { suffix: '', threshold: 1 },
+            ];
+
+            const found = map.find((x) => Math.abs(value) >= x.threshold);
+
+            if (found) {
+                const formatted = (value / found.threshold) + found.suffix;
+                return formatted;
+            }
+
+            return value
+
+            // const numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
+            // return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
         }
     }
 }
