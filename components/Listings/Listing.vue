@@ -14,10 +14,10 @@
                 <p class="text-sm w-full text-white px-2" :alt="listing.property_name">{{ listing.property_name.substr(0,40).toLowerCase() }}</p>
                 <div class="w-full flex justify-between items-center px-2 text-white">
                     <p v-if="listing.is_for_sale">
-                        ₱ <span class="font-bold text-sm lg:text-xl">{{ formatMoney(listing.sale_price) }}</span>
+                        ₱ <span class="font-bold text-sm lg:text-xl">{{ listing.formatted_sale_price }}</span>
                     </p>
                     <p v-else>
-                        ₱ <span class="font-bold text-sm lg:text-xl">{{ formatMoney(listing.rent_price) }}</span> / month
+                        ₱ <span class="font-bold text-sm lg:text-xl">{{ listing.formatted_rent_price }}</span> / month
                     </p>
                     <ul class="flex justify-between items-center gap-2">
                         <!-- li v-if="listing.bedrooms > 0">
