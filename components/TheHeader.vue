@@ -1,7 +1,7 @@
 <template>
-    <header class="sticky top-0 bg-zinc-50 z-50">
-        <div class="container flex px-7 py-5 justify-between items-center mx-auto">
-            <div class="flex items-center gap-x-14">
+    <header class="sticky top-0 bg-zinc-50 z-50 relative">
+        <div class="md:container flex px-7 py-5 justify-between items-center mx-auto">
+            <div class="flex xs:flex-col sm:flex-row items-center gap-x-14">
                 <a href="/">
                     <Logo />
                 </a>
@@ -9,7 +9,7 @@
             </div>
             <nav class="grid place-items-end">
                 <div class="flex justify-end">
-                    <a href="http://app.housinginteractive.com.ph" class="lg:flex lg:gap-4 lg:w-52 lg:h-5 font-bold text-base">
+                    <a href="https://app.housinginteractive.com.ph" class="lg:flex lg:gap-4 lg:w-52 lg:h-5 font-bold text-base">
                         <span class="hidden lg:inline">Free Listing Upload</span>
                         <font-awesome-icon icon="user" size="xs" class="place-items-end" :style="{ color: '#2f80ed', width: '37px', height: '20px', lineHeight: '1' }"/>
                     </a>
@@ -23,6 +23,8 @@
                 </div>
             </nav>
         </div>
+
+        <Mobile :showMobilemenu="showMobilemenu"/>
 
         <Login
             :showLogin="showLogin"

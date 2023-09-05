@@ -2,7 +2,7 @@
     <div>
         <ListingsSearch />
 
-       <section class="lg:w-11/12 lg:max-w-7xl md:w-10/12 mx-auto mb-8 p-4" v-if="listing.data">
+       <section class="lg:w-11/12 lg:max-w-7xl md:w-11/12 mx-auto mb-8 p-4" v-if="listing.data">
             <ul class="flex flex-wrap items-center gap-2 text-sm">
                 <li>
                     <a href="/">Home</a>
@@ -24,7 +24,7 @@
                 </li>
                 <li class="text-gray-400" v-if="listing.data.area_name !== null">{{ listing.data.area_name }}</li>
             </ul>
-            <div class="flex flex-wrap md:flex-row md:flex-nowrap gap-2 justify-between my-8">
+            <div class="flex flex-wrap md:flex-col md:flex-nowrap lg:flex-row gap-2 justify-between my-8">
                 <div>
                     <h1 class="text-xl lg:text-2xl font-bold">{{ listing.data.property_name }}</h1>
                     <h6 class="flex h-[17px] gap-2 my-4"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ listing.data.address }}</h6>
@@ -55,10 +55,10 @@
             
             <div class="grid lg:grid-cols-2 gap-2 mb-8">
                 <div class="grid grid-cols-1 grid-rows-1 object-fit md:object-contain">
-                    <img :src="listing.data.thumbnail" alt="" class="md:w-full h-[466px] rounded-lg cursor-pointer"
+                    <img :src="listing.data.thumbnail" alt="" class="md:w-full h-[466px] xs:h-auto rounded-lg cursor-pointer"
                         v-on:click="toggleGallery()">
                 </div>
-                <div class="xs:hidden md:hidden lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
+                <div class="xs:hidden sm:hidden md:hidden lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
                     <img v-for="(thumbnail, index) in listing.data.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery()">
                 </div>
             </div>
@@ -160,7 +160,7 @@
 
                 <div class="relative">
                     <div class="slides-container h-[273px] flex snap-x snap-mandatory overflow-hidden overflow-x-auto space-x-2 rounded scroll-smooth before:w-[45vw] before:shrink-0 after:w-[45vw] after:shrink-0 md:before:w-0 md:after:w-0" ref="slidesContainer">
-                        <div v-for="(listing, index) in listing.other" :key="index" class="slide w-[395px] h-[350px] aspect-square h-full flex-shrink-0 rounded overflow-hidden" ref="slide" style="margin-right: 13px;">
+                        <div v-for="(listing, index) in listing.other" :key="index" class="slide xs:w-full md:w-[385px] lg:w-[395px] lg:h-[350px] aspect-square h-full flex-shrink-0 rounded overflow-hidden" ref="slide" style="margin-right: 13px;">
                             <ListingsListing :listing="listing"/>
                         </div>
                     </div>
@@ -179,6 +179,7 @@
 
             </div>
         </section>
+        <ListingsGallery @toggleGallery="toggleGallery"/>
         <ListingsEnquiry @toggleEnquiry="toggleEnquiry"/>
     </div>
 </template>
@@ -197,6 +198,7 @@
 
 import { useSearchParamsStore } from '~/stores/SearchParamsStore'
 import { useEnquiryStore } from '~/stores/EnquiryStore'
+import { useGalleryStore } from '~/stores/GalleryStore'
 import ListingsServices from '~/services/ListingsServices'
 import { watchEffect } from 'vue'
 
@@ -204,21 +206,21 @@ export default {
     data(){
         return {
             listing: [],
+            images: [],
             id: 0,
-            images: {},
-            thumbnails: {},
-            showGallery: false,
-            showEnquiry: false,
+            thumbnails: {}
         }
     },
 
     setup(){
         const SearchParamsStore = useSearchParamsStore()
         const EnquiryStore = useEnquiryStore()
+        const GalleryStore = useGalleryStore()
 
         return {
             SearchParamsStore,
-            EnquiryStore
+            EnquiryStore,
+            GalleryStore
         }
     },
 
@@ -227,7 +229,6 @@ export default {
             let slug = this.$route.params.slug[0].split('-')
             this.id = slug.slice(-1)[0]
             this.fetchListing(this.id)         
-            this.fetchListingImages(this.id)     
         })
     }, 
 
@@ -256,11 +257,7 @@ export default {
             let listing = await ListingsServices._getListing(id)
             this.listing = listing.data
             this.EnquiryStore.listing = this.listing.data
-        },
-
-        async fetchListingImages(id){
-            let images = await ListingsServices._getListingImages(id)
-            this.images = images.data
+            this.GalleryStore.listing = this.listing.data
         },
 
         formatMoney(value){
@@ -273,7 +270,7 @@ export default {
         },
 
         toggleGallery(){
-            this.showGallery = !this.showGallery
+            this.GalleryStore.showGallery = !this.GalleryStore.showGallery
         },
 
         toggleEnquiry(){
