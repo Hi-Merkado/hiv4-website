@@ -1,7 +1,7 @@
 <template>
     <section class="lg:w-11/12 lg:mx-auto lg:max-w-7xl mt-6 lg:mt-24 px-4">
         <h2 class="text-2xl font-bold hidden lg:block">Explore Properties</h2>
-        <header class="flex xs:flex-col gap-4 justify-between items-center mb-8">
+        <header class="flex xs:flex-col lg:flex-row gap-4 justify-between items-center mb-8">
             <div class="flex xs:flex-col gap-8 items-center">
                 <button class="border-2 py-1.5 px-6 text-sm font-semibold lg:hidden" @click="showFilter = !showFilter">Filters</button>
                 <div class="lg:flex xs:gap-0 md:gap-4"
