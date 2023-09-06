@@ -23,11 +23,11 @@
                     </div>
                     <!--body-->
                     <div class="relative p-6 flex h-[481px]">
-                        <div class="h-full flex-1 mr-3">
+                        <div class="h-full flex-1 mr-3 sm:w-full">
                             <img v-if="hasCurrentImage" class="w-full h-full object-contain" :src="currentImage.url" alt="Image" />
                         </div>
                     
-                        <div class="h-full relative">
+                        <div class="h-full relative hidden">
                             <div v-if="images.length > 5" @click="scrollUp" ref="scrollUp" class="w-28 h-9 absolute top-0 bg-white opacity-50 cursor-pointer text-center justify-center grid">
                                 <font-awesome-icon :icon="['fas', 'arrow-up']" style="height: 28px;"/>
                             </div>
