@@ -160,7 +160,7 @@
 
                 <div class="relative">
                     <div class="slides-container h-[273px] flex snap-x snap-mandatory overflow-hidden overflow-x-auto space-x-2 rounded scroll-smooth before:w-[45vw] before:shrink-0 after:w-[45vw] after:shrink-0 md:before:w-0 md:after:w-0" ref="slidesContainer">
-                        <div v-for="(listing, index) in listing.other" :key="index" class="slide xs:w-full sm:w-[280px] md:w-[385px] lg:w-[395px] lg:h-[350px] aspect-square h-full flex-shrink-0 rounded overflow-hidden" ref="slide" style="margin-right: 13px;">
+                        <div v-for="(listing, index) in listing.other" :key="index" class="slide xs:w-full sm:w-[280px] md:w-[385px] lg:w-[395px] lg:h-[350px] aspect-square h-full rounded overflow-hidden" ref="slide" style="margin-right: 13px;">
                             <ListingsListing :listing="listing"/>
                         </div>
                     </div>
