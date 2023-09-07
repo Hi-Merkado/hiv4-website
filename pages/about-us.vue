@@ -18,7 +18,15 @@
     </header>
     <section>
         <div class="mx-auto lg:w-9/12 lg:max-w-7xl py-[60px] px-6 lg:px-0">
-            <h2 class="font-bold text-center mb-[60px]">HousingInteractive is an online real estate brokerage firm and a listing website that has been serving buyers and sellers of properties in Metro Manila and select parts of the Philippines since 2003. The brokerage is comprised of a group of highly-skilled and talented real estate professionals, brokers, and agents led by the firm's President and Founder, John Riad. With more than Php10.B in total sales and close to Php1.5B in active listings, the firm closes over a hundred deals in sales and rentals annually. The firm has brokered many of Metro Manila's largest residential and commercial sales, including numerous record-breaking transactions in Makati City, BGC, and Ortigas. Located at the heart of Makati City's vibrant district, the company continues to expand its operations to nearby cities such as Taguig, Pasig, Mandaluyong, and Pasay and extending it's reach all the way to the south of Metro Manila and nearby provinces of Cavite, Laguna, and Batangas.</h2>
+            <h2 class="font-bold mb-[30px]">HousingInteractive is the largest online real estate brokerage company in the Philippines, which services international and local clientele. Housinginteractive's real estate platform features a wide selection of properties fit for most consumers. With a team of efficient and dedicated professionals, HousingInteractive is committed to delivering complete and first class property solutions.</h2>
+            
+            <h2 class="font-bold mb-[30px]">The humble beginnings of Housinginteractive started in 2003, with only a small investment fund and two people to develop the business. When its formal operation began in 2004, four people managed and serviced the primary housing needs of foreign expatriates seeking residence in the Philippines. Today, Housinginteractive employs over 50 highly qualified individuals who are enthusiastic and determined to provide excellent, professional services.</h2>
+
+            <h2 class="font-bold mb-[30px]">The establishment was a challenging period because the pioneer employees had to personally encourage landlords to work with them. They literally had to go over each houses and make inquiries one by one. Some owners also gave them difficulties in getting photos of the properties. Through it all, the company endured and gained a reputation of being one of the most depenable brokerage firms in the country. Even with distinguished real estate developers, particularly Rockwell Land, Inc., Housinginteractive is the preferred brokerage rental company.</h2>
+
+            <h2 class="font-bold mb-[30px]">Its first website, www.housinginteractive.com, was also launched as a tool that will help clients in their home search. Housinginteractive established solid relationships with valued partners, property owners and professional network of brokers that led the company to build its strongest asset now the property listings database.</h2>
+
+            <h2 class="font-bold mb-[30px]">The success of the initial operation encouraged Housinginteractive to expand its scope. Consequently, Asset Management service was developed. The company began to sublease empty apartments. These were fixed, furnished, and then offered to expatriates in need oftemporary accommodation in the country. As of this present time, Housinginteractive is managing 26 units.</h2>
 
             <!-- <div class="px-6 my-6 md:my-10 lg:my-28">
                 <h4 class="text-xl font-bold border-l-4 border-[#333] leading-6 pl-4">HousingInteractive started the trend that ushered in a way of life.</h4>
@@ -31,7 +39,7 @@
                         <p class="bg-gray-50 py-2.5 text-center font-bold text-lg rounded">2005</p>
                     </div>
                     <div class="w-full md:w-4/5 lg:w-4/5">
-                        <p>In 2005, HousingInteractive included a sales section, paving the way to a more sophisticated platform that simplified real estate purchase in the country.</p>
+                        <p>The year 2005 was one of the defining moments for Housinginteractive. Through hard work and perseverance, more direct owners entrusted the company with their homes. This made the residential properties for rent flourished. Majority of the business came from the areas of Makati City, Ortigas, Ayala Alabang, Quezon City, and Taguig, specifically in Bonifacio Global City. This inspired and pushed the company to move forward and branch out to residential properties for sale.</p>
                     </div>
                 </div>
 
@@ -40,9 +48,20 @@
                         <p class="bg-gray-50 py-2.5 text-center font-bold text-lg rounded">2008</p>
                     </div>
                     <div class="w-full md:w-4/5 lg:w-4/5">
-                        <p>In 2008, HousingInteractive branched out to cover commercial real estate lease and purchase. Now, it was offering a holistic contribution to the country — to handle your house and your office.</p>
+                        <p>In 2008, the company became the market leader in the residential sector. After some time, it expanded its operation and started offering commercial properties either for sale or for lease. During this period, HousingInteractive also began ministering to embassies, multinational companies, and other reputable institutions.</p>
 
-                        <p>This distinction was clear to multinational giants, including the Asian Development Bank (ADB), which signed on as a major client of HousingInteractive. We started catering to the distinct home needs of the busy ADB executives.</p>
+                        <p>With the growing list of clientele, the company realized that each client has different and unique requirements that needed to be addressed individually. HousingInteractiveresponded by improving its services and customizing them according to the needs of the customers, making the real estate buying or renting process painless as possible.</p>
+
+                        <p>>Over the years, HousingInteractive has been actively upgrading the website features and look as its database. increases, including premium worldwide listings. This made the company the largest online brokerage platform in the country.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row lg:flex-row justify-between gap-8 my-10">
+                    <div class="w-full md:w-1/5 lg:w-1/5">
+                        <p class="bg-gray-50 py-2.5 text-center font-bold text-lg rounded">2011</p>
+                    </div>
+                    <div class="w-full md:w-4/5 lg:w-4/5">
+                        <p>Meanwhile, in 2011, AsiaRelocation was founded. It is a sister company of Housing Interactive that is the only one-stop-shop provider covering all international moves and relocation. services in the Philippines. As a result of the company's success in the Philippine market, it decided to globalize their services/products by establishing Housing Interactive Vietnam in 2012. It follows the same model created in the Philippines.</p>
                     </div>
                 </div>
 
@@ -51,16 +70,16 @@
                         <p class="bg-gray-50 py-2.5 text-center font-bold text-lg rounded">2014</p>
                     </div>
                     <div class="w-full md:w-4/5 lg:w-4/5">
-                        <p>Expansion continued over the years, and in 2014, we invested in an affiliate company — Hoppler. As both Hoppler and Housing Interactive boomed under the careful and caring watch of our partners, Housing Interactive focuses on the economic capitals of the Philippines - Makati, Bonifaction Global City, Ortigas, and the emerging financial district of Alabang.</p>
+                        <p>On 2014, Housinginteractive celebrated another milestone. The Database was behind Hoppler which was co-founded by Mr John Riad, the CEO of HousingInteractive. Powered by Google and FourSquare, it promises new and exciting features that will further enhance user experience and promote growth in the Real Estate Industry</p>
                     </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row lg:flex-row justify-between gap-8 my-10">
                     <div class="w-full md:w-1/5 lg:w-1/5">
-                        <p class="bg-gray-50 py-2.5 text-center font-bold text-lg rounded">2018</p>
+                        <p class="bg-gray-50 py-2.5 text-center font-bold text-lg rounded">2017</p>
                     </div>
                     <div class="w-full md:w-4/5 lg:w-4/5">
-                        <p>The real estate industry has become increasingly competitive, and as a result, Housing Interactive has taken steps to improve its online presence beyond its own website. The company has formed partnerships with other real estate portals and expanded its social media presence, making it a formidable omnichannel player in the real estate market.</p>
+                        <p>In the year 2017, HousingInteractive started a new and improve portal that makes real estate in the Philippines easier for .both clients and brokers To date, clients and network brokes choose HousingInteractive for different real estate services. Housinginteractive is still surviving and excited to see what's coming in the succeeding years.</p>
                     </div>
                 </div>
 

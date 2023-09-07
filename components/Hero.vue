@@ -198,6 +198,7 @@ export default {
         }, 
 
         updateQuery(value, description, city, area){
+            console.log(city)
             this.SearchParamsStore.search = value
             this.SearchParamsStore.searchDescription = description
             this.SearchParamsStore.city_name = city
@@ -238,12 +239,12 @@ export default {
             if(this.SearchParamsStore.search !== null){
 
                 if(this.SearchParamsStore.searchDescription.includes('Building')){
-                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
-                    landingPage += this.SearchParamsStore.area_name+'/'
-                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                    landingPage += '-'+this.SearchParamsStore.city_name.toLowerCase().replace(/\s/g, '-')+'/'
+                    landingPage += this.SearchParamsStore.area_name.toLowerCase().replace(/\s/g, '-')+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(/\s/g, '-')
                 } else if(this.SearchParamsStore.searchDescription.includes('Area')) {
-                    landingPage += '-'+this.SearchParamsStore.city_name+'/'
-                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(' ', '-')
+                    landingPage += '-'+this.SearchParamsStore.city_name.toLowerCase().replace(/\s/g, '-')+'/'
+                    landingPage += this.SearchParamsStore.search.toLowerCase().replace(/\s/g, '-')
                 } else if(this.SearchParamsStore.searchDescription.includes('City')){
                     landingPage += '-'+this.SearchParamsStore.search.toLowerCase()
                 }

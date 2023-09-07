@@ -55,7 +55,7 @@
         </section>
 
         <section id="seo-allocation" class="mt-10">
-            <h2 class="text-xl font-bold mb-4">How much is a {{ pageTitle }}?</h2>
+            <h2 class="text-xl font-bold mb-4">How much is a {{ pageQuestion }}?</h2>
 
             <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about {{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
 
@@ -140,6 +140,9 @@ export default {
 
     }, 
     computed: {
+        pageQuestion(){
+            return this.$route.params.division.toLowerCase() + ' property for ' + this.$route.params.category
+        },
         pageTitle(){
             return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category
         },        
