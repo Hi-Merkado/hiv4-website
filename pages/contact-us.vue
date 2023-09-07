@@ -52,32 +52,32 @@
             <div class="grid lg:grid-cols-2 py-5">
                 <div class="flex items-center gap-4 mb-4 lg:mb-0">
                     <div>
-                        <font-awesome-icon icon="phone" :style="{ height: '18px', color: '#dadada' }" />
+                        <font-awesome-icon icon="phone" :style="{ height: '18px', color: '#2F80ED' }" />
                     </div>
                     <div class="text-sm leading-4">
                         <p class="uppercase">
-                            t: +63 956 134 3180
+                            M: +63 956 134 3180 (Globe)
                         </p>
                         <p class="uppercase">
-                            t: +63 919 474 1067
+                            M: +63 919 474 1067 (Smart)
                         </p>
                         <p class="uppercase">
-                            t: +632 8401 6302
+                            T: +632 8401 6302
                         </p>
                     </div>
                 </div>                    
                 <div class="flex items-center gap-4">
                     <div>
-                        <font-awesome-icon icon="location-dot" :style="{ height: '18px', color: '#dadada' }" />
+                        <font-awesome-icon icon="location-dot" :style="{ height: '18px', color: '#2F80ED' }" />
                     </div>
                     <p class="text-sm leading-4">
-                        6th Flr. LDM Building<br /> 
+                        6th Flr. LDM Building,<br>
                         Polaris St. Makati City
                     </p>
                 </div>
-                <div class="flex items-center gap-4 py-5">
+                <div class="flex items-center gap-4 mt-4">
                     <div>
-                        <font-awesome-icon icon="location-dot" :style="{ height: '18px', color: '#dadada' }" />
+                        <font-awesome-icon icon="envelope" :style="{ height: '18px', color: '#2F80ED' }" />
                     </div>
                     <p class="text-sm leading-4">
                         <a href="mailto:info@housinginteractive.com">info@housinginteractive.com</a>

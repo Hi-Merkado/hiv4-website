@@ -41,10 +41,10 @@
             <ul class="flex gap-2">
                 <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
-                        <option value="0">Newest First</option>
-                        <option value="1">Oldest First</option>
-                        <option value="2">Highest First</option>
-                        <option value="3">Lowest First</option>
+                        <option value="0">Date Modified (Newest First)</option>
+                        <option value="1">Date Modified (Oldest First)</option>
+                        <option value="2">Price (Highest First)</option>
+                        <option value="3">Price (Lowest First)</option>
                     </select>
                 </li>
             </ul>
@@ -171,6 +171,9 @@ export default {
         },
         parentTitle(){
             return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category
+        },
+        pageQuestion(){
+            return this.$route.params.division.toLowerCase() + ' property for ' + this.$route.params.category + ' in ' + this.titleCase(this.$route.params.area.replace(/-/g, ' ')) +', '+ this.titleCase(this.$route.params.city.replace('-', ' '))
         },
         pageTitle(){
             return this.titleCase(this.$route.params.division) + ' properties for ' + this.$route.params.category + ' in ' + this.titleCase(this.$route.params.area.replace(/-/g, ' ')) +', '+ this.titleCase(this.$route.params.city.replace('-', ' '))
