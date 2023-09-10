@@ -32,7 +32,7 @@
                 <h4 class="text-xl font-bold border-l-4 border-[#333] leading-6 pl-4">HousingInteractive started the trend that ushered in a way of life.</h4>
             </div> -->
 
-            <div class="my-6 md:my-10 lg:my-28">
+            <!-- div class="my-6 md:my-10 lg:my-28">
                 <h3 class="text-2xl lg:text-3xl text-center font-semibold">Housinginteractive's Story</h3>
                 <div class="flex flex-col md:flex-row lg:flex-row justify-between gap-8 my-10">
                     <div class="w-full md:w-1/5 lg:w-1/5">
@@ -93,33 +93,63 @@
                         <p class="mb-4">We understand how daunting the process of buying or selling a property can be, especially during these trying times. That's why we want to assure you that we are here for you every step of the way. We are more than just a real estate company - we are your partners in finding your dream home, your trusted advisors in making informed decisions, and your dedicated advocates in negotiating the best deals.</p>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="bg-gray-50 p-6 md:py-6 md:px-8 lg:py-11 lg:px-16">
-                <div class="md:border-l-4 lg:border-l-4 border-black md:pl-4 lg:pl-8 py-6">
-                    <h3 class="text-2xl leading-none font-semibold">Numbers Area</h3>
-                    <p class="my-6">At HousingInteractive, we don't just sell properties - we sell experiences, memories, and dreams. And we promise to continue doing so, with the same passion and dedication that has kept us going for 20 years.</p>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="text-center">
-                            <h4 class="text-[52px] md:text-[88px] lg:text-[88px] font-bold leading-tight">
-                                20
-                            </h4>
-                            <span class="text-xs md:text-sm lg:text-sm">Years</span>
-                        </div>
-                        <div class="text-center">
-                            <h4 class="text-[52px] md:text-[88px] lg:text-[88px] font-bold leading-tight">
-                                8k
-                            </h4>
-                            <span class="text-xs md:text-sm lg:text-sm">High-Quality Listings</span>
-                        </div>
-                        <div class="text-center">
-                            <h4 class="text-[52px] md:text-[88px] lg:text-[88px] font-bold leading-tight">
-                                15k
-                            </h4>
-                            <span class="text-xs md:text-sm lg:text-sm">Satisfied Clients</span>
-                        </div>
-                    </div>
+            </div -->
+            
+            <div class="flex w-full gap-4 mb-12">
+                <div class="w-1/2 flex h-[295] items-center flex-col justify-center">
+                    <h3 class="w-full text-2xl mb-4">About the Founder</h3>
+                    <p class="mb-4">John realized that the Philippines was sorely lacking an online brokerage that simplified the sale and purchase of Real Estate. In 2003, a small investment and big dreams led to the creation of HousingInteractive, the first online brokerage in the country. Nowadays, bigger name brands come to mind -- Lamudi, Property 24, My Property, and Trovit, to name a few -- but HousingInteractive stands out as the brokerage that opened the door for these new players.</p>
+
+                    <p class="w-full">In short, HousingInteractive started the trend that ushered in a way of life.</p>
                 </div>
-            </div> -->
+                <div class="w-1/2">
+                    <img src="~/assets/images/sj2.jpg" alt="" class="w-full">
+                </div>
+            </div>
+
+            <div class="flex w-full gap-4 mb-12">
+                <div class="w-1/2">
+                    <img src="~/assets/images/adb1.jpg" class="w-full" alt="">
+                </div>
+                <div class="w-1/2 flex h-[295] items-center flex-col justify-center">
+                    <h3 class="w-full text-2xl mb-4">Company Story</h3>
+                    <p class="w-full mb-4">In 2005, HousingInteractive included a sales section, paving the way to a more sophisticated platform that simplified real estate purchase in the country.</p>
+
+                    <p>In 2008, HousingInteractive branched out to cover commercial real estate lease and purchase. Now, it was offering a holistic contribution to the country -- to handle your house and your office.</p>
+                </div>
+            </div>
+
+            <div class="flex w-full gap-4 mb-12">
+                <div class="w-1/2 flex h-[295] items-center flex-col justify-center">
+                    <p class="w-full mb-4">This distinction was clear to multinational giants, including the Asian Development Bank, who signed on as a major client of HousingInteractive. We started catering to the distinct home needs of the busy ADB executives.</p>
+
+                    <p>Expansion continued over the years, and in 2014, we invested in an affiliate company -- who you all know now as Hoppler. Business boomed under the careful and caring watch of our partners. HousingInteractive took a step back and Hoppler took center stage.</p>
+                </div>
+                <div class="w-1/2">
+                    <img src="~/assets/images/upper2.jpg" class="w-full" alt="">
+                </div>
+            </div>
+
+            <div class="flex w-full gap-4 mb-12">
+                <div class="w-1/2">
+                    <img src="~/assets/images/upper1.jpg" class="w-full" alt="">
+                </div>
+                <div class="w-1/2 flex h-[295] items-center flex-col justify-center">
+                    <p class="w-full mb-4">Now it&apos;s time for HousingInteractive to shine once more. Hoppler&apos;s magnitude covers the entire Metro Manila; HousingInteractive will shine laser focus on the economic capitals of the Philippines - Makati, Bonifacio Global City, Ortigas, and the emerging financial district of Alabang.</p>
+
+                    <p class="w-full">In 2010, a census showed the Makati population at slightly over 500 thousand -- but which grew to over a million during the day with the sheer traffic coming into the key economic area for commercial reasons. BGC meanwhile is catching up with the rising amount of commercial real estate spaces available for reach. Even the country&apos;s Stock Exchange transferred its trading floors to BGC in 2018.</p>
+                </div>
+            </div>
+
+            <div class="flex w-full gap-4">
+                <div class="w-1/2 flex h-[295] items-center flex-col justify-center">
+                    <p class="mb-4 w-full">The needs surrounding the financial districts are so unique, that HousingInteractive has chosen to devote its years of pioneering experience to the particular needs of people living and working in these four key areas. When the citizens of Makati, BGC, Ortigas, and Alabang are busy making the money that drives the nation, HousingInteractive makes their lives simpler and easier through the easy discovery of their perfect space.</p>
+                </div>
+                <div class="w-1/2">
+                    <img src="~/assets/images/bottom3.jpg" class="w-full" alt="">
+                </div>
+            </div>
+
         </div>
     </section>
 </template>
