@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="EnquiryStore.showEnquiry"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" @click="toggleModal()">
             <div class="relative w-11/12 lg:w-2/6 my-6 mx-auto lg:max-w-3xl">
                 <!--content-->
                 <div
