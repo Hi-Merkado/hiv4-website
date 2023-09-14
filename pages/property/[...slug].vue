@@ -55,11 +55,10 @@
             
             <div class="grid lg:grid-cols-2 gap-2 mb-8">
                 <div class="grid grid-cols-1 grid-rows-1 object-fit md:object-contain">
-                    <img :src="listing.data.thumbnail" alt="" class="md:w-full h-[466px] xs:h-auto rounded-lg cursor-pointer"
-                        v-on:click="toggleGallery()">
+                    <img :src="listing.data.thumbnail" alt="" class="md:w-full h-[466px] xs:h-auto rounded-lg cursor-pointer" v-on:click="toggleGallery(0)">
                 </div>
                 <div class="xs:hidden sm:hidden md:hidden lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
-                    <img v-for="(thumbnail, index) in listing.data.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery()">
+                    <img v-for="(thumbnail, index) in listing.data.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery(index)">
                 </div>
             </div>
 
@@ -135,7 +134,7 @@
                         <div class="flex gap-4 mb-6">
                             <!-- <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" class="w-16 h-16 rounded-full" alt=""> -->
                             <div>
-                                <p class="font-bold">{{ listing.data.uploader_name }}</p>
+                                <p class="font-bold">Housinginteractive Inc</p>
                                 <p>Address: 6th floor LDM Building</p>
                                 <p>Polaris St. Makati City</p>
                                 <!-- <p>Telephone: (632) 8097574</p> -->
@@ -159,23 +158,12 @@
                 <h3 class="font-bold text-xl mb-4">Other residential properties for rent</h3>
 
                 <div class="relative">
-                    <div class="slides-container h-[273px] flex snap-x snap-mandatory overflow-hidden overflow-x-auto space-x-2 rounded scroll-smooth before:w-[45vw] before:shrink-0 after:w-[45vw] after:shrink-0 md:before:w-0 md:after:w-0" ref="slidesContainer">
-                        <div v-for="(listing, index) in listing.other" :key="index" class="slide xs:w-full sm:w-[280px] md:w-[385px] lg:w-[395px] lg:h-[350px] aspect-square h-full rounded overflow-hidden" ref="slide" style="margin-right: 13px;">
+                    <Splide :options="options" aria-label="Vue Splide Example">
+                        <SplideSlide v-for="(listing, index) in listing.other" :key="index">
                             <ListingsListing :listing="listing"/>
-                        </div>
-                    </div>
+                        </SplideSlide>
+                    </Splide>
                 </div>
-
-                <nav class="w-full flex justify-center mt-8" v-if="listing.other.count > 3">
-                    <ul class="flex gap-3"><!--[-->
-                        <li>
-                            <button class="text-sm" @click="prevSlide()">Prev</button>
-                        </li>
-                        <li>
-                            <button class="text-sm" @click="nextSlide()">Next</button>
-                        </li>
-                    </ul>
-                </nav>
 
             </div>
         </section>
@@ -200,15 +188,19 @@ import { useSearchParamsStore } from '~/stores/SearchParamsStore'
 import { useEnquiryStore } from '~/stores/EnquiryStore'
 import { useGalleryStore } from '~/stores/GalleryStore'
 import ListingsServices from '~/services/ListingsServices'
-import { watchEffect } from 'vue'
+import { watchEffect, defineComponent } from 'vue'
+import { Splide, SplideSlide } from '@splidejs/vue-splide'
+import '@splidejs/vue-splide/css'
 
-export default {
+export default defineComponent({
+    components: { Splide, SplideSlide },
     data(){
         return {
             listing: [],
             images: [],
             id: 0,
-            thumbnails: {}
+            thumbnails: {},
+            firstImage: 0
         }
     },
 
@@ -217,10 +209,18 @@ export default {
         const EnquiryStore = useEnquiryStore()
         const GalleryStore = useGalleryStore()
 
+        const options = { 
+            type: 'loop',
+            perPage: 3,
+            rewind: true,
+            gap: '10px'
+        }
+
         return {
             SearchParamsStore,
             EnquiryStore,
-            GalleryStore
+            GalleryStore,
+            options
         }
     },
 
@@ -237,21 +237,6 @@ export default {
     },
 
     methods: {
-        getWidth(){
-            return this.$refs.slide.clientWidth
-        },
-
-        getHeight(){
-            return this.$refs.slide.clientHeight
-        },
-
-        nextSlide(){
-            this.$refs.slidesContainer.scrollLeft += 408
-        },
-
-        prevSlide(){
-            this.$refs.slidesContainer.scrollLeft -= 408
-        },
 
         async fetchListing(id){
             let listing = await ListingsServices._getListing(id)
@@ -269,7 +254,8 @@ export default {
             return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
         },
 
-        toggleGallery(){
+        toggleGallery(index){
+            this.GalleryStore.firstImage = index
             this.GalleryStore.showGallery = !this.GalleryStore.showGallery
         },
 
@@ -281,5 +267,5 @@ export default {
             return '/building/'+ this.listing.data.buildling_slug
         }
     }
-}
+})
 </script>
