@@ -9,6 +9,7 @@ export const useSearchParamsStore = defineStore('searchParamsStore', {
         priceParam: 'price',
         bedrooms: null,
         search: null,
+        isOnline: true,
         searchDescription: null,
         type_name: null,
         city_name: null,
