@@ -160,7 +160,9 @@ export default {
         }, 
 
         updateCategory(){
-            this.tempData.category == 'rent' ? this.tempData.category = 'sale' : this.tempData.category = 'rent'
+            // console.log(this.tempData.category)
+            // this.tempData.category = this.tempData.category == 'rent' ? 'sale' : 'rent'git status
+            // console.log(this.tempData.category)
         },
 
         updateType(){
@@ -202,6 +204,8 @@ export default {
             this.SearchParamsStore.priceMin = this.tempData.priceMin
             this.SearchParamsStore.priceMax = this.tempData.priceMax
             this.SearchParamsStore.bedrooms = this.tempData.bedrooms
+
+            console.log(this.SearchParamsStore.category)
 
             this.SearchParamsStore.triggered = false
 
