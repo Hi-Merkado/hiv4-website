@@ -12,7 +12,7 @@
                     placeholder="Search by building, city or area"
                     aria-label="Search by building, city or area"
                     aria-describedby="button-addon2"
-                    v-model="SearchParamsStore.search"
+                    v-model="tempData.search"
                     v-on:input="fetchSuggestions">
                     <div class="w-full bg-white border text-left" v-if="showSuggestions">
                         <ul>
@@ -36,31 +36,31 @@
                 </button>
             </div>
             <div class="hidden lg:flex gap-4 h-8 ">
-                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.division"
+                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="tempData.division"
                     @change="updateDivision"
                 >
                     <option value="1">Residential</option>
                     <option value="2">Commercial</option>
                 </select>
-                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.category"
+                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="tempData.category"
                     @change="updateCategory"
                 >
                     <option value="sale">Buy</option>
                     <option value="rent">Rent</option>
                 </select>
-                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.type_name"
+                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="tempData.type_name"
                 >
                     <option v-for="(type, index) in types" :key="index" :value="type.slug">{{ type.name }}</option>
                 </select>
                 <div class="flex flex-1">
-                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="SearchParamsStore.priceMin">
-                    <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="SearchParamsStore.priceMax">
-                    <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="SearchParamsStore.priceParam">
+                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="tempData.priceMin">
+                    <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="tempData.priceMax">
+                    <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="tempData.priceParam">
                         <option value="pps">P / sqm</option>
                         <option value="price">Price</option>
                     </select>
                 </div>
-                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.bedrooms" v-if="SearchParamsStore.division == 1">
+                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="tempData.bedrooms" v-if="tempData.division == 1">
                     <option value="null">Bedrooms</option>
                     <option value="0">Studio</option>
                     <option value="1">1</option>
@@ -93,7 +93,19 @@ export default {
             suggestions: [],
             showGallery: false,
             showEnquiry: false,
-            types: []
+            types: [],
+            tempData: {
+                search: this.SearchParamsStore.search,
+                searchDescription: this.SearchParamsStore.searchDescription,
+                city_name: this.SearchParamsStore.city_name,
+                area_name: this.SearchParamsStore.area_name,
+                division: this.SearchParamsStore.division,
+                category: this.SearchParamsStore.category,
+                priceParam: this.SearchParamsStore.priceParam,
+                priceMin: this.SearchParamsStore.priceMin,
+                priceMax: this.SearchParamsStore.Max,
+                bedrooms: this.SearchParamsStore.bedrooms
+            }
         }
     },
 
@@ -126,10 +138,10 @@ export default {
         }, 
 
         updateQuery(value, description, city, area){
-            this.SearchParamsStore.search = value
-            this.SearchParamsStore.searchDescription = description
-            this.SearchParamsStore.city_name = city
-            this.SearchParamsStore.area_name = area
+            this.tempData.search = value
+            this.tempData.searchDescription = description
+            this.tempData.city_name = city
+            this.tempData.area_name = area
             this.suggestions = []
             this.showSuggestions = false
             this.SearchParamsStore.triggered = true
@@ -141,15 +153,14 @@ export default {
         },
 
         updateDivision(){
-            this.SearchParamsStore.priceParam = this.SearchParamsStore.division == 1 ?  'price' : 'pps'
-            this.SearchParamsStore.priceMin = 0
-            this.SearchParamsStore.priceMax = 0
+            this.tempData.priceParam = this.tempData.division == 1 ?  'price' : 'pps'
+            this.tempData.priceMin = 0
+            this.tempData.priceMax = 0
             this.fetchDivisionTypes();
         }, 
 
         updateCategory(){
-            this.SearchParamsStore.category == 'rent' ? this.SearchParamsStore.category = 'rent' : this.SearchParamsStore.category = 'sale'
-            this.fetchListings()
+            this.tempData.category == 'rent' ? this.tempData.category = 'sale' : this.tempData.category = 'rent'
         },
 
         updateType(){
@@ -158,14 +169,13 @@ export default {
         },
 
         updatePriceParam(event){
-            this.SearchParamsStore.priceParam = event.target.value
-            this.SearchParamsStore.priceMin = 0
-            this.SearchParamsStore.priceMax = 0
+            this.tempData.priceParam = event.target.value
+            this.tempData.priceMin = 0
+            this.tempData.priceMax = 0
         },
 
         updateBedrooms(event){
-            this.SearchParamsStore.bedrooms = event.target.value
-            this.fetchListings()
+            this.tempData.bedrooms = event.target.value
         },
 
         updatePage(value){
@@ -181,6 +191,17 @@ export default {
         },
 
         initiateSearch(){  
+            
+            this.SearchParamsStore.division = this.tempData.division
+            this.SearchParamsStore.category = this.tempData.category
+            this.SearchParamsStore.city_name = this.tempData.city_name
+            this.SearchParamsStore.area_name = this.tempData.area_name
+            this.SearchParamsStore.search = this.tempData.search
+            this.SearchParamsStore.searchDescription = this.tempData.searchDescription
+            this.SearchParamsStore.priceParam = this.tempData.priceParam
+            this.SearchParamsStore.priceMin = this.tempData.priceMin
+            this.SearchParamsStore.priceMax = this.tempData.priceMax
+            this.SearchParamsStore.bedrooms = this.tempData.bedrooms
 
             this.SearchParamsStore.triggered = false
 
@@ -215,10 +236,6 @@ export default {
 
             window.location.href = landingPage
 
-        },
-
-        formatMoney(event){
-            this.SearchParamstore.priceMin = parseInt(this.SearchParamsStore.priceMin).toLocaleString('en-US')
         },
 
         formatNumber(event){
