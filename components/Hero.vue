@@ -16,7 +16,7 @@
                         placeholder="Search by building, city or area"
                         aria-label="Search by building, city or area"
                         aria-describedby="button-addon2"
-                        v-model="SearchParamsStore.search"
+                        v-model="tempData.search"
                         v-on:input="fetchSuggestions"/>
                         <div class="w-full bg-white border text-left" v-if="showSuggestions">
                             <ul>
@@ -31,7 +31,7 @@
                     </div>
                     <button
                         class="lg:w-32 lg:h-full flex items-center rounded px-2 text-white lg:rounded-r-lg lg:font-bold "
-                        :class="[SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default']"
+                        :class="[tempData.division == 1 ? 'bg-green-default' : 'bg-blue-default']"
                         type="button"
                         id="button-addon2"
                         @click="initiateSearch">
@@ -47,52 +47,52 @@
                     <div class="flex gap-4">
                         <div 
                             class="rounded-lg h-10 p-0.5"
-                            :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
+                            :class="tempData.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
                             >
                             <button 
                                 class="bg-white font-bold py-1.5 px-4 mr-4 rounded-lg flex items-center gap-4"
-                                :class="SearchParamsStore.division == 1 ? 'border-green-default' : 'border-blue-default'"
+                                :class="tempData.division == 1 ? 'border-green-default' : 'border-blue-default'"
                                 @click.prevent="updateDivision()"
                                 >
-                                <p>{{ SearchParamsStore.division == 1 ? 'Residential' : 'Commercial' }}</p>
+                                <p>{{ tempData.division == 1 ? 'Residential' : 'Commercial' }}</p>
                                 <span 
                                     class="rounded-full w-2 h-2"
-                                    :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
+                                    :class="tempData.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
                                     >&nbsp;</span>
                             </button>
                         </div>
                         <div 
                             class="rounded-lg h-10 p-0.5"
-                            :class="SearchParamsStore.category == 'rent' ? 'bg-'+defaultColor+'-default' : 'bg-gray-default'"
+                            :class="tempData.category == 'rent' ? 'bg-'+defaultColor+'-default' : 'bg-gray-default'"
                             >
                             <button 
                                 type="submit"
                                 class="bg-white font-bold py-1.5 px-4 mr-4 rounded-lg flex items-center gap-4"
-                                :class="SearchParamsStore.category == 1 ? 'border-'+defaultColor+'-default' : 'border-gray-default'"
+                                :class="tempData.category == 1 ? 'border-'+defaultColor+'-default' : 'border-gray-default'"
                                 @click.prevent="updateCategory()"
                                 >
-                                <p>{{ SearchParamsStore.category == 'rent' ? 'Rent' : 'Buy' }}</p>
+                                <p>{{ tempData.category == 'rent' ? 'Rent' : 'Buy' }}</p>
                                 <span 
                                     class="rounded-full w-2 h-2"
-                                    :class="SearchParamsStore.category == 'rent' ? 'bg-'+defaultColor+'-default' : 'bg-gray-default'"
+                                    :class="tempData.category == 'rent' ? 'bg-'+defaultColor+'-default' : 'bg-gray-default'"
                                     >&nbsp;</span>
                             </button>
                         </div>
                     </div>
                     <div class="flex justify-between gap-4">
                         <div class="flex flex-1">
-                            <input type="text" placeholder="1,375,000" id="priceMin" v-model="SearchParamsStore.priceMin" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4"
+                            <input type="text" placeholder="1,375,000" id="priceMin" v-model="tempData.priceMin" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4"
                                 v-on:keyup="formatNumber($event)"
                             >
-                            <input type="text" placeholder="2,000,000" id="priceMax" v-model="SearchParamsStore.priceMax" class="w-1/3 border-y text-sm focus:outline-none px-4"
+                            <input type="text" placeholder="2,000,000" id="priceMax" v-model="tempData.priceMax" class="w-1/3 border-y text-sm focus:outline-none px-4"
                                 v-on:keyup="formatNumber($event)"
                             >
-                            <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="SearchParamsStore.priceParam" @change="updatePriceParam($event)">
+                            <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="tempData.priceParam" @change="updatePriceParam($event)">
                                 <option value="pps">P / sqm</option>
                                 <option value="price">Price</option>
                             </select>
                         </div>
-                        <div class="w-1/4" v-if="SearchParamsStore.division == 1">
+                        <div class="w-1/4" v-if="tempData.division == 1">
                             <select class="w-full border rounded-lg h-full text-sm px-3" @change="updateBedrooms($event)">
                                 <option value="">Bedrooms</option>
                                 <option value="0">Studio</option>
@@ -151,7 +151,19 @@ export default {
     data(){
         return {
             showSuggestions: false,
-            suggestions: []
+            suggestions: [],
+            tempData: {
+                search: this.SearchParamsStore.search,
+                searchDescription: this.SearchParamsStore.searchDescription,
+                city_name: this.SearchParamsStore.city_name,
+                area_name: this.SearchParamsStore.area_name,
+                division: this.SearchParamsStore.division,
+                category: this.SearchParamsStore.category,
+                priceParam: this.SearchParamsStore.priceParam,
+                priceMin: this.SearchParamsStore.priceMin,
+                priceMax: this.SearchParamsStore.Max,
+                bedrooms: this.SearchParamsStore.bedrooms
+            }
         }
     },
 
@@ -167,7 +179,7 @@ export default {
 
     computed:{
         defaultColor(){
-            return this.SearchParamsStore.division == 1 ? 'green' : 'blue'
+            return this.tempData.division == 1 ? 'green' : 'blue'
         }
     },
 
@@ -198,40 +210,50 @@ export default {
         }, 
 
         updateQuery(value, description, city, area){
-            console.log(city)
-            this.SearchParamsStore.search = value
-            this.SearchParamsStore.searchDescription = description
-            this.SearchParamsStore.city_name = city
-            this.SearchParamsStore.area_name = area
+            this.tempData.search = value
+            this.tempData.searchDescription = description
+            this.tempData.city_name = city
+            this.tempData.area_name = area
             this.suggestions = []
             this.showSuggestions = false
         },
 
         updateDivision(){
-            this.SearchParamsStore.division = this.SearchParamsStore.division == 1 ?  2 : 1
-            this.SearchParamsStore.priceParam = this.SearchParamsStore.division == 1 ?  'price' : 'pps'
-            this.SearchParamsStore.priceMin = 0
-            this.SearchParamsStore.priceMax = 0
-            this.fetchListings()
+            this.tempData.division = this.tempData.division == 1 ?  2 : 1
+            this.tempData.priceParam = this.tempData.division == 1 ?  'price' : 'pps'
+            this.tempData.priceMin = 0
+            this.tempData.priceMax = 0
+            // this.fetchListings()
         }, 
 
         updateCategory(){
-            this.SearchParamsStore.category == 'rent' ? this.SearchParamsStore.category = 'sale' : this.SearchParamsStore.category = 'rent'
-            this.fetchListings()
+            this.tempData.category == 'rent' ? this.tempData.category = 'sale' : this.tempData.category = 'rent'
+            // this.fetchListings()
         },
 
         updatePriceParam(event){
-            this.SearchParamsStore.priceParam = event.target.value
-            this.SearchParamsStore.priceMin = 0
-            this.SearchParamsStore.priceMax = 0
+            this.tempData.priceParam = event.target.value
+            this.tempData.priceMin = 0
+            this.tempData.priceMax = 0
         },
 
         updateBedrooms(event){
-            this.SearchParamsStore.bedrooms = event.target.value
+            this.tempData.bedrooms = event.target.value
             this.fetchListings()
         },
 
         initiateSearch(){  
+
+            this.SearchParamsStore.division = this.tempData.division
+            this.SearchParamsStore.category = this.tempData.category
+            this.SearchParamsStore.city_name = this.tempData.city_name
+            this.SearchParamsStore.area_name = this.tempData.area_name
+            this.SearchParamsStore.search = this.tempData.search
+            this.SearchParamsStore.searchDescription = this.tempData.searchDescription
+            this.SearchParamsStore.priceParam = this.tempData.priceParam
+            this.SearchParamsStore.priceMin = this.tempData.priceMin
+            this.SearchParamsStore.priceMax = this.tempData.priceMax
+            this.SearchParamsStore.bedrooms = this.tempData.bedrooms
 
             const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
             let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category
