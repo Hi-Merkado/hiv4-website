@@ -94,9 +94,7 @@ export default {
         }
     },
     created(){
-
         this.fetchListings();
-
     }, 
     computed: {
         defaultLink(){
@@ -111,8 +109,6 @@ export default {
     methods: {
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-
-            console.log(params)
 
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
