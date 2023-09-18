@@ -108,6 +108,7 @@ export default {
     },
     methods: {
         async fetchListings(){
+
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
 
             if(!this.SearchParamsStore.triggered){
