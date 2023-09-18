@@ -53,14 +53,14 @@
                     <option v-for="(type, index) in types" :key="index" :value="type.slug">{{ type.name }}</option>
                 </select>
                 <div class="flex flex-1">
-                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="tempData.priceMin">
-                    <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="tempData.priceMax">
-                    <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="tempData.priceParam">
+                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="SearchParamsStore.priceMin">
+                    <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="SearchParamsStore.priceMax">
+                    <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="SearchParamsStore.priceParam">
                         <option value="pps">P / sqm</option>
                         <option value="price">Price</option>
                     </select>
                 </div>
-                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="tempData.bedrooms" v-if="tempData.division == 1">
+                <select class="w-[139px] border rounded-lg text-sm px-3" v-model="SearchParamsStore.bedrooms" v-if="tempData.division == 1">
                     <option value="null">Bedrooms</option>
                     <option value="0">Studio</option>
                     <option value="1">1</option>
@@ -104,7 +104,8 @@ export default {
                 priceParam: this.SearchParamsStore.priceParam,
                 priceMin: this.SearchParamsStore.priceMin,
                 priceMax: this.SearchParamsStore.Max,
-                bedrooms: this.SearchParamsStore.bedrooms
+                bedrooms: this.SearchParamsStore.bedrooms,
+                type_name: this.SearchParamsStore.type_name,
             }
         }
     },
@@ -177,7 +178,7 @@ export default {
         },
 
         updateBedrooms(event){
-            this.tempData.bedrooms = event.target.value
+            // this.tempData.bedrooms = event.target.value
         },
 
         updatePage(value){
@@ -200,12 +201,7 @@ export default {
             this.SearchParamsStore.area_name = this.tempData.area_name
             this.SearchParamsStore.search = this.tempData.search
             this.SearchParamsStore.searchDescription = this.tempData.searchDescription
-            this.SearchParamsStore.priceParam = this.tempData.priceParam
-            this.SearchParamsStore.priceMin = this.tempData.priceMin
-            this.SearchParamsStore.priceMax = this.tempData.priceMax
-            this.SearchParamsStore.bedrooms = this.tempData.bedrooms
-
-            console.log(this.SearchParamsStore.category)
+            this.SearchParamsStore.type_name = this.tempData.type_name
 
             this.SearchParamsStore.triggered = false
 
@@ -244,8 +240,6 @@ export default {
 
         formatNumber(event){
             let numberRegex = /^(?:-(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))|(?:0|(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))))(?:.\d+|)$/
-
-            console.log(event.target.id)
 
             let current_value = event.target.value
 

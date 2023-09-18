@@ -9,6 +9,7 @@ export const useListingsStore = defineStore('ListingsStore', {
     actions: {
         async fetchListings(){
             const params = this.buildQueryParams()
+            console.log(params)
             this.listings = await ListingsServices._getListings(params)
         }
     }
