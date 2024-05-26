@@ -163,6 +163,7 @@ export default {
     },
     methods: {
         async fetchSuggestions(event){
+            console.log("calling fetchSuggestions")
             this.SearchParamsStore.triggered = false
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
 
@@ -221,6 +222,7 @@ export default {
         },
 
         initiateSearch(){  
+
 
             const division = this.SearchParamsStore.division == 1 ? 'residential' : 'commercial'
             let landingPage = '/'+division+'-property-'+this.SearchParamsStore.category

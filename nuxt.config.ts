@@ -1,5 +1,6 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.js
 export default defineNuxtConfig({
+    ssr: true,
     app: {
         head: {
             meta: [
@@ -16,6 +17,8 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
     ],
     runtimeConfig: {
-        API_BASE_URL: process.env.API_BASE_URL
+        public: {
+            API_BASE_URL: process.env.API_BASE_URL
+        }
     }
-})
+});

@@ -32,7 +32,7 @@ export default {
         },
 
         defineUrl(division, category, location){
-            return "/"+division+"-property-"+category+"-"+location
+            return "/"+division+"-property-"+category
                 .toLowerCase()
                 .trim()
                 .replace(/[^\w\s-]/g, '')

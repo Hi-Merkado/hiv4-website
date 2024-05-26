@@ -3,6 +3,8 @@
         <Head>
             <Title>{{ title }}</Title>
             <Meta name="description" :content="description" />
+            <meta name="referrer" content="strict-origin-when-cross-origin">
+
             <Meta property="og:title" content="Buy, Sell & Rent Properties - 1st Philippine Real Estate Portal" />
             <Meta property="og:type" content="website" />
             <Meta property="og:url" :content="currentPath" />
