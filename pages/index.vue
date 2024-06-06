@@ -15,9 +15,9 @@
 
     <!-- <Featured /> -->
 
-    <!-- <Testimonial /> -->
+    <Testimonial />
 
-    <!-- <TheSteps /> -->
+    <TheSteps />
     
 </template>
 

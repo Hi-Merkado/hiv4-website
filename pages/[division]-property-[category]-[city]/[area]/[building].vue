@@ -40,7 +40,7 @@
         </a>
 
         <div class="flex justify-between items-center mb-8">
-            <p class="text-lg font-bold">{{ ListingsStore.listings.data?.meta?.total?.toLocaleString() }} properties found</p>
+            <p class="text-lg font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
                 <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
@@ -83,7 +83,7 @@
         <section id="seo-allocation" class="mt-10">
             <h2 class="text-xl font-bold mb-4">How much is a {{ pageQuestion }}?</h2>
 
-            <p class="mb-4">In total, there are {{ ListingsStore.listings.data?.meta?.total?.toLocaleString() }} {{ pageIntro }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
+            <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta.total.toLocaleString() }} {{ pageIntro }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
 
             <p class="mb-4">You may find the most expensive and luxurious {{ $route.params.division }} properties for {{ $route.params.category }} at <span v-html="ListingsStore.listings.data.location.expensive"></span>. While you can find classy yet affordable ones at <span v-html="ListingsStore.listings.data.location.affordable"></span>.</p>
 
@@ -142,6 +142,7 @@ export default {
         useHead({
             title: `${this.pageTitle} | Housinginteractive.com.ph`
         })
+
         const division = this.$route.params.division == 'residential' ? 1 : 2
         this.SearchParamsStore.division = division
         this.SearchParamsStore.category = this.$route.params.category
@@ -190,9 +191,6 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            console.log("checking params from buildind:",params)
-            // console.log("this.SearchParamsStore.$state",this.SearchParamsStore.$state)
-            // console.log("check params",params)
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
             }

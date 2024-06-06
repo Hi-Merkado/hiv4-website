@@ -2,7 +2,6 @@
     <section class="bg-blue-500 bg-no-repeat bg-center bg-cover lg:bg-cover bg-[url('/images/IMG_0080.JPG')]">
         <div class="md:container mx-auto h-[463px] lg:h-[720px] text-center lg:pt-16 lg:pb-32 flex flex-col items-center bg-bottom ">
             <h1 class="text-3xl font-bold align-middle pt-14">Your next move?</h1>
-            <!-- <button @click = "checkApi()" >check apir</button> -->
             <h2 class="text-xl align-middle pb-14">Search for your properties for sale or rent in the Philippines</h2>
 
             <form class="w-full lg:w-3/4 lg:mx-auto px-7">
@@ -40,12 +39,11 @@
                             <font-awesome-icon icon="magnifying-glass" :style="{ color: '#fff' }"/>
                         </div>
                         <p class="text-white flex rounded-lg items-center text-sm lg:text-xl font-circularxx">
-                            Searchasd
+                            Search
                         </p>
                     </button>
                 </div>
-                <!--  comment for show only large screen  screen  -->
-                <div class="lg:flex gap-6 ">
+                <div class="lg:flex gap-6 hidden">
                     <div class="flex gap-4">
                         <div 
                             class="rounded-lg h-10 p-0.5"
@@ -105,8 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- temp comment show only for mobile devices -->
-                <!-- <div class="grid grid-cols-2 gap-2 lg:hidden">
+                <div class="grid grid-cols-2 gap-2 lg:hidden">
                     <div>
                         <select class="w-full border rounded-lg h-[32px] text-sm px-3" @change="updateBedrooms($event)">
                             <option value="sale">Buy</option>
@@ -139,7 +136,7 @@
                             <option value="3">3+</option>
                         </select>
                     </div>
-                </div> -->
+                </div>
             </form>
         </div>
     </section>
@@ -187,12 +184,6 @@ export default {
     },
 
     methods: {
-        async checkApi() {
-            const data = await ListingsServices._getListings()
-            console.log("hello checkApi",data.data)
-            
-        },
-
         async fetchSuggestions(event){
             this.SearchParamsStore.triggered = false
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state) + '&search=' + event.target.value
@@ -248,7 +239,6 @@ export default {
 
         updateBedrooms(event){
             this.tempData.bedrooms = event.target.value
-            console.log("calling updateBedrooms")
             this.fetchListings()
         },
 
