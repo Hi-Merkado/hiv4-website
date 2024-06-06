@@ -1,4 +1,4 @@
-const baseUrl = 'https://api.housinginteractive.com.ph/api/'
+const baseUrl = 'https://api.housinginteractive.com.ph/api/public/'
 const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
