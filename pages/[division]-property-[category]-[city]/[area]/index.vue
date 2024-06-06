@@ -37,7 +37,7 @@
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
 
         <div class="flex justify-between items-center mb-8">
-            <p class="text-lg font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
+            <p class="text-lg font-bold">{{ ListingsStore.listings.data?.meta?.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
                 <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
@@ -50,7 +50,7 @@
             </ul>
         </div>
 
-        <section>
+        <!-- <section>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8" :class="columns">
                 <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
@@ -58,7 +58,7 @@
 
             <nav class="w-full flex justify-center mt-8">
                 <ul class="flex gap-3">
-                    <li v-for="(link, index) in ListingsStore.listings.data.meta.links">
+                    <li v-for="(link, index) in ListingsStore.listings.data.meta?.links">
                         <button class="text-sm" v-html="link.label"
                             :class="link.active ? 'text-blue-default' : '' "
                             v-if="!link.active"
@@ -70,17 +70,17 @@
                 </ul>
             </nav>
 
-        </section>
+        </section> -->
 
-        <section class="mt-10 pt-10 border-t-2 border-neutral-200" id="page-description">
+        <!-- <section class="mt-10 pt-10 border-t-2 border-neutral-200" id="page-description">
             <span v-html="ListingsStore.listings.data.seo.page_description" v-show="readMoreActivated"></span>
             <button class="underline" v-on:click="readMoreActivated = !readMoreActivated">Read property description</button>
-        </section>
+        </section> -->
 
-        <section id="seo-allocation" class="mt-10">
+        <!-- <section id="seo-allocation" class="mt-10">
             <h2 class="text-xl font-bold mb-4">How much is a {{ pageTitle }}?</h2>
 
-            <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
+            <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta?.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
 
             <p class="mb-4">You may find the most expensive and luxurious {{ $route.params.division }} properties for {{ $route.params.category }} at <span v-html="ListingsStore.listings.data.location.expensive"></span>. While you can find classy yet affordable ones at <span v-html="ListingsStore.listings.data.location.affordable"></span>.</p>
 
@@ -106,17 +106,17 @@
                     </tbody>
                 </table>
             </div>
-        </section>
+        </section> -->
 
-        <section id="quick-links" class="mt-10">
+        <!-- <section id="quick-links" class="mt-10">
             <h2 class="text-lg font-bold mb-4">Quick Links</h2>
             <ul class="grid grid-cols-3">
                 <li v-for="(link, index) in ListingsStore.listings.data.quickLinks" :key="index">
                     <a :href="$route.path+'/'+link.key.replace(/\s+/g, '-').toLowerCase()">{{ link.key }}</a>
                 </li>
             </ul>
-        </section>
-    </section>
+        </section> -->
+    </section> 
 </template>
 
 <style>
@@ -155,6 +155,7 @@ export default {
     },
 
     created(){
+       
         watchEffect( () => {
             const division = this.$route.params.division == 'residential' ? 1 : 2
             this.SearchParamsStore.division = division
@@ -195,9 +196,11 @@ export default {
 
         async fetchListings(){
             const params = ListingsServices.buildQueryParams(this.SearchParamsStore.$state)
-            console.log(params)
+            console.log('checking index',params)
             if(!this.SearchParamsStore.triggered){
+                console.log("check ListingsStore",this.ListingsStore.listings)
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
+                console.log('checking ListingsStore dataaa', this.ListingsStore.listings)
                 this.title = this.ListingsStore.listings.data.seo.keyword +' | Housinginteractive.com.ph'
                 this.description = this.ListingsStore.listings.data.seo.description
             }
