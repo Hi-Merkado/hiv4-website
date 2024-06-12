@@ -63,7 +63,7 @@ export default {
     props: {
         showLogin: Boolean,
         listingData: Object,
-        referrerUrl : { type : String },
+        referrerUrl : { type : Array },
         model : { type : String },
         modelId : { type : Number }
     },
