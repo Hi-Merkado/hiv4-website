@@ -5,14 +5,14 @@
         <section class="w-full lg:w-11/12 lg:max-w-7xl mx-auto mb-8 p-4">
             <div class="flex gap-2 justify-between mb-8">
                 <div>
-                    <h1 class="text-2xl font-bold">{{ buildingData.name }}</h1>
-                    <h6 class="flex h-[17px] gap-2"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ buildingData.location }}</h6>
+                    <h1 class="text-2xl font-bold">{{ buildingData?.name }}</h1>
+                    <h6 class="flex h-[17px] gap-2"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ buildingData?.location }}</h6>
                 </div>
                 <div class="flex items-center">
                     <font-awesome-icon icon="star" style="height: 30px; color: #FF5856"></font-awesome-icon>
                     <div>
                         <p>Tower Zonal Value</p>
-                        <p class="font-bold text-2xl">{{ buildingData.zonal_value }}</p>
+                        <p class="font-bold text-2xl">{{ buildingData?.zonal_value }}</p>
                     </div>
                 </div>
 
@@ -33,37 +33,37 @@
             <div class="flex flex-col lg:flex-row justify-between mb-8 gap-8">
                 <div class="w-full">
                     <div class="grid lg:grid-cols-2 gap-8 mb-6">
-                        <div class="w-full flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 justify-between items-center h-16" v-if="buildingData.property_sale > 0">
+                        <div class="w-full flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 justify-between items-center h-16" v-if="buildingData?.property_sale > 0">
                             <div>
                                 <p class="font-bold uppercase">FOR SALE</p>
-                                <p>{{ buildingData.property_sale }} Units</p>
+                                <p>{{ buildingData?.property_sale }} Units</p>
                             </div>
                             <div>
-                                <p>Starting from <span class="font-bold">{{ buildingData.property_sale_min }}</span></p>
+                                <p>Starting from <span class="font-bold">{{ buildingData?.property_sale_min }}</span></p>
                             </div>
                         </div>
-                        <div class="w-full flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 justify-between items-center h-16" v-if="buildingData.property_rent > 0">
+                        <div class="w-full flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 justify-between items-center h-16" v-if="buildingData?.property_rent > 0">
                             <div>
                                 <p class="font-bold uppercase">FOR RENT</p>
-                                <p>{{ buildingData.property_rent }} Units</p>
+                                <p>{{ buildingData?.property_rent }} Units</p>
                             </div>
                             <div>
-                                <p>Starting from <span class="font-bold">{{ buildingData.property_rent_min }} / month</span></p>
+                                <p>Starting from <span class="font-bold">{{ buildingData?.property_rent_min }} / month</span></p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="lg:w-9/12 pb-6" v-if="buildingData.description != null">
-                        <h3 class="font-bold text-xl mb-4">About {{ buildingData.name }}</h3>
-                        {{ buildingData.description }}
+                    <div class="lg:w-9/12 pb-6" v-if="buildingData?.description != null">
+                        <h3 class="font-bold text-xl mb-4">About {{ buildingData?.name }}</h3>
+                        {{ buildingData?.description }}
                     </div>
 
                     <div class="">
                         <h3 class="font-bold text-xl mb-4">Building amenities & unit features</h3>
                         <ul>
-                            <li class="flex mb-4 ml-4 gap-2" v-for="(amenity, index) in buildingData.amenities" :key="index">
+                            <li class="flex mb-4 ml-4 gap-2" v-for="(amenity, index) in buildingData?.amenities" :key="index">
                                 <font-awesome-icon :icon="['fas', 'check']" style="height: 20px; color: #808080"/>
-                                <span>{{ amenity.name }}</span>
+                                <span>{{ amenity?.name }}</span>
                             </li>
                         </ul>
                     </div>
@@ -117,17 +117,17 @@
 
             <div class="py-6">
                 <h3 class="font-bold text-xl mb-4">Room Types</h3>
-                <p class="mb-4" v-if="buildingData.property_sale > 0">There are {{ buildingData.property_sale }} condos for sale in {{ buildingData.name }} available from {{ buildingData.property_sale_min }} to {{ buildingData.property_sale_max }}</p>
-                <p class="mb-4" v-if="buildingData.property_rent > 0">There are {{ buildingData.property_rent }} condos for rent in {{ buildingData.name }} available for {{ buildingData.property_rent_min }} to {{ buildingData.property_rent_max }} per month (based on 1 year rental term)</p>
+                <p class="mb-4" v-if="buildingData?.property_sale > 0">There are {{ buildingData?.property_sale }} condos for sale in {{ buildingData?.name }} available from {{ buildingData?.property_sale_min }} to {{ buildingData?.property_sale_max }}</p>
+                <p class="mb-4" v-if="buildingData?.property_rent > 0">There are {{ buildingData?.property_rent }} condos for rent in {{ buildingData?.name }} available for {{ buildingData?.property_rent_min }} to {{ buildingData?.property_rent_max }} per month (based on 1 year rental term)</p>
             </div>
 
             <!-- <div class="mb-8">
                 <h3 class="font-bold text-xl mb-4">Location</h3>
-                <GoogleMaps :location="buildingData.coordinates"/>
+                <GoogleMaps :location="buildingData?.coordinates"/>
             </div> -->
 
             <div>
-                <h3 class="font-bold text-xl mb-4">Similar projects near to {{ buildingData.name }} in Metro Manila</h3>
+                <h3 class="font-bold text-xl mb-4">Similar projects near to {{ buildingData?.name }} in Metro Manila</h3>
                 <section class="grid lg:grid-cols-3 gap-8">
                     <ListingsListing v-for="(listing, index) in listings" :key="index" :listing="listing"/>
                 </section>
@@ -135,9 +135,9 @@
         </section>
         <!-- <ListingsEnquiry 
             :showEnquiry="showEnquiry"
-            :referrerUrl="buildingData.slug" 
+            :referrerUrl="buildingData?.slug" 
             :model="`building`" 
-            :modelId="buildingData.id"
+            :modelId="buildingData?.id"
             @toggleEnquiry="toggleEnquiry"
             /> -->
     </div>
@@ -215,7 +215,7 @@ export default {
         },
 
         formatMoney(value){
-            const numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
+            const numericValue = value?.toString().length > 0 ? parseFloat(value?.toString().replace(/,/g, '')) : 0;
             return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
         },
 

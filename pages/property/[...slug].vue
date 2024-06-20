@@ -11,54 +11,54 @@
                     <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
                 </li>
                 <li>
-                    <a :href="listing.data.parentUrl">{{ listing.data.parentTitle }}</a>
+                    <a :href="listing.data?.parentUrl">{{ listing.data?.parentTitle }}</a>
                 </li>
                 <li>
                     <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
                 </li>
                 <li>
-                    <a :href="listing.data.cityUrl">{{ listing.data.city_name }}</a>
+                    <a :href="listing.data?.cityUrl">{{ listing.data?.city_name }}</a>
                 </li>
                 <li>
                     <span class="rounded-full w-1 h-1 block bg-gray-400">&nbsp;</span>
                 </li>
-                <li class="text-gray-400" v-if="listing.data.area_name !== null">{{ listing.data.area_name }}</li>
+                <li class="text-gray-400" v-if="listing.data?.area_name !== null">{{ listing.data?.area_name }}</li>
             </ul>
             <div class="flex flex-wrap md:flex-col md:flex-nowrap lg:flex-row gap-2 justify-between my-8">
                 <div>
-                    <h1 class="text-xl lg:text-2xl font-bold">{{ listing.data.property_name }}</h1>
-                    <h6 class="flex h-[17px] gap-2 my-4"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ listing.data.address }}</h6>
-                    <h6 class="flex h-[17px] gap-2 my-4 lg:my-0" v-if="listing.data.building_name"><font-awesome-icon icon="building" style="height: 17px; color: #2f80ed"/> <a :href="buildingLink()">{{ listing.data.building_name }}</a> </h6>
+                    <h1 class="text-xl lg:text-2xl font-bold">{{ listing.data?.property_name }}</h1>
+                    <h6 class="flex h-[17px] gap-2 my-4"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ listing.data?.address }}</h6>
+                    <h6 class="flex h-[17px] gap-2 my-4 lg:my-0" v-if="listing.data?.building_name"><font-awesome-icon icon="building" style="height: 17px; color: #2f80ed"/> <a :href="buildingLink()">{{ listing.data?.building_name }}</a> </h6>
                 </div>
                 <div class="w-full md:w-auto">
                     <div 
                         class="flex lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
                         :class="SearchParamsStore.division == 1 ? 'bg-green-light' : 'bg-blue-light'"
-                        v-if="listing.data.is_for_rent">
+                        v-if="listing.data?.is_for_rent">
                         <p class="font-bold ml-5">Rental Price</p>
                         <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
                         :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
-                        >₱ {{ listing.data.formatted_rent_price }} / month</span>
+                        >₱ {{ listing.data?.formatted_rent_price }} / month</span>
                     </div>
 
                     <div class="flex w-full lg:w-[297px] h-[52px] rounded-full items-center p-2 gap-2"
-                        :class="[listing.data.is_for_sale ? 'mt-4' : '', SearchParamsStore.division == 1 ? 'bg-green-light' : 'bg-blue-light' ]"
-                        v-if="listing.data.sale_price"
+                        :class="[listing.data?.is_for_sale ? 'mt-4' : '', SearchParamsStore.division == 1 ? 'bg-green-light' : 'bg-blue-light' ]"
+                        v-if="listing.data?.sale_price"
                     >
                         <p class="font-bold ml-5">Sale Price</p>
                         <span class="flex block rounded-full h-[36px] items-center text-white flex-1 justify-center font-bold"
                             :class="SearchParamsStore.division == 1 ? 'bg-green-default' : 'bg-blue-default'"
-                        >₱ {{ listing.data.formatted_sale_price }}</span>
+                        >₱ {{ listing.data?.formatted_sale_price }}</span>
                     </div>
                 </div>
             </div>
             
             <div class="grid lg:grid-cols-2 gap-2 mb-8">
                 <div class="grid grid-cols-1 grid-rows-1 object-fit md:object-contain">
-                    <img :src="listing.data.thumbnail" alt="" class="md:w-full h-[466px] xs:h-auto rounded-lg cursor-pointer" v-on:click="toggleGallery(0)">
+                    <img :src="listing.data?.thumbnail" alt="" class="md:w-full h-[466px] xs:h-auto rounded-lg cursor-pointer" v-on:click="toggleGallery(0)">
                 </div>
                 <div class="xs:hidden sm:hidden md:hidden lg:grid grid-cols-2 grid-rows-2 gap-2 place-items-center">
-                    <img v-for="(thumbnail, index) in listing.data.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery(index)">
+                    <img v-for="(thumbnail, index) in listing.data?.images" :src="thumbnail.url" :key="index" :alt="thumbnail.name" class="rounded-lg cursor-pointer h-[222px]" v-on:click="toggleGallery(index)">
                 </div>
             </div>
 
@@ -69,21 +69,21 @@
                             <font-awesome-icon :icon="['fas', 'house']" style="height: 20px; color: #808080"/>
                             <div>
                                 <p class="font-bold uppercase">Status</p>
-                                <p>{{ listing.data.status_name }}</p>
+                                <p>{{ listing.data?.status_name }}</p>
                             </div>
                         </div>
                         <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
                             <font-awesome-icon :icon="['fas', 'calendar']" style="height: 20px; color: #808080"/>
                             <div>
                                 <p class="font-bold uppercase">Available On</p>
-                                <p>{{ listing.data.formatted_availability }}</p>
+                                <p>{{ listing.data?.formatted_availability }}</p>
                             </div>
                         </div>
                         <div class="flex bg-gray-50 rounded-lg p-3 text-[15px] gap-3.5 items-center w-full lg:w-[175px] h-16">
                             <font-awesome-icon :icon="['fas', 'calendar']" style="height: 20px; color: #808080"/>
                             <div>
                                 <p class="font-bold uppercase">Last Updated</p>
-                                <p>{{ listing.data.updated_at }}</p>
+                                <p>{{ listing.data?.updated_at }}</p>
                             </div>
                         </div>
                     </div>
@@ -97,31 +97,31 @@
                         <ul>
                             <li class="flex mb-4 ml-4 items-center gap-2">
                                 <font-awesome-icon :icon="['fas', 'bed']" style="height: 20px; color: #808080"/>
-                                <span>Bedrooms: {{ listing.data.bedrooms > 0 ? listing.data.bedrooms : 'Studio' }}</span>
+                                <span>Bedrooms: {{ listing.data?.bedrooms > 0 ? listing.data?.bedrooms : 'Studio' }}</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.bathrooms > 0">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data?.bathrooms > 0">
                                 <font-awesome-icon :icon="['fas', 'bath']" style="height: 20px; color: #808080"/>
-                                <span>Bathrooms: {{ listing.data.bathrooms }}</span>
+                                <span>Bathrooms: {{ listing.data?.bathrooms }}</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.floor > 0">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data?.floor > 0">
                                 <img src="/images/floorarea.png" alt="">
-                                <span>Floor Area: {{ listing.data.floor }} sqm</span>
+                                <span>Floor Area: {{ listing.data?.floor }} sqm</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.lot > 0">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data?.lot > 0">
                                 <img src="/images/area.png" alt="">
-                                <span>Lot Area: {{ listing.data.lot }}</span>
+                                <span>Lot Area: {{ listing.data?.lot }}</span>
                             </li>
-                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data.parking > 0">
+                            <li class="flex mb-4 ml-4 items-center gap-2" v-if="listing.data?.parking > 0">
                                 <font-awesome-icon :icon="['fas', 'square-parking']" style="height: 20px; color: #808080"/>
-                                <span>Parking: {{ listing.data.parking }}</span>
+                                <span>Parking: {{ listing.data?.parking }}</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div v-if="listing.data.amenities.length > 0">
+                    <div v-if="listing.data?.amenities.length > 0">
                         <h3 class="font-bold text-xl mb-4">Building amenities & unit features</h3>
                         <ul>
-                            <li v-for="(amenity, index) in listing.data.amenities" :key="index" class="flex mb-4 ml-4 gap-2">
+                            <li v-for="(amenity, index) in listing.data?.amenities" :key="index" class="flex mb-4 ml-4 gap-2">
                                 <font-awesome-icon :icon="['fas', 'check']" style="height: 20px; color: #808080"/>
                                 <span>{{ amenity.name }}</span>
                             </li>
@@ -147,10 +147,10 @@
                 </div>
             </div>
 
-            <template v-if="listing.data.longitude">
+            <template v-if="listing.data?.longitude">
                 <div class="mb-8">
                     <h3 class="font-bold text-xl mb-4">Location</h3>
-                    <GoogleMaps :location="{ lat: listing.data.latitude, lng: listing.data.longitude }"/>
+                    <GoogleMaps :location="{ lat: listing.data?.latitude, lng: listing.data?.longitude }"/>
                 </div>
             </template>
 
@@ -249,7 +249,7 @@ export default defineComponent({
             let numericValue  = 0
 
             if(value != null ){
-                numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
+                numericValue = value?.toString().length > 0 ? parseFloat(value?.toString().replace(/,/g, '')) : 0;
             }
             return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
         },
@@ -264,7 +264,7 @@ export default defineComponent({
         },
 
         buildingLink(){
-            return '/building/'+ this.listing.data.buildling_slug
+            return '/building/'+ this.listing.data?.buildling_slug
         }
     }
 })

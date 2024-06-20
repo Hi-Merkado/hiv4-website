@@ -37,7 +37,7 @@
         <h1 class="text-2xl font-bold my-8">{{ pageTitle }}</h1>
 
         <div class="flex justify-between items-center mb-8">
-            <p class="text-lg font-bold">{{ ListingsStore.listings.data.meta.total.toLocaleString() }} properties found</p>
+            <p class="text-lg font-bold">{{ ListingsStore.listings.data?.meta.total.toLocaleString() }} properties found</p>
             <ul class="flex gap-2">
                 <li class="h-8">
                     <select class="h-full bg-gray-50 rounded font-bold" v-model="sorting" @change="updateSort">
@@ -53,12 +53,12 @@
         <section>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8" :class="columns">
-                <ListingsListing v-for="(listing, index) in ListingsStore.listings.data.data" :key="index" :listing="listing"/>
+                <ListingsListing v-for="(listing, index) in ListingsStore.listings.data?.data" :key="index" :listing="listing"/>
             </div>
 
             <nav class="w-full flex justify-center mt-8">
                 <ul class="flex gap-3">
-                    <li v-for="(link, index) in ListingsStore.listings.data.meta.links">
+                    <li v-for="(link, index) in ListingsStore.listings.data?.meta.links">
                         <button class="text-sm" v-html="link.label"
                             :class="link.active ? 'text-blue-default' : '' "
                             v-if="!link.active"
@@ -73,16 +73,16 @@
         </section>
 
         <section class="mt-10 pt-10 border-t-2 border-neutral-200" id="page-description">
-            <span v-html="ListingsStore.listings.data.seo.page_description" v-show="readMoreActivated"></span>
+            <span v-html="ListingsStore.listings.data?.seo.page_description" v-show="readMoreActivated"></span>
             <button class="underline" v-on:click="readMoreActivated = !readMoreActivated">Read property description</button>
         </section>
 
         <section id="seo-allocation" class="mt-10">
             <h2 class="text-xl font-bold mb-4">How much is a {{ pageTitle }}?</h2>
 
-            <p class="mb-4">In total, there are {{ ListingsStore.listings.data.meta.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data.pricing.min) }}.</p>
+            <p class="mb-4">In total, there are {{ ListingsStore.listings.data?.meta.total.toLocaleString() }} {{ pageTitle }}. The average price for a {{ $route.params.division }} property for {{ $route.params.category }} in this location is ₱{{ formatMoney(ListingsStore.listings.data?.pricing.average) }} per {{ $route.params.category == 'rent' ? 'month' : 'unit' }}. The most expensive {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} for a {{ $route.params.division }} property here costs about ₱{{ formatMoney(ListingsStore.listings.data?.pricing.max) }}  while the most affordable {{ $route.params.category == 'rent' ? 'rental' : 'sales price' }} is about ₱{{ formatMoney(ListingsStore.listings.data?.pricing.min) }}.</p>
 
-            <p class="mb-4">You may find the most expensive and luxurious {{ $route.params.division }} properties for {{ $route.params.category }} at <span v-html="ListingsStore.listings.data.location.expensive"></span>. While you can find classy yet affordable ones at <span v-html="ListingsStore.listings.data.location.affordable"></span>.</p>
+            <p class="mb-4">You may find the most expensive and luxurious {{ $route.params.division }} properties for {{ $route.params.category }} at <span v-html="ListingsStore.listings.data?.location.expensive"></span>. While you can find classy yet affordable ones at <span v-html="ListingsStore.listings.data?.location.affordable"></span>.</p>
 
             <p class="mb-4">Below are the average sales prices according to the number of bedrooms in this location.</p>
 
@@ -97,7 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(bedroom, index) in ListingsStore.listings.data.bedrooms" :key="index">
+                        <tr v-for="(bedroom, index) in ListingsStore.listings.data?.bedrooms" :key="index">
                             <td class="border px-4 py-2 border-l-0 border-r-0">{{ bedroom.key == 0 ? 'Studio' : bedroom.key + ' bedroom(s)' }}</td>
                             <td class="border px-4 py-2 border-l-0 border-r-0">{{ formatMoney(bedroom.avg_floor_area.value) }} sqm</td>
                             <td class="border px-4 py-2 border-l-0 border-r-0">₱{{ formatMoney(bedroom.avg_price.value) }}</td>
@@ -111,7 +111,7 @@
         <section id="quick-links" class="mt-10">
             <h2 class="text-lg font-bold mb-4">Quick Links</h2>
             <ul class="grid grid-cols-3">
-                <li v-for="(link, index) in ListingsStore.listings.data.quickLinks" :key="index">
+                <li v-for="(link, index) in ListingsStore.listings.data?.quickLinks" :key="index">
                     <a :href="$route.path+'/'+link.key.replace(/\s+/g, '-').toLowerCase()">{{ link.key }}</a>
                 </li>
             </ul>
@@ -198,13 +198,14 @@ export default {
             console.log(params)
             if(!this.SearchParamsStore.triggered){
                 this.ListingsStore.listings = await ListingsServices._getListings(params)
-                this.title = this.ListingsStore.listings.data.seo.keyword +' | Housinginteractive.com.ph'
-                this.description = this.ListingsStore.listings.data.seo.description
+                this.title = this.ListingsStore.listings.data?.seo.keyword +' | Housinginteractive.com.ph'
+                this.description = this.ListingsStore.listings.data?.seo.description
+                console.log("check in index" ,this.ListingsStore.listings)
             }
         }, 
 
         formatMoney(value){
-            const numericValue = value.toString().length > 0 ? parseFloat(value.toString().replace(/,/g, '')) : 0;
+            const numericValue = value?.toString().length > 0 ? parseFloat(value?.toString().replace(/,/g, '')) : 0;
             return (new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(numericValue));
         },
 
