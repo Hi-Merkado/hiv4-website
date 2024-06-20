@@ -202,6 +202,9 @@ export default {
             this.SearchParamsStore.search = this.tempData.search
             this.SearchParamsStore.searchDescription = this.tempData.searchDescription
             this.SearchParamsStore.type_name = this.tempData.type_name
+            this.SearchParamsStore.priceParam = this.tempData.priceParam
+            this.SearchParamsStore.priceMin = this.tempData.priceMin
+            this.SearchParamsStore.priceMax = this.tempData.priceMax
 
             this.SearchParamsStore.triggered = false
 

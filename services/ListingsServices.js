@@ -59,7 +59,7 @@ export default {
     },
 
     buildQueryParams(parameters) {
-        console.log("get params",parameters)
+        // console.log("get params",parameters)
         let params = [];
         for (const [key, value] of Object.entries(parameters)) {
             if (value !== null && key !== 'triggered') {
