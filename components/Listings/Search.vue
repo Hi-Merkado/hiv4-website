@@ -9,7 +9,7 @@
                     <input
                     type="text"
                     class="w-full h-full focus:outline-none text-xs font-500"
-                    placeholder="Search by building, city or area"
+                    placeholder="Search by building, city or areaasdas"
                     aria-label="Search by building, city or area"
                     aria-describedby="button-addon2"
                     v-model="tempData.search"
@@ -53,8 +53,8 @@
                     <option v-for="(type, index) in types" :key="index" :value="type.slug">{{ type.name }}</option>
                 </select>
                 <div class="flex flex-1">
-                    <input type="text" placeholder="1,375,000" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="SearchParamsStore.priceMin">
-                    <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event)" v-model="SearchParamsStore.priceMax">
+                    <input type="text" placeholder="1,375,000 search.vue" class="w-1/3 border rounded-l-lg text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event,'min')" v-model="tempData.priceMin" >
+                    <input type="text" placeholder="2,000,000" class="w-1/3 border-y text-sm focus:outline-none px-4" v-on:keyup="formatNumber($event,'max')" v-model="tempData.priceMax">
                     <select class="w-1/3 border rounded-r-lg text-sm px-3" v-model="SearchParamsStore.priceParam">
                         <option value="pps">P / sqm</option>
                         <option value="price">Price</option>
@@ -103,7 +103,7 @@ export default {
                 category: this.SearchParamsStore.category,
                 priceParam: this.SearchParamsStore.priceParam,
                 priceMin: this.SearchParamsStore.priceMin,
-                priceMax: this.SearchParamsStore.Max,
+                priceMax: this.SearchParamsStore.priceMax,
                 bedrooms: this.SearchParamsStore.bedrooms,
                 type_name: this.SearchParamsStore.type_name,
             }
@@ -237,23 +237,61 @@ export default {
             window.location.href = landingPage
 
         },
-
-        formatNumber(event){
+        formatNumber(event,param){
+            
             let numberRegex = /^(?:-(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))|(?:0|(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))))(?:.\d+|)$/
 
+           
             let current_value = event.target.value
+            
+            //  console.log("calling hero  current_value", current_value)
+            //  console.log("check hero numberRegex",numberRegex)
 
             if(numberRegex.test(current_value)){
                 let tmp = current_value.replace(/,/g,'')
                 let val = Number(tmp).toLocaleString('en-US')
 
                 event.target.value = val
+                console.log("param",param)
+                if (param === "min") {
+                    this.tempData.priceMin = val
+                    this.SearchParamsStore.priceMin =val
+                }
+                if (param === "max") {
+                    this.tempData.priceMax = val
+                    this.SearchParamsStore.priceMax =val
+                }
             } else {
                 event.target.value = ''
+                if (param === "min") {
+                    this.tempData.priceMin = ''
+                }
+                if (param === "max") {
+                    this.tempData.priceMax = ''
+                }
             }
 
 
-        }
+        },
+
+        // formatNumber(event){
+        //     let numberRegex = /^(?:-(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))|(?:0|(?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*))))(?:.\d+|)$/
+
+        //     let current_value = event.target.value
+        //     console.log("calling search current_value", current_value)
+        //     console.log("calling numberRegex from search", numberRegex)
+            
+        //     if(numberRegex.test(current_value)){
+        //         let tmp = current_value.replace(/,/g,'')
+        //         let val = Number(tmp).toLocaleString('en-US')
+
+        //         event.target.value = val
+        //     } else {
+        //         event.target.value = ''
+        //     }
+
+
+        // }
 
     }
 
