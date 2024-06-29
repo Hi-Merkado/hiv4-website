@@ -8,7 +8,7 @@
                     <h1 class="text-2xl font-bold">{{ buildingData?.name }}</h1>
                     <h6 class="flex h-[17px] gap-2"><font-awesome-icon icon="location-dot" style="height: 17px; color: #2f80ed"/> {{ buildingData?.location }}</h6>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center" v-if="buildingData?.zonal_value">
                     <font-awesome-icon icon="star" style="height: 30px; color: #FF5856"></font-awesome-icon>
                     <div>
                         <p>Tower Zonal Value</p>
